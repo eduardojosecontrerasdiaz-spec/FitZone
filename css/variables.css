@@ -1,0 +1,27 @@
+/* ==========================================================================
+   FIT ZONE - VARIABLES GLOBALES
+   ========================================================================== */
+
+:root {
+  /* Tipografías */
+  --font-heading: 'Poppins', 'Roboto', sans-serif;
+  --font-body: 'Inter', 'Roboto', sans-serif;
+
+  /* Colores Base */
+  --bg-primary: #111827;
+  --bg-secondary: #1F2937;
+
+  /* Colores de Marca */
+  --primary: #22C55E;
+  --primary-hover: #15803D;
+  --secondary: #16A34A;
+
+  /* Textos */
+  --text-primary: #FFFFFF;
+  --text-secondary: #D1D5DB;
+
+  /* UI Base */
+  --border-radius: 12px;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --transition: all 0.3s ease;
+}
