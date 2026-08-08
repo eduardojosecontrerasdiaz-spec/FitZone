@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone - Dashboard</title>
+
+    <!-- Archivos CSS vinculados según la arquitectura del proyecto -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL          -->
+    <!-- ========================================== -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                Fit<span class="logo-verde">Zone</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Inicio</a></li>
+                <li><a href="planes.html" class="nav-link">Planes</a></li>
+                <li><a href="entrenadores.html" class="nav-link">Entrenadores</a></li>
+                <li><a href="clases.html" class="nav-link">Clases</a></li>
+                <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+                <li><a href="dashboard.html" class="nav-link activo">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL                        -->
+    <!-- ========================================== -->
+    <main>
+
+        <!-- 1. HERO / ENCABEZADO DEL DASHBOARD -->
+        <section class="hero-section text-center">
+            <div class="contenedor">
+                <h1 class="hero-titulo">DASHBOARD ADMINISTRATIVO</h1>
+                <p class="hero-descripcion">
+                    Panel de control para la gestión de usuarios, membresías y resumen del gimnasio.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. TARJETAS DE ESTADÍSTICAS (4 Cards) -->
+        <section class="seccion-metricas">
+            <div class="contenedor">
+                <div class="grid-metricas">
+
+                    <article class="tarjeta-metrica">
+                        <h3 class="titulo-tarjeta">Usuarios Registrados</h3>
+                        <p class="numero-metrica">248</p>
+                    </article>
+
+                    <article class="tarjeta-metrica">
+                        <h3 class="titulo-tarjeta">Planes Activos</h3>
+                        <p class="numero-metrica">195</p>
+                    </article>
+
+                    <article class="tarjeta-metrica">
+                        <h3 class="titulo-tarjeta">Clases Disponibles</h3>
+                        <p class="numero-metrica">12</p>
+                    </article>
+
+                    <article class="tarjeta-metrica">
+                        <h3 class="titulo-tarjeta">Entrenadores</h3>
+                        <p class="numero-metrica">8</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. GESTIÓN DE USUARIOS Y TABLA -->
+        <section class="seccion-gestion">
+            <div class="contenedor">
+
+                <div class="panel-acciones">
+                    <h2 class="titulo-seccion">Gestión de Usuarios</h2>
+
+                    <div class="herramientas-gestion">
+                        <!-- Buscador visual -->
+                        <div class="grupo-campo">
+                            <input type="text" class="campo-texto" placeholder="Buscar usuario por nombre o correo...">
+                        </div>
+
+                        <!-- Botón Agregar Usuario -->
+                        <button type="button" class="boton-principal">
+                            + Agregar Usuario
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabla de usuarios -->
+                <div class="contenedor-tabla">
+                    <table class="tabla-admin">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Plan</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ana Martínez</td>
+                                <td>ana.martinez@email.com</td>
+                                <td>Premium</td>
+                                <td><span class="insignia insignia-activo">Activo</span></td>
+                                <td>
+                                    <button type="button" class="boton-accion boton-editar">Editar</button>
+                                    <button type="button" class="boton-accion boton-eliminar">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Carlos Gómez</td>
+                                <td>carlos.gomez@email.com</td>
+                                <td>Básico</td>
+                                <td><span class="insignia insignia-activo">Activo</span></td>
+                                <td>
+                                    <button type="button" class="boton-accion boton-editar">Editar</button>
+                                    <button type="button" class="boton-accion boton-eliminar">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Laura Rodríguez</td>
+                                <td>laura.r@email.com</td>
+                                <td>Profesional</td>
+                                <td><span class="insignia insignia-inactivo">Inactivo</span></td>
+                                <td>
+                                    <button type="button" class="boton-accion boton-editar">Editar</button>
+                                    <button type="button" class="boton-accion boton-eliminar">Eliminar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>David Silva</td>
+                                <td>david.silva@email.com</td>
+                                <td>Premium</td>
+                                <td><span class="insignia insignia-activo">Activo</span></td>
+                                <td>
+                                    <button type="button" class="boton-accion boton-editar">Editar</button>
+                                    <button type="button" class="boton-accion boton-eliminar">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
+    <footer class="footer">
+        <div class="contenedor-footer">
+
+            <div class="columna-footer">
+                <a href="../index.html" class="logo">
+                    Fit<span class="logo-verde">Zone</span>
+                </a>
+                <p class="texto-footer">
+                    Tu gimnasio de confianza. Transformamos vidas mediante el hábito del deporte y la salud.
+                </p>
+            </div>
+
+            <div class="columna-footer">
+                <h4 class="titulo-footer">Navegación</h4>
+                <ul class="lista-footer">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="planes.html">Planes</a></li>
+                    <li><a href="entrenadores.html">Entrenadores</a></li>
+                    <li><a href="clases.html">Clases</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="copyright-footer">
+            <p>&copy; 2026 FitZone. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

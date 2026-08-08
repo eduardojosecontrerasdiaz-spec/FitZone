@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone - Tu Gimnasio Virtual</title>
+
+    <!-- Archivos CSS vinculados según la estructura del proyecto -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL          -->
+    <!-- ========================================== -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                Fit<span class="logo-verde">Zone</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link activo">Inicio</a></li>
+                <li><a href="pages/planes.html" class="nav-link">Planes</a></li>
+                <li><a href="pages/entrenadores.html" class="nav-link">Entrenadores</a></li>
+                <li><a href="pages/clases.html" class="nav-link">Clases</a></li>
+                <li><a href="pages/contacto.html" class="nav-link">Contacto</a></li>
+                <li><a href="pages/dashboard.html" class="nav-link">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL                        -->
+    <!-- ========================================== -->
+    <main>
+
+        <!-- 1. HERO -->
+        <section class="hero-section">
+            <div class="contenedor-hero">
+                <div class="hero-texto">
+                    <h1 class="hero-titulo">Transforma tu cuerpo, supera tus límites</h1>
+                    <p class="hero-descripcion">
+                        El mejor espacio, equipamiento de alto nivel y entrenadores calificados para ayudarte a lograr
+                        tus metas.
+                    </p>
+                    <a href="pages/planes.html" class="boton-principal">Consultar Planes</a>
+                </div>
+                <div class="hero-imagen">
+                    <img src="assets/images/hero-gym.jpg" alt="Entrenamiento en FitZone" class="imagen-redondeada">
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. SERVICIOS (4 Cards) -->
+        <section class="seccion-servicios">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Nuestros Servicios</h2>
+
+                <div class="grid-servicios">
+                    <article class="tarjeta-servicio">
+                        <img src="assets/images/servicio-pesas.jpg" alt="Zona de Pesas" class="imagen-tarjeta">
+                        <h3 class="titulo-tarjeta">Zona de Pesas</h3>
+                        <p class="texto-tarjeta">Equipamiento completo para hipertrofia y trabajo de fuerza libre.</p>
+                    </article>
+
+                    <article class="tarjeta-servicio">
+                        <img src="assets/images/servicio-cardio.jpg" alt="Zona Cardiovascular" class="imagen-tarjeta">
+                        <h3 class="titulo-tarjeta">Cardio & Resistencia</h3>
+                        <p class="texto-tarjeta">Cintas, caminadoras y bicicletas de última generación.</p>
+                    </article>
+
+                    <article class="tarjeta-servicio">
+                        <img src="assets/images/servicio-clases.jpg" alt="Clases Grupales" class="imagen-tarjeta">
+                        <h3 class="titulo-tarjeta">Clases Grupales</h3>
+                        <p class="texto-tarjeta">Spinning, Yoga, Pilates y CrossFit dirigidos por profesionales.</p>
+                    </article>
+
+                    <article class="tarjeta-servicio">
+                        <img src="assets/images/servicio-personal.jpg" alt="Entrenamiento Personal"
+                            class="imagen-tarjeta">
+                        <h3 class="titulo-tarjeta">Asesoría Personal</h3>
+                        <p class="texto-tarjeta">Planes y rutinas adaptadas 100% a tus necesidades específicas.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PLANES DESTACADOS (3 Cards) -->
+        <section class="seccion-planes">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Planes Destacados</h2>
+
+                <div class="grid-planes">
+                    <!-- Plan Básico -->
+                    <article class="tarjeta-plan">
+                        <h3 class="nombre-plan">Plan Básico</h3>
+                        <p class="precio-plan">$49.900 <span>/mes</span></p>
+                        <ul class="lista-beneficios">
+                            <li>Acceso a zona de pesas</li>
+                            <li>Horario regular (off-peak)</li>
+                            <li>Evaluación inicial básica</li>
+                        </ul>
+                        <a href="pages/planes.html" class="boton-plan">Elegir Plan</a>
+                    </article>
+
+                    <!-- Plan Premium -->
+                    <article class="tarjeta-plan plan-destacado">
+                        <h3 class="nombre-plan">Plan Premium</h3>
+                        <p class="precio-plan">$79.900 <span>/mes</span></p>
+                        <ul class="lista-beneficios">
+                            <li>Acceso ilimitado 24/7</li>
+                            <li>Clases grupales incluidas</li>
+                            <li>Acceso a todas las sedes</li>
+                        </ul>
+                        <a href="pages/planes.html" class="boton-principal">Elegir Plan</a>
+                    </article>
+
+                    <!-- Plan Profesional -->
+                    <article class="tarjeta-plan">
+                        <h3 class="nombre-plan">Plan Profesional</h3>
+                        <p class="precio-plan">$119.900 <span>/mes</span></p>
+                        <ul class="lista-beneficios">
+                            <li>Todos los beneficios Premium</li>
+                            <li>Entrenador personal asignado</li>
+                            <li>Pase para 1 invitado al mes</li>
+                        </ul>
+                        <a href="pages/planes.html" class="boton-plan">Elegir Plan</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ENTRENADORES DESTACADOS (3 Cards) -->
+        <section class="seccion-entrenadores">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Entrenadores Destacados</h2>
+
+                <div class="grid-entrenadores">
+                    <article class="tarjeta-entrenador">
+                        <img src="assets/images/entrenador-1.jpg" alt="Carlos Gómez" class="imagen-entrenador">
+                        <h3 class="nombre-entrenador">Carlos Gómez</h3>
+                        <p class="especialidad-entrenador">Especialista en Musculación</p>
+                        <a href="pages/entrenadores.html" class="boton-secundario">Ver Perfil</a>
+                    </article>
+
+                    <article class="tarjeta-entrenador">
+                        <img src="assets/images/entrenador-2.jpg" alt="Ana Martínez" class="imagen-entrenador">
+                        <h3 class="nombre-entrenador">Ana Martínez</h3>
+                        <p class="especialidad-entrenador">Instructora de Yoga y Pilates</p>
+                        <a href="pages/entrenadores.html" class="boton-secundario">Ver Perfil</a>
+                    </article>
+
+                    <article class="tarjeta-entrenador">
+                        <img src="assets/images/entrenador-3.jpg" alt="David Silva" class="imagen-entrenador">
+                        <h3 class="nombre-entrenador">David Silva</h3>
+                        <p class="especialidad-entrenador">Coach de CrossFit y Cardio</p>
+                        <a href="pages/entrenadores.html" class="boton-secundario">Ver Perfil</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. TESTIMONIOS (3 testimonios) -->
+        <section class="seccion-testimonios">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Lo que dicen nuestros miembros</h2>
+
+                <div class="grid-testimonios">
+                    <article class="tarjeta-testimonio">
+                        <p class="comentario-testimonio">"FitZone cambió completamente mi disciplina. Las instalaciones
+                            son top y el ambiente te motiva a dar el 100%."</p>
+                        <h3 class="usuario-testimonio">- Laura Rodríguez</h3>
+                    </article>
+
+                    <article class="tarjeta-testimonio">
+                        <p class="comentario-testimonio">"Las clases de spinning con David son excelentes. He mejorado
+                            mi resistencia y salud notablemente."</p>
+                        <h3 class="usuario-testimonio">- Andrés Mateo</h3>
+                    </article>
+
+                    <article class="tarjeta-testimonio">
+                        <p class="comentario-testimonio">"Excelente atención de los entrenadores. Siempre están atentos
+                            a corregir tu técnica para prevenir lesiones."</p>
+                        <h3 class="usuario-testimonio">- Camilo Torres</h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. UBICACIÓN -->
+        <section class="seccion-ubicacion">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Nuestra Ubicación</h2>
+
+                <div class="tarjeta-ubicacion">
+                    <h3 class="titulo-sede">Sede Central FitZone</h3>
+                    <p><strong>Dirección:</strong> Av. Principal #123 - Zona Centro</p>
+                    <p><strong>Horario:</strong> Lunes a Viernes (5:00 AM - 10:00 PM) | Sábados y Domingos (6:00 AM -
+                        6:00 PM)</p>
+                    <p><strong>Teléfono:</strong> +57 (601) 555-0199</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CONTACTO -->
+        <section class="seccion-contacto">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Envíanos un Mensaje</h2>
+
+                <form class="formulario-contacto">
+                    <div class="grupo-campo">
+                        <label for="nombre" class="etiqueta">Nombre completo:</label>
+                        <input type="text" id="nombre" name="nombre" class="campo-texto" required>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label for="correo" class="etiqueta">Correo electrónico:</label>
+                        <input type="email" id="correo" name="correo" class="campo-texto" required>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label for="mensaje" class="etiqueta">Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" class="campo-texto area-texto" rows="4"
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="boton-principal boton-bloque">Enviar Mensaje</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
+    <footer class="footer">
+        <div class="contenedor-footer">
+
+            <div class="columna-footer">
+                <a href="index.html" class="logo">
+                    Fit<span class="logo-verde">Zone</span>
+                </a>
+                <p class="texto-footer">
+                    Tu gimnasio de confianza. Transformamos vidas mediante el hábito del deporte y la salud.
+                </p>
+            </div>
+
+            <div class="columna-footer">
+                <h4 class="titulo-footer">Navegación</h4>
+                <ul class="lista-footer">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="pages/planes.html">Planes</a></li>
+                    <li><a href="pages/entrenadores.html">Entrenadores</a></li>
+                    <li><a href="pages/clases.html">Clases</a></li>
+                    <li><a href="pages/contacto.html">Contacto</a></li>
+                    <li><a href="pages/dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="copyright-footer">
+            <p>&copy; 2026 FitZone. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone - Contacto</title>
+
+    <!-- Archivos CSS vinculados según la arquitectura del proyecto -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL          -->
+    <!-- ========================================== -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                Fit<span class="logo-verde">Zone</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Inicio</a></li>
+                <li><a href="planes.html" class="nav-link">Planes</a></li>
+                <li><a href="entrenadores.html" class="nav-link">Entrenadores</a></li>
+                <li><a href="clases.html" class="nav-link">Clases</a></li>
+                <li><a href="contacto.html" class="nav-link activo">Contacto</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL                        -->
+    <!-- ========================================== -->
+    <main>
+
+        <!-- 1. HERO -->
+        <section class="hero-section text-center">
+            <div class="contenedor">
+                <h1 class="hero-titulo">CONTÁCTANOS</h1>
+                <p class="hero-descripcion">
+                    ¿Tienes dudas o quieres empezar tu entrenamiento hoy mismo? Escríbenos o visítanos, estamos listos
+                    para atenderte.
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. INFORMACIÓN Y FORMULARIO DE CONTACTO -->
+        <section class="seccion-contacto">
+            <div class="contenedor grid-contacto">
+
+                <!-- Información de contacto -->
+                <div class="tarjeta-info-contacto">
+                    <h2 class="titulo-seccion">Información de Contacto</h2>
+                    <p class="texto-tarjeta">Visítanos directamente en nuestra sede o comunícate a través de nuestros
+                        canales oficiales.</p>
+
+                    <ul class="lista-info">
+                        <li>
+                            <strong>Dirección:</strong> Av. Principal #123 - Zona Centro
+                        </li>
+                        <li>
+                            <strong>Teléfono:</strong> +57 300 4454560
+                        </li>
+                        <li>
+                            <strong>Correo electrónico:</strong> contacto@fitzone.com
+                        </li>
+                        <li>
+                            <strong>Horarios:</strong>
+                            <br>Lunes a Viernes: 5:00 AM - 10:00 PM
+                            <br>Sábados y Domingos: 6:00 AM - 6:00 PM
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Formulario -->
+                <div class="tarjeta-formulario">
+                    <h2 class="titulo-seccion">Envíanos un Mensaje</h2>
+                    <form class="formulario-contacto">
+                        <div class="grupo-campo">
+                            <label for="nombre" class="etiqueta">Nombre completo:</label>
+                            <input type="text" id="nombre" name="nombre" class="campo-texto" required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="correo" class="etiqueta">Correo electrónico:</label>
+                            <input type="email" id="correo" name="correo" class="campo-texto" required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="telefono" class="etiqueta">Teléfono:</label>
+                            <input type="tel" id="telefono" name="telefono" class="campo-texto" required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="asunto" class="etiqueta">Asunto:</label>
+                            <input type="text" id="asunto" name="asunto" class="campo-texto" required>
+                        </div>
+
+                        <div class="grupo-campo">
+                            <label for="mensaje" class="etiqueta">Mensaje:</label>
+                            <textarea id="mensaje" name="mensaje" class="campo-texto area-texto" rows="4"
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="boton-principal boton-bloque">Enviar Mensaje</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. UBICACIÓN (MAPA VISUAL) -->
+        <section class="seccion-ubicacion">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Encuéntranos Aquí</h2>
+                <div class="contenedor-mapa-placeholder">
+                    <p class="texto-mapa">Ubicación FitZone - Av. Principal #123</p>
+                    <small>Sede Central</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PREGUNTAS FRECUENTES -->
+        <section class="seccion-faq">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Preguntas Frecuentes</h2>
+
+                <div class="grid-faq">
+                    <article class="tarjeta-faq">
+                        <h3 class="titulo-tarjeta">¿Cómo realizo mi proceso de inscripción?</h3>
+                        <p class="texto-tarjeta">Puedes enviar el formulario de contacto, escribirnos por correo o
+                            dirigirte directamente a la recepción de la sede.</p>
+                    </article>
+
+                    <article class="tarjeta-faq">
+                        <h3 class="titulo-tarjeta">¿Ofrecen clase de prueba gratuita?</h3>
+                        <p class="texto-tarjeta">¡Sí! Puedes solicitar un pase de un día completo para conocer nuestras
+                            instalaciones y clases grupales.</p>
+                    </article>
+
+                    <article class="tarjeta-faq">
+                        <h3 class="titulo-tarjeta">¿Cuáles son los tiempos de respuesta?</h3>
+                        <p class="texto-tarjeta">Respondemos todas las consultas enviadas por el formulario en un plazo
+                            máximo de 24 horas hábiles.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
+    <footer class="footer">
+        <div class="contenedor-footer">
+
+            <div class="columna-footer">
+                <a href="../index.html" class="logo">
+                    Fit<span class="logo-verde">Zone</span>
+                </a>
+                <p class="texto-footer">
+                    Tu gimnasio de confianza. Transformamos vidas mediante el hábito del deporte y la salud.
+                </p>
+            </div>
+
+            <div class="columna-footer">
+                <h4 class="titulo-footer">Navegación</h4>
+                <ul class="lista-footer">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="planes.html">Planes</a></li>
+                    <li><a href="entrenadores.html">Entrenadores</a></li>
+                    <li><a href="clases.html">Clases</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                </ul>
+            </div>
+
+
+        </div>
+
+        <div class="copyright-footer">
+            <p>&copy; 2026 FitZone. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
