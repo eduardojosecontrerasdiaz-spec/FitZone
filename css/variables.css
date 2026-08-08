@@ -1,27 +1,41 @@
-/* ==========================================================================
-   FIT ZONE - VARIABLES GLOBALES
-   ========================================================================== */
 
-:root {
-  /* Tipografías */
-  --font-heading: 'Poppins', 'Roboto', sans-serif;
-  --font-body: 'Inter', 'Roboto', sans-serif;
+:root{
+  --font-heading:'Poppins','Segoe UI',Arial,sans-serif;
+  --font-body:'Inter','Segoe UI',Arial,sans-serif;
 
-  /* Colores Base */
-  --bg-primary: #111827;
-  --bg-secondary: #1F2937;
+  --bg-primary:#f5f9fd;
+  --bg-secondary:#ffffff;
+  --bg-blue-soft:#edf6ff;
+  --bg-green-soft:#ebfbf3;
 
-  /* Colores de Marca */
-  --primary: #22C55E;
-  --primary-hover: #15803D;
-  --secondary: #16A34A;
+  --blue-950:#06284d;
+  --blue-900:#073b70;
+  --blue-800:#0a4f92;
+  --blue-700:#0b65bd;
+  --blue-600:#1479d6;
+  --blue-100:#dceeff;
 
-  /* Textos */
-  --text-primary: #FFFFFF;
-  --text-secondary: #D1D5DB;
+  --green-700:#0b8f50;
+  --green-600:#12aa61;
+  --green-500:#24c978;
+  --green-100:#dcf8e9;
 
-  /* UI Base */
-  --border-radius: 12px;
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --transition: all 0.3s ease;
+  --text-primary:#102a43;
+  --text-secondary:#5d7187;
+  --text-light:#8aa0b5;
+
+  --border:#dbe7f1;
+  --border-strong:#bdd6e9;
+
+  --border-radius:16px;
+  --border-radius-sm:11px;
+  --shadow-soft:0 10px 30px rgba(7,59,112,.09);
+  --shadow-card:0 14px 38px rgba(7,59,112,.10);
+  --shadow-hover:0 20px 46px rgba(7,59,112,.16);
+
+  --transition:all .25s ease;
+
+  /* Compatibilidad con el CSS/HTML anterior */
+  --primary:var(--green-500);
+  --primary-hover:var(--green-700);
 }

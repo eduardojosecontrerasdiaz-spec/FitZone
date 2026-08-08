@@ -1,308 +1,1036 @@
+
 /* ==========================================================================
-   FIT ZONE - ESTILOS PRINCIPALES CON MAPPING DE INDEX HTML
+   FITZONE — REDISEÑO VISUAL V2
+   HTML y contenido conservados.
+   Dirección: blanco + azul + verde energético.
    ========================================================================== */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{margin:0;padding:0;box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--font-body);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  line-height:1.6;
+  overflow-x:hidden;
 }
 
-body {
-  font-family: var(--font-body);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
+body::selection{background:var(--green-500);color:var(--blue-950)}
+
+h1,h2,h3,h4,h5,h6{
+  font-family:var(--font-heading);
+  color:var(--blue-950);
+  line-height:1.2;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-heading);
+a{
+  text-decoration:none;
+  color:inherit;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+ul{list-style:none;padding:0}
+
+img{
+  max-width:100%;
+  height:auto;
+  display:block;
 }
 
-ul {
-  list-style: none;
+button,input,textarea,select{font:inherit}
+
+section{padding:78px 0}
+
+.contenedor{
+  width:min(92%,1200px);
+  margin:0 auto;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+.titulo-seccion{
+  position:relative;
+  text-align:center;
+  font-size:clamp(1.75rem,3vw,2.45rem);
+  font-weight:850;
+  margin-bottom:42px;
+  color:var(--blue-950);
 }
 
-/* --- Layout Base --- */
-.contenedor {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
+.titulo-seccion::after{
+  content:"";
+  display:block;
+  width:58px;
+  height:4px;
+  margin:13px auto 0;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--blue-600),var(--green-500));
 }
 
-.titulo-seccion {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 40px;
-  color: var(--text-primary);
+/* --------------------------------------------------------------------------
+   NAVBAR
+   -------------------------------------------------------------------------- */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(255,255,255,.94);
+  border-bottom:1px solid rgba(219,231,241,.9);
+  box-shadow:0 5px 20px rgba(7,59,112,.05);
+  backdrop-filter:blur(14px);
 }
 
-section {
-  padding: 60px 0;
+.navbar{
+  width:min(92%,1200px);
+  min-height:76px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
 }
 
-/* --- Encabezado & Navbar --- */
-.header {
-  background-color: var(--bg-secondary);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+.logo{
+  display:inline-flex;
+  align-items:center;
+  font-family:var(--font-heading);
+  font-size:1.9rem;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-1.2px;
+  color:var(--blue-950);
 }
 
-.navbar {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 0;
+.logo-verde{color:var(--green-600)}
+
+.nav-menu{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:5px;
 }
 
-.logo {
-  font-size: 1.8rem;
-  font-weight: 800;
-  font-family: var(--font-heading);
+.nav-link{
+  position:relative;
+  display:block;
+  padding:10px 12px;
+  border-radius:10px;
+  color:#49637d;
+  font-size:.94rem;
+  font-weight:700;
+  transition:var(--transition);
 }
 
-.logo-verde {
-  color: var(--primary);
+.nav-link:hover{
+  color:var(--blue-700);
+  background:var(--bg-blue-soft);
 }
 
-.nav-menu {
-  display: flex;
-  gap: 20px;
+.nav-link.activo{
+  color:var(--blue-700);
+  background:var(--bg-blue-soft);
 }
 
-.nav-link {
-  color: var(--text-secondary);
-  font-weight: 500;
-  transition: var(--transition);
+.nav-link.activo::after{
+  content:"";
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:4px;
+  height:3px;
+  border-radius:99px;
+  background:var(--green-500);
 }
 
-.nav-link:hover,
-.nav-link.activo {
-  color: var(--primary);
+/* --------------------------------------------------------------------------
+   HERO — HOME
+   -------------------------------------------------------------------------- */
+
+.hero-section{
+  position:relative;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(36,201,120,.12),transparent 25%),
+    radial-gradient(circle at 88% 8%,rgba(20,121,214,.12),transparent 30%),
+    linear-gradient(180deg,#eef8ff 0%,#f8fbfe 75%,var(--bg-primary) 100%);
+  border-bottom:1px solid #e0edf6;
 }
 
-/* --- Hero Section --- */
-.hero-section {
-  padding: 80px 0;
+.hero-section:not(.text-center){
+  padding:0 0 82px;
 }
 
-.contenedor-hero {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
+.contenedor-hero{
+  width:min(94%,1240px);
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
 
-.hero-titulo {
-  font-size: 3rem;
-  line-height: 1.2;
-  margin-bottom: 20px;
+.hero-texto{
+  width:min(900px,100%);
+  padding:72px 12px 36px;
+  margin:0 auto;
 }
 
-.hero-descripcion {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  margin-bottom: 30px;
+.hero-titulo{
+  max-width:900px;
+  margin:0 auto 18px;
+  color:var(--blue-950);
+  font-size:clamp(2.35rem,5vw,4.6rem);
+  font-weight:900;
+  letter-spacing:-2.2px;
+  text-wrap:balance;
 }
 
-.imagen-redondeada {
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-soft);
+.hero-descripcion{
+  max-width:760px;
+  margin:0 auto 30px;
+  color:var(--text-secondary);
+  font-size:clamp(1rem,1.8vw,1.15rem);
+  text-wrap:balance;
 }
 
-/* --- Botones --- */
-.boton-principal, .boton-secundario, .boton-plan {
-  display: inline-block;
-  padding: 12px 28px;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  border: none;
-  transition: var(--transition);
+.hero-imagen{
+  position:relative;
+  width:min(1080px,100%);
+  margin:0 auto;
 }
 
-.boton-principal {
-  background-color: var(--primary);
-  color: #FFFFFF;
+.imagen-redondeada{
+  width:100%;
+  height:clamp(310px,46vw,560px);
+  object-fit:cover;
+  object-position:center;
+  border-radius:28px;
+  border:7px solid rgba(255,255,255,.9);
+  box-shadow:0 28px 65px rgba(7,59,112,.20);
 }
 
-.boton-principal:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
+.hero-imagen::before{
+  content:"";
+  position:absolute;
+  width:105px;
+  height:105px;
+  left:-20px;
+  top:-20px;
+  border-radius:28px;
+  background:linear-gradient(135deg,var(--green-500),var(--blue-600));
+  opacity:.9;
+  z-index:0;
 }
 
-.boton-secundario, .boton-plan {
-  background-color: transparent;
-  border: 1px solid var(--primary);
-  color: var(--primary);
+.hero-imagen::after{
+  content:"FITZONE  •  ENTRENA  •  EVOLUCIONA";
+  position:absolute;
+  z-index:2;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  color:#fff;
+  background:rgba(6,40,77,.88);
+  border:1px solid rgba(255,255,255,.18);
+  padding:9px 17px;
+  border-radius:999px;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:1.2px;
 }
 
-.boton-secundario:hover, .boton-plan:hover {
-  background-color: var(--primary);
-  color: #FFFFFF;
+/* Heroes internos */
+.hero-section.text-center{
+  padding:64px 0;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(36,201,120,.10),transparent 25%),
+    linear-gradient(135deg,#eef8ff,#ffffff);
+  border-bottom:1px solid var(--border);
 }
 
-.boton-bloque {
-  width: 100%;
+.hero-section.text-center .hero-titulo{
+  font-size:clamp(2rem,4vw,3.4rem);
+  letter-spacing:-1.3px;
 }
 
-/* --- Grids (Servicios, Planes, Entrenadores, Testimonios) --- */
+.hero-section.text-center .hero-descripcion{
+  margin-bottom:0;
+}
+
+/* --------------------------------------------------------------------------
+   BOTONES
+   -------------------------------------------------------------------------- */
+
+.boton-principal,
+.boton-secundario,
+.boton-plan{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:11px 25px;
+  border-radius:12px;
+  border:2px solid transparent;
+  font-weight:800;
+  cursor:pointer;
+  transition:var(--transition);
+}
+
+.boton-principal{
+  color:#fff;
+  background:linear-gradient(135deg,var(--blue-700),var(--blue-600));
+  box-shadow:0 10px 24px rgba(11,101,189,.20);
+}
+
+.boton-principal:hover{
+  color:#fff;
+  transform:translateY(-3px);
+  box-shadow:0 15px 30px rgba(11,101,189,.28);
+}
+
+.boton-secundario,
+.boton-plan{
+  color:var(--blue-700);
+  background:#fff;
+  border-color:#bcd8ef;
+}
+
+.boton-secundario:hover,
+.boton-plan:hover{
+  color:#fff;
+  background:var(--blue-700);
+  border-color:var(--blue-700);
+  transform:translateY(-2px);
+}
+
+.boton-bloque{width:100%}
+
+/* --------------------------------------------------------------------------
+   SECCIONES
+   -------------------------------------------------------------------------- */
+
+.seccion-servicios,
+.seccion-entrenadores,
+.seccion-ubicacion{
+  background:#fff;
+}
+
+.seccion-planes,
+.seccion-testimonios,
+.seccion-metricas{
+  background:var(--bg-primary);
+}
+
+.seccion-contacto{
+  background:linear-gradient(180deg,#eef8ff 0%,#fff 100%);
+}
+
+.seccion-faq,
+.seccion-certificaciones,
+.seccion-filosofia,
+.seccion-gestion{
+  background:#fff;
+}
+
+/* --------------------------------------------------------------------------
+   GRIDS
+   -------------------------------------------------------------------------- */
+
 .grid-servicios,
 .grid-planes,
 .grid-entrenadores,
-.grid-testimonios {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
+.grid-testimonios{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
 }
 
-/* --- Tarjetas (Cards) --- */
+.grid-servicios{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+/* --------------------------------------------------------------------------
+   TARJETAS
+   -------------------------------------------------------------------------- */
+
 .tarjeta-servicio,
 .tarjeta-plan,
 .tarjeta-entrenador,
 .tarjeta-testimonio,
-.tarjeta-ubicacion {
-  background-color: var(--bg-secondary);
-  border-radius: var(--border-radius);
-  padding: 25px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: var(--shadow-soft);
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.tarjeta-ubicacion,
+.tarjeta-info-contacto,
+.tarjeta-formulario,
+.tarjeta-faq,
+.tarjeta-metrica,
+.panel-acciones,
+.tarjeta-certificacion,
+.tarjeta-filosofia{
+  background:var(--bg-secondary);
+  border:1px solid var(--border);
+  border-radius:var(--border-radius);
+  box-shadow:var(--shadow-card);
+  transition:var(--transition);
+}
+
+.tarjeta-servicio,
+.tarjeta-plan,
+.tarjeta-entrenador,
+.tarjeta-testimonio{
+  padding:22px;
 }
 
 .tarjeta-servicio:hover,
 .tarjeta-plan:hover,
 .tarjeta-entrenador:hover,
-.tarjeta-testimonio:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary);
+.tarjeta-testimonio:hover{
+  transform:translateY(-6px);
+  border-color:var(--border-strong);
+  box-shadow:var(--shadow-hover);
 }
 
-.imagen-tarjeta, .imagen-entrenador {
-  border-radius: 8px;
-  height: 200px;
-  object-fit: cover;
-  width: 100%;
+.imagen-tarjeta,
+.imagen-entrenador{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:14px;
+  margin-bottom:17px;
 }
 
-.plan-destacado {
-  border: 2px solid var(--primary);
+.titulo-tarjeta,
+.nombre-plan,
+.nombre-entrenador,
+.titulo-sede{
+  color:var(--blue-950);
+  font-weight:850;
 }
 
-.precio-plan {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--primary);
+.texto-tarjeta,
+.especialidad-entrenador,
+.experiencia-entrenador{
+  color:var(--text-secondary);
 }
 
-.precio-plan span {
-  font-size: 1rem;
-  color: var(--text-secondary);
+/* --------------------------------------------------------------------------
+   SERVICIOS
+   -------------------------------------------------------------------------- */
+
+.tarjeta-servicio{
+  overflow:hidden;
 }
 
-.lista-beneficios {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  color: var(--text-secondary);
-  margin-bottom: 15px;
+.tarjeta-servicio .imagen-tarjeta{
+  margin:-22px -22px 18px;
+  width:calc(100% + 44px);
+  height:200px;
+  border-radius:0;
 }
 
-/* --- Formularios --- */
-.formulario-contacto {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: var(--bg-secondary);
-  padding: 30px;
-  border-radius: var(--border-radius);
+.tarjeta-servicio .titulo-tarjeta,
+.tarjeta-servicio .texto-tarjeta{
+  padding-inline:2px;
 }
 
-.grupo-campo {
-  margin-bottom: 20px;
+/* --------------------------------------------------------------------------
+   PLANES
+   -------------------------------------------------------------------------- */
+
+.precio-plan{
+  font-size:2.05rem;
+  font-weight:900;
+  color:var(--blue-700);
+  margin:8px 0;
 }
 
-.etiqueta {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--text-secondary);
+.precio-plan span{
+  color:var(--text-secondary);
+  font-size:.92rem;
+  font-weight:600;
 }
 
-.campo-texto {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--bg-primary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: #FFFFFF;
+.lista-beneficios{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  color:var(--text-secondary);
+  margin:14px 0 20px;
 }
 
-.campo-texto:focus {
-  outline: none;
-  border-color: var(--primary);
+.lista-beneficios li::before{
+  content:"✓";
+  margin-right:8px;
+  color:var(--green-700);
+  font-weight:900;
 }
 
-/* --- Footer --- */
-.footer {
-  background-color: var(--bg-secondary);
-  padding: 50px 0 20px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  margin-top: 60px;
+.plan-destacado{
+  position:relative;
+  overflow:hidden;
+  border:2px solid var(--green-500);
+  box-shadow:0 18px 42px rgba(18,170,97,.14);
 }
 
-.contenedor-footer {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 40px;
-  margin-bottom: 40px;
+.plan-destacado::before{
+  content:"MÁS ELEGIDO";
+  position:absolute;
+  top:17px;
+  right:-37px;
+  padding:5px 38px;
+  color:var(--blue-950);
+  background:var(--green-500);
+  font-size:.63rem;
+  font-weight:900;
+  letter-spacing:.5px;
+  transform:rotate(45deg);
 }
 
-.texto-footer {
-  color: var(--text-secondary);
-  margin-top: 15px;
+/* --------------------------------------------------------------------------
+   TESTIMONIOS
+   -------------------------------------------------------------------------- */
+
+.tarjeta-testimonio{
+  border-left:5px solid var(--green-500);
 }
 
-.lista-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
-  color: var(--text-secondary);
+.comentario-testimonio{
+  color:#425b74;
+  font-style:italic;
 }
 
-.lista-footer a:hover {
-  color: var(--primary);
+.usuario-testimonio{
+  margin-top:16px;
+  color:var(--blue-700);
+  font-size:.95rem;
 }
 
-.copyright-footer {
-  text-align: center;
-  color: var(--text-secondary);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 20px;
-  font-size: 0.9rem;
+/* --------------------------------------------------------------------------
+   UBICACIÓN
+   -------------------------------------------------------------------------- */
+
+.tarjeta-ubicacion{
+  padding:30px;
+  border-top:5px solid var(--blue-600);
+}
+
+.tarjeta-ubicacion p{
+  margin-top:8px;
+  color:var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   CONTACTO
+   -------------------------------------------------------------------------- */
+
+.grid-contacto{
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:28px;
+  align-items:start;
+}
+
+.tarjeta-info-contacto,
+.tarjeta-formulario{
+  padding:30px;
+}
+
+.tarjeta-info-contacto .titulo-seccion{
+  text-align:left;
+  font-size:1.65rem;
+  margin-bottom:15px;
+}
+
+.tarjeta-info-contacto .titulo-seccion::after{
+  margin:10px 0 0;
+}
+
+.lista-info{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:22px;
+  color:var(--text-secondary);
+}
+
+.lista-info strong{color:var(--blue-900)}
+
+.formulario-contacto{
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:30px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--border-radius);
+  box-shadow:var(--shadow-card);
+}
+
+.grupo-campo{margin-bottom:18px}
+
+.etiqueta{
+  display:block;
+  margin-bottom:7px;
+  color:var(--blue-950);
+  font-weight:750;
+}
+
+.campo-texto{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #cbddea;
+  border-radius:11px;
+  color:var(--text-primary);
+  background:#f8fbfe;
+  transition:var(--transition);
+}
+
+.campo-texto::placeholder{color:#9aabbb}
+
+.campo-texto:focus{
+  outline:none;
+  background:#fff;
+  border-color:var(--blue-600);
+  box-shadow:0 0 0 4px rgba(20,121,214,.10);
+}
+
+.area-texto{resize:vertical}
+
+.grid-faq{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+}
+
+.tarjeta-faq{
+  padding:24px;
+}
+
+.tarjeta-faq h3{
+  color:var(--blue-950);
+  font-size:1.05rem;
+  margin-bottom:10px;
+}
+
+.tarjeta-faq p{color:var(--text-secondary)}
+
+.contenedor-mapa-placeholder{
+  min-height:260px;
+  display:grid;
+  place-items:center;
+  padding:30px;
+  text-align:center;
+  border-radius:var(--border-radius);
+  background:
+    linear-gradient(rgba(7,59,112,.78),rgba(7,59,112,.78)),
+    repeating-linear-gradient(45deg,#dcecf8 0 10px,#cfe3f2 10px 20px);
+  color:#fff;
+  box-shadow:var(--shadow-card);
+}
+
+/* --------------------------------------------------------------------------
+   ENTRENADORES
+   -------------------------------------------------------------------------- */
+
+.tarjeta-entrenador{
+  display:flex;
+  flex-direction:column;
+}
+
+.tarjeta-entrenador .boton-principal{
+  width:100%;
+  margin-top:auto;
+}
+
+.tarjeta-entrenador .imagen-entrenador{
+  height:260px;
+}
+
+.especialidad-entrenador{
+  color:var(--blue-700);
+  font-weight:750;
+}
+
+.experiencia-entrenador strong{color:var(--blue-950)}
+
+.lista-certificaciones{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+}
+
+.tarjeta-certificacion{
+  padding:22px;
+  text-align:center;
+  color:var(--blue-950);
+  font-weight:800;
+}
+
+.tarjeta-certificacion::before{
+  content:"✦";
+  display:block;
+  color:var(--green-600);
+  font-size:1.5rem;
+  margin-bottom:8px;
+}
+
+.tarjeta-filosofia{
+  padding:32px;
+  text-align:center;
+  color:var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   DASHBOARD
+   -------------------------------------------------------------------------- */
+
+.grid-metricas{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px;
+}
+
+.tarjeta-metrica{
+  position:relative;
+  overflow:hidden;
+  padding:24px;
+  border-top:5px solid var(--green-500);
+}
+
+.tarjeta-metrica::after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  right:-35px;
+  bottom:-35px;
+  border-radius:50%;
+  background:var(--bg-blue-soft);
+}
+
+.numero-metrica{
+  position:relative;
+  z-index:1;
+  margin-top:5px;
+  font-size:2.5rem;
+  font-weight:900;
+  color:var(--blue-700);
+}
+
+.panel-acciones{padding:28px}
+
+.herramientas-gestion{
+  display:flex;
+  gap:12px;
+  margin-bottom:22px;
+}
+
+.contenedor-tabla{
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+
+.tabla-admin{
+  width:100%;
+  min-width:720px;
+  border-collapse:collapse;
+  background:#fff;
+}
+
+.tabla-admin th{
+  padding:13px;
+  background:var(--blue-950);
+  color:#fff;
+  text-align:left;
+}
+
+.tabla-admin td{
+  padding:13px;
+  color:var(--text-secondary);
+  border-bottom:1px solid var(--border);
+}
+
+.tabla-admin tr:hover td{background:#f7fbff}
+
+.insignia{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+}
+
+.insignia-activo{background:var(--green-100);color:#08763d}
+.insignia-inactivo{background:#edf1f5;color:#66758a}
+
+.boton-accion{
+  border:0;
+  border-radius:8px;
+  padding:7px 11px;
+  font-weight:700;
+  cursor:pointer;
+  transition:var(--transition);
+}
+
+.boton-accion:hover{transform:translateY(-1px)}
+.boton-editar{background:#e7f2ff;color:var(--blue-700)}
+.boton-eliminar{background:#ffe9e9;color:#c0392b}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+
+.footer{
+  margin-top:0;
+  padding:55px 0 20px;
+  background:var(--blue-950);
+  color:#d9e7f4;
+}
+
+.contenedor-footer{
+  width:min(92%,1200px);
+  margin:0 auto 38px;
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:50px;
+}
+
+.footer .logo{color:#fff}
+.footer .logo-verde{color:var(--green-500)}
+
+.texto-footer{
+  max-width:500px;
+  margin-top:14px;
+  color:#a9bfd3;
+}
+
+.titulo-footer{color:#fff}
+
+.lista-footer{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  margin-top:15px;
+  color:#b9cbda;
+}
+
+.lista-footer a{transition:var(--transition)}
+.lista-footer a:hover{color:var(--green-500)}
+
+.copyright-footer{
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.12);
+  text-align:center;
+  color:#9db3c8;
+  font-size:.85rem;
+}
+
+/* ==========================================================================
+   PÁGINA CLASES — actualmente usa Tailwind.
+   Estas reglas armonizan el aspecto sin cambiar su HTML.
+   ========================================================================== */
+
+body.bg-\[\#111827\]{
+  background:var(--bg-primary)!important;
+  color:var(--text-primary)!important;
+}
+
+body.bg-\[\#111827\] .bg-\[\#1F2937\]{
+  background:#fff!important;
+  border-color:var(--border)!important;
+}
+
+body.bg-\[\#111827\] .text-\[\#22C55E\]{
+  color:var(--green-600)!important;
+}
+
+body.bg-\[\#111827\] .text-white{
+  color:var(--text-primary)!important;
+}
+
+body.bg-\[\#111827\] .text-gray-300,
+body.bg-\[\#111827\] .text-gray-400,
+body.bg-\[\#111827\] .text-gray-500{
+  color:var(--text-secondary)!important;
+}
+
+body.bg-\[\#111827\] header{
+  background:rgba(255,255,255,.96)!important;
+  border-color:var(--border)!important;
+}
+
+body.bg-\[\#111827\] header a.text-\[\#22C55E\]{
+  color:var(--blue-950)!important;
+}
+
+body.bg-\[\#111827\] header a.text-\[\#22C55E\] span{
+  color:var(--green-600)!important;
+}
+
+body.bg-\[\#111827\] section.bg-\[\#1F2937\]{
+  background:linear-gradient(135deg,#eef8ff,#fff)!important;
+}
+
+body.bg-\[\#111827\] article.bg-\[\#1F2937\]{
+  border-radius:var(--border-radius)!important;
+  box-shadow:var(--shadow-card);
+}
+
+body.bg-\[\#111827\] article.bg-\[\#1F2937\]:hover{
+  border-color:var(--green-500)!important;
+  transform:translateY(-5px);
+  box-shadow:var(--shadow-hover);
+}
+
+body.bg-\[\#111827\] article img{
+  object-fit:cover;
+}
+
+body.bg-\[\#111827\] a.bg-\[\#22C55E\]{
+  background:var(--blue-700)!important;
+}
+
+body.bg-\[\#111827\] a.bg-\[\#22C55E\]:hover{
+  background:var(--blue-800)!important;
+}
+
+/* ==========================================================================
+   PÁGINA PLANES — Bootstrap se mantiene; solo se cambia la piel visual.
+   ========================================================================== */
+
+body[style*="#111827"]{
+  background:var(--bg-primary)!important;
+  color:var(--text-primary)!important;
+}
+
+body[style*="#111827"] > header nav,
+body[style*="#111827"] nav[style*="#1F2937"]{
+  background:#fff!important;
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] .navbar-brand{
+  color:var(--blue-950)!important;
+}
+
+body[style*="#111827"] .navbar-brand .text-white{
+  color:var(--green-600)!important;
+}
+
+body[style*="#111827"] .navbar .nav-link{
+  color:#49637d!important;
+  font-weight:700;
+}
+
+body[style*="#111827"] .navbar .nav-link:hover,
+body[style*="#111827"] .navbar .nav-link[style*="#22C55E"]{
+  color:var(--blue-700)!important;
+}
+
+body[style*="#111827"] main > section[style*="#1F2937"]{
+  background:linear-gradient(135deg,#eef8ff,#fff)!important;
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] main > section[style*="#1F2937"] h1{
+  color:var(--blue-950)!important;
+}
+
+body[style*="#111827"] .card{
+  color:var(--text-primary)!important;
+  background:#fff!important;
+  border-color:var(--border)!important;
+  border-radius:var(--border-radius)!important;
+  box-shadow:var(--shadow-card)!important;
+}
+
+body[style*="#111827"] .card:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow-hover)!important;
+}
+
+body[style*="#111827"] .card .text-light,
+body[style*="#111827"] .accordion-body,
+body[style*="#111827"] .list-unstyled{
+  color:var(--text-secondary)!important;
+}
+
+body[style*="#111827"] .card h4[style*="#22C55E"]{
+  color:var(--blue-700)!important;
+}
+
+body[style*="#111827"] .card .btn{
+  color:var(--blue-700)!important;
+  border-color:#bcd8ef!important;
+  border-radius:11px;
+}
+
+body[style*="#111827"] .card .btn:hover{
+  color:#fff!important;
+  background:var(--blue-700)!important;
+  border-color:var(--blue-700)!important;
+}
+
+body[style*="#111827"] footer{
+  background:var(--blue-950)!important;
+  color:#d9e7f4!important;
+  border-color:rgba(255,255,255,.12)!important;
+}
+
+body[style*="#111827"] .accordion-item{
+  background:#fff!important;
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] .accordion-button{
+  color:var(--blue-950)!important;
+  background:#fff!important;
+}
+
+body[style*="#111827"] .accordion-button:not(.collapsed){
+  color:var(--blue-700)!important;
+  background:var(--bg-blue-soft)!important;
+  box-shadow:none!important;
+}
+
+body[style*="#111827"] .modal-content{
+  background:#fff!important;
+  color:var(--text-primary)!important;
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] .modal-header,
+body[style*="#111827"] .modal-footer{
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] .modal-title{
+  color:var(--blue-950)!important;
+}
+
+body[style*="#111827"] .btn-close{
+  filter:none!important;
+}
+
+/* --------------------------------------------------------------------------
+   Animación suave de entrada
+   -------------------------------------------------------------------------- */
+
+.hero-texto,
+.hero-imagen,
+.tarjeta-servicio,
+.tarjeta-plan,
+.tarjeta-entrenador{
+  animation:aparecer .55s ease both;
+}
+
+@keyframes aparecer{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
 }
