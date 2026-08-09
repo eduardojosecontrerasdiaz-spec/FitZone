@@ -1034,3 +1034,527 @@ body[style*="#111827"] .btn-close{
     transition-duration:.01ms!important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   FUNCIONES NUEVAS: REGISTRO Y PERFIL DE ENTRENADOR
+   -------------------------------------------------------------------------- */
+
+.pagina-planes{
+  background:#f5f9fd !important;
+  color:var(--text-primary) !important;
+}
+
+.pagina-planes .navbar{
+  background:#ffffff !important;
+}
+
+.formulario-registro{
+  width:min(850px,100%);
+  margin:0 auto;
+  padding:35px;
+  background:#ffffff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow-card);
+}
+
+.formulario-registro .titulo-seccion{margin-bottom:18px}
+
+.formulario-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-bottom:24px;
+}
+
+.formulario-grid input,
+.formulario-grid select,
+.formulario-grid textarea{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid var(--border-strong);
+  border-radius:10px;
+  background:#fff;
+  color:var(--text-primary);
+  outline:none;
+}
+
+.formulario-grid input:focus,
+.formulario-grid select:focus{
+  border-color:var(--blue-600);
+}
+
+.plan-seleccionado{
+  margin:0 auto 24px;
+  width:max-content;
+  max-width:100%;
+  padding:9px 16px;
+  border-radius:999px;
+  background:var(--bg-green-soft);
+  color:var(--green-700);
+  font-weight:800;
+}
+
+.perfil-entrenador-card{
+  width:min(950px,100%);
+  margin:0 auto;
+  padding:30px;
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:30px;
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow-card);
+}
+
+.perfil-entrenador-card img{
+  width:100%;
+  height:330px;
+  object-fit:cover;
+  border-radius:18px;
+}
+
+.perfil-entrenador-card h2{
+  margin-bottom:8px;
+}
+
+.perfil-entrenador-card h3{
+  color:var(--green-700);
+  margin-bottom:16px;
+}
+
+.perfil-entrenador-card p{
+  margin-bottom:14px;
+  color:var(--text-secondary);
+}
+
+.formulario-entrenador-dashboard{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(6,40,77,.55);
+}
+
+.formulario-entrenador-caja{
+  width:min(600px,100%);
+  padding:28px;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.formulario-entrenador-caja h2{
+  margin-bottom:20px;
+}
+
+.formulario-entrenador-caja input,
+.formulario-entrenador-caja textarea{
+  width:100%;
+  margin-bottom:12px;
+  padding:12px;
+  border:1px solid var(--border-strong);
+  border-radius:10px;
+}
+
+.formulario-entrenador-caja textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.formulario-entrenador-caja > div{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+
+.seccion-entrenadores-dashboard{
+  background:var(--bg-blue-soft);
+}
+
+@media(max-width:700px){
+  .formulario-grid,
+  .perfil-entrenador-card{
+    grid-template-columns:1fr;
+  }
+
+  .perfil-entrenador-card img{
+    height:280px;
+  }
+
+  .formulario-registro{
+    padding:22px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   GESTION DE CLASES
+   -------------------------------------------------------------------------- */
+.detalle-clase-card{
+  width:min(950px,100%);
+  margin:0 auto;
+  padding:30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  align-items:center;
+  background:#1F2937;
+  border:1px solid #374151;
+  border-radius:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,.18);
+}
+.detalle-clase-card img{
+  width:100%;
+  height:330px;
+  object-fit:cover;
+  border-radius:16px;
+}
+.detalle-clase-card h2{
+  color:#22C55E;
+  font-size:32px;
+  margin-bottom:15px;
+}
+.detalle-clase-card p{
+  color:#D1D5DB;
+  margin-bottom:12px;
+}
+.detalle-clase-descripcion{
+  font-size:17px;
+}
+.seccion-clases-dashboard .panel-acciones p{
+  color:var(--text-secondary);
+}
+@media(max-width:700px){
+  .detalle-clase-card{grid-template-columns:1fr;padding:20px;}
+  .detalle-clase-card img{height:250px;}
+}
+
+/* ==========================================================================
+   AJUSTES FINALES DE UNIFORMIDAD
+   ========================================================================== */
+
+/* Todos los títulos de páginas mantienen el mismo estilo y centrado. */
+.hero-section.text-center .hero-titulo,
+.hero-section.text-center .hero-descripcion,
+.titulo-seccion {
+  text-align:center;
+}
+
+/* Todas las barras de navegación usan azul y la página actual tiene línea verde. */
+.nav-link,
+.nav-link:visited {
+  color:#49637d !important;
+}
+
+.nav-link:hover,
+.nav-link.activo {
+  color:var(--blue-700) !important;
+}
+
+.nav-link.activo::after {
+  background:var(--green-500) !important;
+}
+
+/* Botones de gestión. */
+.acciones-gestion {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+
+.acciones-gestion .boton-accion {
+  cursor:pointer;
+}
+
+/* Formulario de Dashboard más uniforme. */
+.formulario-entrenador-caja button {
+  min-height:42px;
+}
+
+/* Evita que una página con Tailwind cambie la tipografía general. */
+.pagina-clases,
+.pagina-clases button,
+.pagina-clases input,
+.pagina-clases textarea,
+.pagina-clases a,
+.pagina-clases h1,
+.pagina-clases h2,
+.pagina-clases h3,
+.pagina-clases p,
+.pagina-clases li {
+  font-family:var(--font-body) !important;
+}
+
+.pagina-clases h1,
+.pagina-clases h2,
+.pagina-clases h3 {
+  font-family:var(--font-heading) !important;
+}
+
+/* Página de planes: Bootstrap no debe cambiar el aspecto general. */
+.pagina-planes,
+.pagina-planes button,
+.pagina-planes input,
+.pagina-planes a,
+.pagina-planes h1,
+.pagina-planes h2,
+.pagina-planes h3,
+.pagina-planes h4,
+.pagina-planes h5,
+.pagina-planes p,
+.pagina-planes li {
+  font-family:var(--font-body) !important;
+}
+
+.pagina-planes h1,
+.pagina-planes h2,
+.pagina-planes h3,
+.pagina-planes h4,
+.pagina-planes h5 {
+  font-family:var(--font-heading) !important;
+}
+
+.pagina-planes .navbar .nav-link {
+  position:relative;
+  color:#49637d !important;
+  padding:10px 12px !important;
+}
+
+.pagina-planes .navbar .nav-link:hover,
+.pagina-planes .navbar .nav-link.activo {
+  color:var(--blue-700) !important;
+}
+
+.pagina-planes .navbar .nav-link.activo::after {
+  content:"";
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:3px;
+  height:3px;
+  border-radius:99px;
+  background:var(--green-500);
+}
+
+/* Contacto: el título principal queda centrado siempre. */
+.seccion-contacto .titulo-seccion,
+.seccion-contacto + section .titulo-seccion {
+  text-align:center;
+}
+
+/* --------------------------------------------------------------------------
+   PLANES - DISEÑO CLARO Y UNIFORME
+   -------------------------------------------------------------------------- */
+.pagina-planes .seccion-planes{
+  padding:78px 0;
+  background:var(--bg-primary);
+}
+
+.pagina-planes .tarjeta-plan{
+  color:var(--text-primary);
+  background:#fff;
+  border:1px solid var(--border);
+  padding:28px;
+  border-radius:var(--border-radius);
+}
+
+.pagina-planes .tarjeta-plan-destacado{
+  border:2px solid var(--green-500);
+}
+
+.pagina-planes .precio-plan{
+  color:var(--green-600);
+  font-size:1.8rem;
+}
+
+.pagina-planes .precio-plan small{
+  color:var(--text-secondary);
+  font-size:.9rem;
+}
+
+.pagina-planes .lista-plan{
+  color:var(--text-secondary);
+  text-align:left;
+  padding-left:0;
+}
+
+.pagina-planes .lista-plan li{
+  padding:6px 0;
+}
+
+.pagina-planes .etiqueta-plan{
+  display:block;
+  width:max-content;
+  margin:0 auto 10px;
+  padding:5px 12px;
+  border-radius:999px;
+  background:var(--green-100);
+  color:var(--green-700);
+  font-size:.8rem;
+  font-weight:800;
+}
+
+.pagina-planes .seccion-faq{
+  padding:78px 0;
+  background:#fff;
+}
+
+.pagina-planes .accordion-item{
+  border:1px solid var(--border);
+  margin-bottom:10px;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.pagina-planes .accordion-button{
+  color:var(--blue-950);
+  background:#fff;
+  box-shadow:none;
+}
+
+.pagina-planes .accordion-button:not(.collapsed){
+  color:var(--blue-700);
+  background:var(--bg-blue-soft);
+}
+
+.pagina-planes .accordion-body{
+  color:var(--text-secondary);
+}
+
+.pagina-planes .modal-content{
+  color:var(--text-primary);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+}
+
+.pagina-planes .modal-title{
+  color:var(--blue-950) !important;
+}
+
+.pagina-planes .modal-body,
+.pagina-planes .modal-body li{
+  color:var(--text-secondary);
+}
+
+.detalle-clase-card h2{
+  color:var(--blue-950) !important;
+  font-family:var(--font-heading) !important;
+}
+
+.detalle-clase-card p{
+  color:var(--text-secondary) !important;
+}
+
+.detalle-clase-card{
+  background:#fff !important;
+  border:1px solid var(--border) !important;
+  box-shadow:var(--shadow-card) !important;
+}
+
+/* --------------------------------------------------------------------------
+   FORMULARIOS DEL DASHBOARD
+   -------------------------------------------------------------------------- */
+.formulario-entrenador-caja label {
+  display:block;
+  margin:4px 0 6px;
+  font-weight:600;
+  color:var(--blue-700);
+}
+
+.formulario-entrenador-caja select {
+  width:100%;
+  margin-bottom:12px;
+  padding:12px;
+  border:1px solid var(--border-strong);
+  border-radius:10px;
+  background:#fff;
+  font:inherit;
+}
+
+.seccion-entrenadores-dashboard,
+.seccion-clases-dashboard {
+  margin-top:24px;
+}
+
+.seccion-entrenadores-dashboard .panel-acciones,
+.seccion-clases-dashboard .panel-acciones {
+  margin-bottom:22px;
+}
+
+.seccion-entrenadores-dashboard .panel-acciones .boton-principal,
+.seccion-clases-dashboard .panel-acciones .boton-principal {
+  margin-top:14px;
+}
+
+.seccion-gestion + .seccion-gestion {
+  border-top:1px solid var(--border-soft);
+}
+
+
+/* Funcionalidades del taller */
+.boton-modo{
+  border:0;
+  background:var(--bg-blue-soft);
+  color:var(--blue-700);
+  border-radius:10px;
+  padding:8px 11px;
+  cursor:pointer;
+  font-size:1rem;
+}
+
+.modo-oscuro{
+  background:#0f172a !important;
+  color:#e5e7eb !important;
+}
+
+.modo-oscuro h1,
+.modo-oscuro h2,
+.modo-oscuro h3,
+.modo-oscuro h4,
+.modo-oscuro h5,
+.modo-oscuro h6{color:#e5e7eb}
+
+.modo-oscuro .header,
+.modo-oscuro .footer,
+.modo-oscuro .tarjeta-plan,
+.modo-oscuro .tarjeta-entrenador,
+.modo-oscuro .tarjeta-servicio,
+.modo-oscuro .tarjeta-testimonio,
+.modo-oscuro .tarjeta-metrica,
+.modo-oscuro .panel-acciones,
+.modo-oscuro .contenedor-tabla,
+.modo-oscuro .formulario-entrenador-caja,
+.modo-oscuro .formulario-registro{
+  background:#1e293b !important;
+  color:#e5e7eb !important;
+}
+
+.modo-oscuro .nav-link,
+.modo-oscuro .texto-tarjeta,
+.modo-oscuro .hero-descripcion,
+.modo-oscuro p,
+.modo-oscuro li{color:#d1d5db}
+
+.barra-progreso-contenedor{
+  background:#e5e7eb;
+  border-radius:20px;
+  height:18px;
+  overflow:hidden;
+  margin-top:12px;
+}
+
+.barra-progreso{
+  width:0;
+  height:100%;
+  background:var(--green-500);
+  transition:width .4s ease;
+}

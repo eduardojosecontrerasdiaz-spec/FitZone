@@ -1,0 +1,36 @@
+// clases.js
+// Muestra las clases nuevas y permite abrir el detalle de cada una.
+
+function obtenerClasesGuardadas() {
+    return obtenerLista("clases");
+}
+
+function mostrarClasesNuevas() {
+    const contenedor = document.getElementById("listaClasesNuevas");
+
+    if (!contenedor) {
+        return;
+    }
+
+    contenedor.innerHTML = "";
+
+    obtenerClasesGuardadas().forEach(function(clase) {
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "tarjeta-entrenador";
+
+        tarjeta.innerHTML = `
+            <img class="imagen-entrenador" src="${clase.foto}" alt="${clase.nombre}">
+            <h3 class="nombre-entrenador">${clase.nombre}</h3>
+            <p class="texto-tarjeta">${clase.descripcion}</p>
+            <p class="experiencia-entrenador"><strong>Nivel:</strong> ${clase.nivel}</p>
+            <p class="experiencia-entrenador"><strong>Duración:</strong> ${clase.duracion}</p>
+            <p class="experiencia-entrenador"><strong>Horario:</strong> ${clase.horario}</p>
+            <p class="experiencia-entrenador"><strong>Instructor:</strong> ${clase.instructor}</p>
+            <a href="detalle-clase.html?id=${clase.id}" class="boton-principal">Ver detalles</a>
+        `;
+
+        contenedor.appendChild(tarjeta);
+    });
+}
+
+mostrarClasesNuevas();

@@ -31,6 +31,7 @@
                 <li><a href="pages/contacto.html" class="nav-link">Contacto</a></li>
                 <li><a href="pages/dashboard.html" class="nav-link">Dashboard</a></li>
             </ul>
+            <button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button>
         </nav>
     </header>
 
@@ -109,7 +110,7 @@
                             <li>Horario regular (off-peak)</li>
                             <li>Evaluación inicial básica</li>
                         </ul>
-                        <a href="pages/planes.html" class="boton-plan">Elegir Plan</a>
+                        <a href="pages/registro.html?plan=Básico" class="boton-plan">Elegir Plan</a>
                     </article>
 
                     <!-- Plan Premium -->
@@ -121,7 +122,7 @@
                             <li>Clases grupales incluidas</li>
                             <li>Acceso a todas las sedes</li>
                         </ul>
-                        <a href="pages/planes.html" class="boton-principal">Elegir Plan</a>
+                        <a href="pages/registro.html?plan=Premium" class="boton-principal">Elegir Plan</a>
                     </article>
 
                     <!-- Plan Profesional -->
@@ -133,7 +134,7 @@
                             <li>Entrenador personal asignado</li>
                             <li>Pase para 1 invitado al mes</li>
                         </ul>
-                        <a href="pages/planes.html" class="boton-plan">Elegir Plan</a>
+                        <a href="pages/registro.html?plan=Profesional" class="boton-plan">Elegir Plan</a>
                     </article>
                 </div>
             </div>
@@ -146,24 +147,24 @@
 
                 <div class="grid-entrenadores">
                     <article class="tarjeta-entrenador">
-                        <img src="../assets/images/carlos.png" alt="Carlos">
+                        <img src="assets/images/carlos.png" alt="Carlos">
                         <h3 class="nombre-entrenador">Carlos Gómez</h3>
                         <p class="especialidad-entrenador">Especialista en Musculación</p>
-                        <a href="pages/entrenadores.html" class="boton-secundario">Ver Perfil</a>
+                        <a href="pages/perfil-entrenador.html?nombre=Carlos%20Gómez" class="boton-secundario">Ver Perfil</a>
                     </article>
 
                     <article class="tarjeta-entrenador">
-                        <img src="../assets/images/Elena.png" alt="Elena">
+                        <img src="assets/images/elena.png" alt="Elena">
                         <h3 class="nombre-entrenador">Elena Ríos</h3>
                         <p class="especialidad-entrenador">Nutrición y Readaptación</p>
-                        <a href="pages/entrenadores.html" class="boton-secundario">Ver Perfil</a>
+                        <a href="pages/perfil-entrenador.html?nombre=Elena%20Ríos" class="boton-secundario">Ver Perfil</a>
                     </article>
 
                     <article class="tarjeta-entrenador">
-                        <img src="../assets/images/david.png" alt="David">
+                        <img src="assets/images/david.png" alt="David">
                         <h3 class="nombre-entrenador">David Silva</h3>
                         <p class="especialidad-entrenador">Coach de CrossFit y Cardio</p>
-                        <a href="pages/entrenadores.html" class="boton-secundario">Ver Perfil</a>
+                        <a href="pages/perfil-entrenador.html?nombre=David%20Silva" class="boton-secundario">Ver Perfil</a>
                     </article>
                 </div>
             </div>
@@ -273,6 +274,12 @@
             <p>&copy; 2026 FitZone. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/validation.js"></script>
 
 </body>
 

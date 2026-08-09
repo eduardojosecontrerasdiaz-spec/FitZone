@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone - Registro</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a href="../index.html" class="logo">Fit<span class="logo-verde">Zone</span></a>
+        <ul class="nav-menu">
+            <li><a href="../index.html" class="nav-link">Inicio</a></li>
+            <li><a href="planes.html" class="nav-link activo">Planes</a></li>
+            <li><a href="entrenadores.html" class="nav-link">Entrenadores</a></li>
+            <li><a href="clases.html" class="nav-link">Clases</a></li>
+            <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+        </ul>
+        <button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button>
+    </nav>
+</header>
+
+<main>
+    <section class="hero-section text-center">
+        <div class="contenedor">
+            <h1 class="hero-titulo">Completa tu registro</h1>
+            <p class="hero-descripcion">Regístrate para comenzar tu membresía en FitZone.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="contenedor">
+            <form id="formularioRegistro" class="formulario-registro">
+                <h2 class="titulo-seccion">Datos de la membresía</h2>
+                <p id="planSeleccionado" class="plan-seleccionado"></p>
+
+                <div class="formulario-grid">
+                    <input id="nombreRegistro" type="text" placeholder="Nombre completo" required>
+                    <input id="correoRegistro" type="email" placeholder="Correo electrónico" required>
+                    <input id="telefonoRegistro" type="tel" placeholder="Teléfono" required>
+                    <input id="documentoRegistro" type="text" placeholder="Documento" required>
+                    <input id="fechaRegistro" type="date" required>
+                    <select id="metodoPago" required>
+                        <option value="">Método de pago</option>
+                        <option>Tarjeta</option>
+                        <option>Transferencia</option>
+                        <option>Efectivo</option>
+                    </select>
+                    <input id="numeroPago" type="text" placeholder="Número de tarjeta / referencia" required>
+                    <input id="nombrePago" type="text" placeholder="Nombre del titular" required>
+                    <input id="passwordRegistro" type="password" placeholder="Contraseña (mínimo 6 caracteres)" minlength="6" required>
+                    <input id="confirmarPasswordRegistro" type="password" placeholder="Confirmar contraseña" minlength="6" required>
+                </div>
+
+                <button type="submit" class="boton-principal">Confirmar membresía</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<script src="../js/api.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/validation.js"></script>
+<script src="../js/darkmode.js"></script>
+<script src="../js/registro.js"></script>
+</body>
+</html>

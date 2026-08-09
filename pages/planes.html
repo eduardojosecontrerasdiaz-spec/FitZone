@@ -5,128 +5,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitZone - Planes</title>
-    <!-- CDN de Bootstrap 5 -->
+
+    <!-- Bootstrap se mantiene para el modal y el acordeón -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 
-<body class="text-white d-flex flex-column h-100" style="background-color: #111827;">
+<body class="pagina-planes d-flex flex-column h-100">
 
-    <!-- ========================================== -->
-    <!-- NAVBAR (BOOTSTRAP)                         -->
-    <!-- ========================================== -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark border-bottom border-secondary"
-            style="background-color: #1F2937;">
-            <div class="container">
-                <a class="navbar-brand fw-bold" href="../index.html" style="color: #22C55E;">
-                    Fit<span class="text-white">Zone</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link text-white" href="../index.html">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link fw-bold" href="planes.html"
-                                style="color: #22C55E;">Planes</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="entrenadores.html">Entrenadores</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link text-white" href="clases.html">Clases</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="contacto.html">Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="dashboard.html">Dashboard</a></li>
-                    </ul>
-                </div>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg">
+            <a href="../index.html" class="logo">
+                Fit<span class="logo-verde">Zone</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuBootstrap" aria-controls="menuBootstrap" aria-expanded="false" aria-label="Abrir menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuBootstrap">
+                <ul class="nav-menu ms-auto">
+                    <li><a href="../index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="planes.html" class="nav-link activo">Planes</a></li>
+                    <li><a href="entrenadores.html" class="nav-link">Entrenadores</a></li>
+                    <li><a href="clases.html" class="nav-link">Clases</a></li>
+                    <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                </ul>
             </div>
+            <button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button>
         </nav>
     </header>
 
-    <!-- ========================================== -->
-    <!-- CONTENIDO PRINCIPAL                        -->
-    <!-- ========================================== -->
     <main class="flex-shrink-0">
 
-        <!-- 1. HERO -->
-        <section class="text-center py-5 border-bottom border-secondary" style="background-color: #1F2937;">
-            <div class="container">
-                <h1 class="display-5 fw-bold" style="color: #22C55E;">Planes para todos</h1>
-                <p class="lead text-light mb-0">Elige la membresía perfecta para alcanzar tus objetivos con la mejor
-                    tecnología y espacio.</p>
+        <section class="hero-section text-center">
+            <div class="contenedor">
+                <h1 class="hero-titulo">Planes para todos</h1>
+                <p class="hero-descripcion">
+                    Elige la membresía perfecta para alcanzar tus objetivos con la mejor tecnología y espacio.
+                </p>
             </div>
         </section>
 
-        <!-- 2. CARDS DE PLANES -->
-        <section class="py-5">
-            <div class="container">
+        <section class="seccion-planes">
+            <div class="contenedor">
                 <div class="row g-4">
 
-                    <!-- Plan Básico -->
                     <div class="col-md-4">
-                        <div class="card text-white h-100 shadow-sm border-secondary"
-                            style="background-color: #1F2937;">
-                            <div class="card-body d-flex flex-column text-center p-4">
-                                <h3 class="card-title fw-bold">Básico</h3>
-                                <h4 class="my-3" style="color: #22C55E;">$49.900 <small
-                                        class="fs-6 text-light">/mes</small></h4>
-                                <ul class="list-unstyled mb-4 flex-grow-1 text-light">
-                                    <li class="py-1">✔ Acceso a zona de pesas</li>
-                                    <li class="py-1">✔ Horario regular</li>
-                                    <li class="py-1">✔ Valoración inicial</li>
-                                </ul>
-                                <button type="button" class="btn text-white w-100 mt-auto"
-                                    style="border-color: #22C55E;" data-bs-toggle="modal"
-                                    data-bs-target="#modalInfoPlan">
-                                    Más Información
-                                </button>
-                            </div>
+                        <div class="tarjeta-plan card h-100 d-flex flex-column text-center">
+                            <h3 class="nombre-plan">Básico</h3>
+                            <h4 class="precio-plan">$49.900 <small>/mes</small></h4>
+                            <ul class="lista-plan mb-4">
+                                <li>✔ Acceso a zona de pesas</li>
+                                <li>✔ Horario regular</li>
+                                <li>✔ Valoración inicial</li>
+                            </ul>
+                            <button type="button" class="boton-plan boton-info-plan mt-auto" data-plan="Básico"
+                                data-bs-toggle="modal" data-bs-target="#modalInfoPlan">
+                                Más Información
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Plan Premium -->
                     <div class="col-md-4">
-                        <div class="card text-white h-100 shadow border"
-                            style="background-color: #1F2937; border-color: #22C55E !important;">
-                            <div class="card-body d-flex flex-column text-center p-4">
-                                <span class="badge mb-2 w-50 mx-auto text-white" style="background-color: #22C55E;">Más
-                                    Popular</span>
-                                <h3 class="card-title fw-bold">Premium</h3>
-                                <h4 class="my-3" style="color: #22C55E;">$79.900 <small
-                                        class="fs-6 text-light">/mes</small></h4>
-                                <ul class="list-unstyled mb-4 flex-grow-1 text-light">
-                                    <li class="py-1">✔ Acceso ilimitado 24/7</li>
-                                    <li class="py-1">✔ Clases grupales incluidas</li>
-                                    <li class="py-1">✔ Acceso a todas las sedes</li>
-                                </ul>
-                                <button type="button" class="btn text-white w-100 mt-auto fw-bold"
-                                    style="background-color: #22C55E;" data-bs-toggle="modal"
-                                    data-bs-target="#modalInfoPlan">
-                                    Más Información
-                                </button>
-                            </div>
+                        <div class="tarjeta-plan tarjeta-plan-destacado card h-100 d-flex flex-column text-center">
+                            <span class="etiqueta-plan">Más Popular</span>
+                            <h3 class="nombre-plan">Premium</h3>
+                            <h4 class="precio-plan">$79.900 <small>/mes</small></h4>
+                            <ul class="lista-plan mb-4">
+                                <li>✔ Acceso ilimitado 24/7</li>
+                                <li>✔ Clases grupales incluidas</li>
+                                <li>✔ Acceso a todas las sedes</li>
+                            </ul>
+                            <button type="button" class="boton-principal boton-info-plan mt-auto" data-plan="Premium"
+                                data-bs-toggle="modal" data-bs-target="#modalInfoPlan">
+                                Más Información
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Plan Profesional -->
                     <div class="col-md-4">
-                        <div class="card text-white h-100 shadow-sm border-secondary"
-                            style="background-color: #1F2937;">
-                            <div class="card-body d-flex flex-column text-center p-4">
-                                <h3 class="card-title fw-bold">Profesional</h3>
-                                <h4 class="my-3" style="color: #22C55E;">$119.900 <small
-                                        class="fs-6 text-light">/mes</small></h4>
-                                <ul class="list-unstyled mb-4 flex-grow-1 text-light">
-                                    <li class="py-1">✔ Todos los beneficios Premium</li>
-                                    <li class="py-1">✔ Entrenador personalizado</li>
-                                    <li class="py-1">✔ Pase para 1 invitado al mes</li>
-                                </ul>
-                                <button type="button" class="btn text-white w-100 mt-auto"
-                                    style="border-color: #22C55E;" data-bs-toggle="modal"
-                                    data-bs-target="#modalInfoPlan">
-                                    Más Información
-                                </button>
-                            </div>
+                        <div class="tarjeta-plan card h-100 d-flex flex-column text-center">
+                            <h3 class="nombre-plan">Profesional</h3>
+                            <h4 class="precio-plan">$119.900 <small>/mes</small></h4>
+                            <ul class="lista-plan mb-4">
+                                <li>✔ Todos los beneficios Premium</li>
+                                <li>✔ Entrenador personalizado</li>
+                                <li>✔ Pase para 1 invitado al mes</li>
+                            </ul>
+                            <button type="button" class="boton-plan boton-info-plan mt-auto" data-plan="Profesional"
+                                data-bs-toggle="modal" data-bs-target="#modalInfoPlan">
+                                Más Información
+                            </button>
                         </div>
                     </div>
 
@@ -134,57 +107,117 @@
             </div>
         </section>
 
-        <!-- 3. PREGUNTAS FRECUENTES (ACCORDION) -->
-        <section class="py-5 border-top border-secondary" style="background-color: #1F2937;">
-            <div class="container" style="max-width: 800px;">
-                <h2 class="text-center fw-bold text-white mb-4">Preguntas Frecuentes</h2>
+        <!-- COMPONENTES BOOTSTRAP: CAROUSEL, TOAST Y OFFCANVAS -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center fw-bold mb-4">Conoce FitZone</h2>
+
+                <div id="carouselFitZone" class="carousel slide mb-4" data-bs-ride="carousel">
+                    <div class="carousel-inner rounded-4">
+                        <div class="carousel-item active">
+                            <div class="p-5 text-center bg-primary text-white">
+                                <h3>Entrenamiento personalizado</h3>
+                                <p>Recibe acompañamiento para alcanzar tus objetivos.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="p-5 text-center bg-success text-white">
+                                <h3>Clases grupales</h3>
+                                <p>Entrena con diferentes disciplinas y horarios.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="p-5 text-center bg-dark text-white">
+                                <h3>Espacios modernos</h3>
+                                <p>Equipamiento pensado para tu progreso.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselFitZone" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselFitZone" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-outline-primary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBeneficios">
+                        Ver beneficios rápidos
+                    </button>
+                    <button type="button" class="btn btn-success" data-bs-toggle="toast" data-bs-target="#toastFitZone">
+                        Mostrar aviso
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasBeneficios">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Beneficios FitZone</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <p>✔ Acceso a instalaciones.</p>
+                <p>✔ Clases y entrenadores.</p>
+                <p>✔ Seguimiento de tu membresía.</p>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastFitZone" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">FitZone</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body">Puedes elegir el plan que mejor se adapte a tus objetivos.</div>
+            </div>
+        </div>
+
+        <section class="seccion-faq">
+            <div class="contenedor" style="max-width:800px;">
+                <h2 class="titulo-seccion">Preguntas Frecuentes</h2>
 
                 <div class="accordion accordion-flush" id="accordionFAQ">
 
-                    <div class="accordion-item text-white border-secondary" style="background-color: #111827;">
+                    <div class="accordion-item">
                         <h3 class="accordion-header">
-                            <button class="accordion-button collapsed text-white fw-bold" type="button"
-                                style="background-color: #111827; color: #22C55E !important;" data-bs-toggle="collapse"
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#faq1">
                                 ¿Hay cláusula de permanencia?
                             </button>
                         </h3>
                         <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                            <div class="accordion-body text-light">
-                                No, puedes cancelar o cambiar tu suscripción en cualquier momento sin penalizaciones
-                                adicionales.
+                            <div class="accordion-body">
+                                No, puedes cancelar o cambiar tu suscripción en cualquier momento sin penalizaciones adicionales.
                             </div>
                         </div>
                     </div>
 
-                    <div class="accordion-item text-white border-secondary" style="background-color: #111827;">
+                    <div class="accordion-item">
                         <h3 class="accordion-header">
-                            <button class="accordion-button collapsed text-white fw-bold" type="button"
-                                style="background-color: #111827; color: #22C55E !important;" data-bs-toggle="collapse"
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#faq2">
                                 ¿Qué métodos de pago aceptan?
                             </button>
                         </h3>
                         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                            <div class="accordion-body text-light">
-                                Aceptamos tarjetas de crédito, débito, transferencias bancarias y pagos en efectivo en
-                                nuestra recepción.
+                            <div class="accordion-body">
+                                Aceptamos tarjetas de crédito, débito, transferencias bancarias y pagos en efectivo en nuestra recepción.
                             </div>
                         </div>
                     </div>
 
-                    <div class="accordion-item text-white border-secondary" style="background-color: #111827;">
+                    <div class="accordion-item">
                         <h3 class="accordion-header">
-                            <button class="accordion-button collapsed text-white fw-bold" type="button"
-                                style="background-color: #111827; color: #22C55E !important;" data-bs-toggle="collapse"
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#faq3">
                                 ¿Puedo congelar mi membresía?
                             </button>
                         </h3>
                         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                            <div class="accordion-body text-light">
-                                Sí, en los planes Premium y Profesional puedes congelar tu cuenta hasta por 30 días al
-                                año por viaje o incapacidad.
+                            <div class="accordion-body">
+                                Sí, en los planes Premium y Profesional puedes congelar tu cuenta hasta por 30 días al año por viaje o incapacidad.
                             </div>
                         </div>
                     </div>
@@ -195,65 +228,59 @@
 
     </main>
 
-    <!-- ========================================== -->
-    <!-- MODAL BOOTSTRAP (INFORMACIÓN PLAN)         -->
-    <!-- ========================================== -->
     <div class="modal fade" id="modalInfoPlan" tabindex="-1" aria-labelledby="modalInfoPlanLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-white" style="background-color: #1F2937; border-color: #22C55E;">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title fw-bold" id="modalInfoPlanLabel" style="color: #22C55E;">Detalles de la
-                        Membresía</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="modalInfoPlanLabel">Detalles de la Membresía</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-light">
-                    <p>Al adquirir cualquiera de nuestras membresías obtienes acceso inmediato a nuestras instalaciones
-                        de FitZone.</p>
+                <div class="modal-body">
+                    <p>Al adquirir cualquiera de nuestras membresías obtienes acceso inmediato a nuestras instalaciones de FitZone.</p>
                     <ul class="mb-0">
                         <li>Incluye casillero y duchas.</li>
                         <li>Acceso a la app oficial para seguimiento de progreso.</li>
                         <li>Inscripción sin costo adicional durante este mes.</li>
                     </ul>
                 </div>
-                <div class="modal-footer border-secondary">
-                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cerrar</button>
-                    <a href="contacto.html" class="btn text-white fw-bold"
-                        style="background-color: #22C55E;">Inscribirme Ahora</a>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <a href="registro.html?plan=Básico" id="botonInscribirmePlan" class="boton-principal">Inscribirme Ahora</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- FOOTER (BOOTSTRAP)                         -->
-    <!-- ========================================== -->
-    <footer class="text-light py-4 mt-auto border-top border-secondary" style="background-color: #1F2937;">
-        <div class="container text-center text-md-start">
-            <div class="row align-items-center">
-                <div class="col-md-6 mb-3 mb-md-0">
-                    <a href="../index.html" class="text-decoration-none fw-bold fs-4" style="color: #22C55E;">
-                        Fit<span class="text-white">Zone</span>
-                    </a>
-                    <p class="small text-light mb-0"></p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <a href="../index.html" class="text-light text-decoration-none me-3">Inicio</a>
-                    <a href="planes.html" class="text-decoration-none me-3 fw-bold" style="color: #22C55E;">Planes</a>
-                    <a href="entrenadores.html" class="text-light text-decoration-none me-3">Entrenadores</a>
-                    <a href="clases.html" class="text-light text-decoration-none me-3">Clases</a>
-                    <a href="contacto.html" class="text-light text-decoration-none me-3">Contacto</a>
-                    <a href="dashboard.html" class="text-light text-decoration-none">Dashboard</a>
-                </div>
+    <footer class="footer">
+        <div class="contenedor-footer">
+            <div class="columna-footer">
+                <a href="../index.html" class="logo">Fit<span class="logo-verde">Zone</span></a>
+                <p class="texto-footer">Tu gimnasio de confianza. Transformamos vidas mediante el hábito del deporte y la salud.</p>
             </div>
-            <div class="border-top border-secondary mt-3 pt-3 text-center small text-light opacity-75">
-                <p class="mb-0">&copy; 2026 FitZone. Todos los derechos reservados.</p>
+            <div class="columna-footer">
+                <h4 class="titulo-footer">Navegación</h4>
+                <ul class="lista-footer">
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="planes.html">Planes</a></li>
+                    <li><a href="entrenadores.html">Entrenadores</a></li>
+                    <li><a href="clases.html">Clases</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                </ul>
             </div>
+        </div>
+        <div class="copyright-footer">
+            <p>&copy; 2026 FitZone. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JavaScript Bundle con Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="../js/api.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/darkmode.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/planes.js"></script>
 
+</body>
 </html>
