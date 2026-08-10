@@ -26,7 +26,7 @@ function mostrarEntrenadoresNuevos() {
 
     contenedor.innerHTML = "";
 
-    entrenadores.forEach(function(entrenador) {
+    entrenadores.forEach(function (entrenador) {
         const tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta-entrenador entrenador-nuevo";
 
@@ -46,8 +46,8 @@ function mostrarEntrenadoresNuevos() {
 function prepararPerfiles() {
     const botones = document.querySelectorAll(".tarjeta-entrenador .boton-principal, .tarjeta-entrenador .boton-secundario");
 
-    botones.forEach(function(boton) {
-        boton.addEventListener("click", function(evento) {
+    botones.forEach(function (boton) {
+        boton.addEventListener("click", function (evento) {
             const tarjeta = boton.closest(".tarjeta-entrenador");
             const nombre = tarjeta.querySelector(".nombre-entrenador").textContent.trim();
 
