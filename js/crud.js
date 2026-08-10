@@ -339,7 +339,7 @@ function cargarEntrenadoresIniciales() {
                 especialidad: "Nutrición y Readaptación",
                 experiencia: "7 años",
                 descripcion: "Apasionada por la readaptación funcional tras lesiones y la optimización del rendimiento mediante hábitos saludables.",
-                foto: "../assets/images/Elena.png"
+                foto: "../assets/images/elena.png"
             }
         ];
 
