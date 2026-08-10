@@ -23,3 +23,27 @@ function obtenerLista(nombre) {
 
     return [];
 }
+
+function normalizarRutaImagen(foto) {
+    if (!foto) {
+        return foto;
+    }
+
+    if (foto.startsWith("data:") || foto.startsWith("http://") || foto.startsWith("https://")) {
+        return foto;
+    }
+
+    if (foto.startsWith("../assets/")) {
+        return foto;
+    }
+
+    if (foto.startsWith("assets/")) {
+        return "../" + foto;
+    }
+
+    if (foto.startsWith("./assets/")) {
+        return "../" + foto.substring(2);
+    }
+
+    return foto;
+}
