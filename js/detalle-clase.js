@@ -1,3 +1,14 @@
+
+function normalizarRutaImagen(foto) {
+    if (!foto) return "../assets/images/crossFit.png";
+
+    if (foto.startsWith("data:") || foto.startsWith("http")) {
+        return foto;
+    }
+
+    let nombreArchivo = foto.split("/").pop();
+    return "../assets/images/" + nombreArchivo;
+}
 // detalle-clase.js
 // Muestra solamente la clase seleccionada.
 
@@ -17,7 +28,7 @@ const clase = todasLasClases.find(function(item) { return String(item.id) === St
 
 if (clase && contenedorDetalle) {
     contenedorDetalle.innerHTML = `
-        <img src="${clase.foto}" alt="${clase.nombre}">
+        <img src="${normalizarRutaImagen(clase.foto)}" alt="${clase.nombre}">
         <div>
             <h2>${clase.nombre}</h2>
             <p class="detalle-clase-descripcion">${clase.descripcion}</p>

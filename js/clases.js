@@ -1,3 +1,14 @@
+
+function normalizarRutaImagen(foto) {
+    if (!foto) return "../assets/images/crossFit.png";
+
+    if (foto.startsWith("data:") || foto.startsWith("http")) {
+        return foto;
+    }
+
+    let nombreArchivo = foto.split("/").pop();
+    return "../assets/images/" + nombreArchivo;
+}
 // clases.js
 // Muestra las clases nuevas y permite abrir el detalle de cada una.
 
@@ -19,7 +30,7 @@ function mostrarClasesNuevas() {
         tarjeta.className = "tarjeta-entrenador";
 
         tarjeta.innerHTML = `
-            <img class="imagen-entrenador" src="${clase.foto}" alt="${clase.nombre}">
+            <img class="imagen-entrenador" src="${normalizarRutaImagen(clase.foto)}" alt="${clase.nombre}">
             <h3 class="nombre-entrenador">${clase.nombre}</h3>
             <p class="texto-tarjeta">${clase.descripcion}</p>
             <p class="experiencia-entrenador"><strong>Nivel:</strong> ${clase.nivel}</p>

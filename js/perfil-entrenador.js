@@ -1,3 +1,19 @@
+
+function normalizarRutaImagen(foto) {
+    if (!foto) return "../assets/images/elena.png";
+
+    if (foto.startsWith("data:") || foto.startsWith("http")) {
+        return foto;
+    }
+
+    let nombreArchivo = foto.split("/").pop();
+
+    if (nombreArchivo.toLowerCase() === "elena.png") {
+        nombreArchivo = "elena.png";
+    }
+
+    return "../assets/images/" + nombreArchivo;
+}
 // perfil-entrenador.js
 // Busca el entrenador seleccionado y muestra solamente su perfil.
 
@@ -61,7 +77,7 @@ const entrenador = buscarEntrenador();
 if (entrenador && contenedorPerfil) {
     contenedorPerfil.innerHTML = `
         <div class="perfil-entrenador-card">
-            <img src="${entrenador.foto}" alt="${entrenador.nombre}">
+            <img src="${normalizarRutaImagen(entrenador.foto)}" alt="${entrenador.nombre}">
             <div>
                 <h2>${entrenador.nombre}</h2>
                 <h3>${entrenador.especialidad}</h3>

@@ -1,3 +1,19 @@
+
+function normalizarRutaImagen(foto) {
+    if (!foto) return "../assets/images/elena.png";
+
+    if (foto.startsWith("data:") || foto.startsWith("http")) {
+        return foto;
+    }
+
+    let nombreArchivo = foto.split("/").pop();
+
+    if (nombreArchivo.toLowerCase() === "elena.png") {
+        nombreArchivo = "elena.png";
+    }
+
+    return "../assets/images/" + nombreArchivo;
+}
 // entrenadores.js
 // Muestra perfiles individuales y agrega entrenadores guardados en el navegador.
 
@@ -26,12 +42,12 @@ function mostrarEntrenadoresNuevos() {
 
     contenedor.innerHTML = "";
 
-    entrenadores.forEach(function (entrenador) {
+    entrenadores.forEach(function(entrenador) {
         const tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta-entrenador entrenador-nuevo";
 
         tarjeta.innerHTML = `
-            <img src="${entrenador.foto}" alt="${entrenador.nombre}">
+            <img src="${normalizarRutaImagen(entrenador.foto)}" alt="${entrenador.nombre}">
             <h3 class="nombre-entrenador">${entrenador.nombre}</h3>
             <p class="especialidad-entrenador">${entrenador.especialidad}</p>
             <p class="experiencia-entrenador"><strong>Experiencia:</strong> ${entrenador.experiencia}</p>
@@ -46,8 +62,8 @@ function mostrarEntrenadoresNuevos() {
 function prepararPerfiles() {
     const botones = document.querySelectorAll(".tarjeta-entrenador .boton-principal, .tarjeta-entrenador .boton-secundario");
 
-    botones.forEach(function (boton) {
-        boton.addEventListener("click", function (evento) {
+    botones.forEach(function(boton) {
+        boton.addEventListener("click", function(evento) {
             const tarjeta = boton.closest(".tarjeta-entrenador");
             const nombre = tarjeta.querySelector(".nombre-entrenador").textContent.trim();
 

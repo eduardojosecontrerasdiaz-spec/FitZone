@@ -1,3 +1,19 @@
+
+function normalizarRutaImagen(foto) {
+    if (!foto) return "../assets/images/elena.png";
+
+    if (foto.startsWith("data:") || foto.startsWith("http")) {
+        return foto;
+    }
+
+    let nombreArchivo = foto.split("/").pop();
+
+    if (nombreArchivo.toLowerCase() === "elena.png") {
+        nombreArchivo = "elena.png";
+    }
+
+    return "../assets/images/" + nombreArchivo;
+}
 // crud.js
 // Gestión sencilla de usuarios, entrenadores y clases.
 
@@ -359,7 +375,7 @@ function mostrarEntrenadoresDashboard() {
         tarjeta.className = "tarjeta-entrenador";
 
         tarjeta.innerHTML = `
-            <img src="${entrenador.foto}" alt="${entrenador.nombre}">
+            <img src="${normalizarRutaImagen(entrenador.foto)}" alt="${entrenador.nombre}">
             <h3 class="nombre-entrenador">${entrenador.nombre}</h3>
             <p class="especialidad-entrenador">${entrenador.especialidad}</p>
             <p><strong>Experiencia:</strong> ${entrenador.experiencia}</p>
@@ -530,7 +546,7 @@ function mostrarClasesDashboard() {
         tarjeta.className = "tarjeta-entrenador";
 
         tarjeta.innerHTML = `
-            <img src="${clase.foto}" alt="${clase.nombre}">
+            <img src="${normalizarRutaImagen(clase.foto)}" alt="${clase.nombre}">
             <h3 class="nombre-entrenador">${clase.nombre}</h3>
             <p><strong>Nivel:</strong> ${clase.nivel}</p>
             <p><strong>Horario:</strong> ${clase.horario}</p>
