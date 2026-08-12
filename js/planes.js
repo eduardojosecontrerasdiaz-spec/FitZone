@@ -38,14 +38,3 @@ if (botonInscribirme) {
         window.location.href = "registro.html?plan=" + encodeURIComponent(plan);
     });
 }
-
-
-const botonToast = document.querySelector("[data-bs-toggle='toast']");
-const toastFitZone = document.getElementById("toastFitZone");
-
-if (botonToast && toastFitZone) {
-    botonToast.addEventListener("click", function() {
-        const toast = new bootstrap.Toast(toastFitZone);
-        toast.show();
-    });
-}

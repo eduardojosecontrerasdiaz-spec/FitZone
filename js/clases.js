@@ -25,7 +25,20 @@ function mostrarClasesNuevas() {
 
     contenedor.innerHTML = "";
 
-    obtenerClasesGuardadas().forEach(function(clase) {
+    const clases = obtenerClasesGuardadas();
+
+    if (clases.length === 0) {
+        contenedor.innerHTML = `
+            <article class="tarjeta-vacio">
+                <div class="icono-vacio">+</div>
+                <h3>Próximamente</h3>
+                <p>Estamos preparando nuevas clases para que sigas superando tus límites.</p>
+            </article>
+        `;
+        return;
+    }
+
+    clases.forEach(function(clase) {
         const tarjeta = document.createElement("article");
         tarjeta.className = "tarjeta-entrenador";
 

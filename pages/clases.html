@@ -20,7 +20,7 @@
             <li><a href="entrenadores.html" class="nav-link">Entrenadores</a></li>
             <li><a href="clases.html" class="nav-link activo">Clases</a></li>
             <li><a href="contacto.html" class="nav-link">Contacto</a></li>
-            <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+            
         </ul>
         <button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button>
     </nav>
@@ -34,7 +34,7 @@
         </div>
     </section>
 
-    <section class="seccion-entrenadores">
+    <section id="clases-disponibles" class="seccion-entrenadores ancla-seccion">
         <div class="contenedor">
             <h2 class="titulo-seccion">Clases Disponibles</h2>
 
@@ -75,32 +75,13 @@
         </div>
     </section>
 
-    <section class="seccion-entrenadores">
+    <section id="nuevas-clases" class="seccion-entrenadores ancla-seccion">
         <div class="contenedor">
             <h2 class="titulo-seccion">Nuevas Clases</h2>
             <div id="listaClasesNuevas" class="grid-entrenadores"></div>
         </div>
     </section>
 
-    <section class="seccion-faq">
-        <div class="contenedor">
-            <h2 class="titulo-seccion">Beneficios de Entrenar en Grupo</h2>
-            <div class="grid-testimonios">
-                <article class="tarjeta-testimonio text-center">
-                    <h3 class="titulo-tarjeta">Guía Profesional</h3>
-                    <p class="texto-tarjeta">Entrenadores expertos cuidando tu técnica para evitar lesiones.</p>
-                </article>
-                <article class="tarjeta-testimonio text-center">
-                    <h3 class="titulo-tarjeta">Motivación Constante</h3>
-                    <p class="texto-tarjeta">El trabajo en equipo te impulsa a cumplir tus objetivos diarios.</p>
-                </article>
-                <article class="tarjeta-testimonio text-center">
-                    <h3 class="titulo-tarjeta">Variedad de Rutinas</h3>
-                    <p class="texto-tarjeta">Diferentes tipos de clases para mantener el interés y progresar.</p>
-                </article>
-            </div>
-        </div>
-    </section>
 </main>
 
 <footer class="footer">
@@ -117,7 +98,7 @@
                 <li><a href="entrenadores.html">Entrenadores</a></li>
                 <li><a href="clases.html">Clases</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
+                
             </ul>
         </div>
     </div>
@@ -131,5 +112,6 @@
 <script src="../js/validation.js"></script>
 <script src="../js/clases.js"></script>
 
+    <script src="../js/interacciones.js"></script>
 </body>
 </html>

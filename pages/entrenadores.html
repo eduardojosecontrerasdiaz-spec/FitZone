@@ -29,7 +29,7 @@
                 <li><a href="entrenadores.html" class="nav-link activo">Entrenadores</a></li>
                 <li><a href="clases.html" class="nav-link">Clases</a></li>
                 <li><a href="contacto.html" class="nav-link">Contacto</a></li>
-                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                
             </ul>
             <button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button>
         </nav>
@@ -52,9 +52,14 @@
         </section>
 
         <!-- 2. ENTRENADORES (4 Cards) -->
-        <section class="seccion-entrenadores">
+        <section id="equipo" class="seccion-entrenadores ancla-seccion">
             <div class="contenedor">
                 <h2 class="titulo-seccion">Conoce al Equipo</h2>
+
+                <div class="filtro-entrenadores">
+                    <label for="buscarEntrenador" class="etiqueta">Buscar entrenador</label>
+                    <input id="buscarEntrenador" class="campo-texto" type="search" placeholder="Nombre o especialidad..." aria-label="Buscar entrenador">
+                </div>
 
                 <div class="grid-entrenadores">
                     <!-- Entrenador 1 -->
@@ -65,6 +70,13 @@
                         <p class="experiencia-entrenador"><strong>Experiencia:</strong> 6 años</p>
                         <p class="texto-tarjeta">Enfocado en hipertrofia muscular, fuerza máxima y biomecánica aplicada
                             al entrenamiento libre.</p>
+                        <div class="rating-entrenador"><span class="estrellas-entrenador">★★★★★</span> <span class="valor-rating">5.0</span></div>
+                        <div class="votos-entrenador">Vota para ayudar a destacar a este entrenador</div>
+                        <div class="botones-voto" aria-label="Calificar entrenador">
+                            <button type="button" class="boton-voto" data-voto="5">★ 5</button>
+                            <button type="button" class="boton-voto" data-voto="4">★ 4</button>
+                            <button type="button" class="boton-voto" data-voto="3">★ 3</button>
+                        </div>
                         <a href="perfil-entrenador.html?nombre=Carlos%20Gómez" class="boton-principal">Ver Perfil</a>
                     </article>
 
@@ -76,6 +88,13 @@
                         <p class="experiencia-entrenador"><strong>Experiencia:</strong> 8 años</p>
                         <p class="texto-tarjeta">Experta en movilidad articular, corrección postural y control
                             respiratorio para mejorar el bienestar integral.</p>
+                        <div class="rating-entrenador"><span class="estrellas-entrenador">★★★★★</span> <span class="valor-rating">5.0</span></div>
+                        <div class="votos-entrenador">Vota para ayudar a destacar a este entrenador</div>
+                        <div class="botones-voto" aria-label="Calificar entrenador">
+                            <button type="button" class="boton-voto" data-voto="5">★ 5</button>
+                            <button type="button" class="boton-voto" data-voto="4">★ 4</button>
+                            <button type="button" class="boton-voto" data-voto="3">★ 3</button>
+                        </div>
                         <a href="perfil-entrenador.html?nombre=Ana%20Martínez" class="boton-principal">Ver Perfil</a>
                     </article>
 
@@ -87,6 +106,13 @@
                         <p class="experiencia-entrenador"><strong>Experiencia:</strong> 5 años</p>
                         <p class="texto-tarjeta">Especializado en acondicionamiento metabólico, entrenamientos de alta
                             intensidad (HIIT) y resistencia.</p>
+                        <div class="rating-entrenador"><span class="estrellas-entrenador">★★★★★</span> <span class="valor-rating">5.0</span></div>
+                        <div class="votos-entrenador">Vota para ayudar a destacar a este entrenador</div>
+                        <div class="botones-voto" aria-label="Calificar entrenador">
+                            <button type="button" class="boton-voto" data-voto="5">★ 5</button>
+                            <button type="button" class="boton-voto" data-voto="4">★ 4</button>
+                            <button type="button" class="boton-voto" data-voto="3">★ 3</button>
+                        </div>
                         <a href="perfil-entrenador.html?nombre=David%20Silva" class="boton-principal">Ver Perfil</a>
                     </article>
 
@@ -98,6 +124,13 @@
                         <p class="experiencia-entrenador"><strong>Experiencia:</strong> 7 años</p>
                         <p class="texto-tarjeta">Apasionada por la readaptación funcional tras lesiones y la
                             optimización del rendimiento mediante hábitos saludables.</p>
+                        <div class="rating-entrenador"><span class="estrellas-entrenador">★★★★★</span> <span class="valor-rating">5.0</span></div>
+                        <div class="votos-entrenador">Vota para ayudar a destacar a este entrenador</div>
+                        <div class="botones-voto" aria-label="Calificar entrenador">
+                            <button type="button" class="boton-voto" data-voto="5">★ 5</button>
+                            <button type="button" class="boton-voto" data-voto="4">★ 4</button>
+                            <button type="button" class="boton-voto" data-voto="3">★ 3</button>
+                        </div>
                         <a href="perfil-entrenador.html?nombre=Elena%20Ríos" class="boton-principal">Ver Perfil</a>
                     </article>
                 </div>
@@ -105,7 +138,7 @@
         </section>
 
         <!-- 3. CERTIFICACIONES -->
-        <section class="seccion-certificaciones">
+        <section id="certificaciones" class="seccion-certificaciones ancla-seccion">
             <div class="contenedor">
                 <h2 class="titulo-seccion">Certificaciones y Áreas de Especialización</h2>
 
@@ -131,7 +164,7 @@
         </section>
 
         <!-- 4. FILOSOFÍA -->
-        <section class="seccion-filosofia">
+        <section id="filosofia" class="seccion-filosofia ancla-seccion">
             <div class="contenedor">
                 <h2 class="titulo-seccion">Nuestra Filosofía de Entrenamiento</h2>
                 <div class="tarjeta-filosofia">
@@ -173,7 +206,7 @@
                     <li><a href="entrenadores.html">Entrenadores</a></li>
                     <li><a href="clases.html">Clases</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
+                    
                 </ul>
             </div>
 
@@ -193,6 +226,7 @@
     <script src="../js/validation.js"></script>
     <script src="../js/entrenadores.js"></script>
 
+    <script src="../js/interacciones.js"></script>
 </body>
 
 </html>

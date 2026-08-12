@@ -124,3 +124,14 @@
     width:91%;
   }
 }
+
+
+/* Ajustes FitZone V2 */
+.boton-salida{background:transparent;border:0;cursor:pointer;}
+@media (max-width:760px){.plan-destacado{transform:none}.plan-destacado:hover{transform:translateY(-6px)}.hero-imagen{max-height:360px}.servicios-carrusel .tarjeta-servicio{min-width:82vw}}
+
+
+/* FITZONE V2 responsive */
+@media(max-width:900px){.nav-menu{gap:2px}.nav-link{padding:9px 8px;font-size:.86rem}.grid-servicios{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-texto{padding-top:52px}.hero-titulo{font-size:clamp(2.25rem,8vw,4rem)!important}}
+@media(max-width:680px){section{padding:58px 0}.navbar{min-height:68px}.nav-menu{display:none}.grid-servicios,.grid-planes,.grid-entrenadores,.grid-testimonios{grid-template-columns:1fr}.hero-titulo{font-size:clamp(2rem,12vw,3.3rem)!important;letter-spacing:-.05em!important}.hero-imagen{width:100%}.imagen-redondeada{height:320px;border-width:4px}.hero-imagen::before{width:65px;height:65px;left:-8px;top:-8px}.hero-imagen::after{font-size:.56rem;padding:7px 10px;max-width:90%;overflow:hidden;text-overflow:ellipsis}.plan-destacado{transform:none}.plan-destacado:hover{transform:translateY(-7px) scale(1.01)}.nav-ayuda{position:fixed;left:12px;right:12px;top:68px;min-width:0}.tabla-admin{min-width:720px}.contenedor-tabla{overflow-x:auto}.boton-principal,.boton-secundario,.boton-plan{width:100%}.hero-botones{display:grid;gap:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}

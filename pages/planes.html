@@ -32,7 +32,7 @@
                     <li><a href="entrenadores.html" class="nav-link">Entrenadores</a></li>
                     <li><a href="clases.html" class="nav-link">Clases</a></li>
                     <li><a href="contacto.html" class="nav-link">Contacto</a></li>
-                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    
                 </ul>
             </div>
             <button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button>
@@ -50,7 +50,7 @@
             </div>
         </section>
 
-        <section class="seccion-planes">
+        <section id="planes-lista" class="seccion-planes ancla-seccion">
             <div class="contenedor">
                 <div class="row g-4">
 
@@ -107,8 +107,8 @@
             </div>
         </section>
 
-        <!-- COMPONENTES BOOTSTRAP: CAROUSEL, TOAST Y OFFCANVAS -->
-        <section class="py-5 bg-light">
+        <!-- COMPONENTES BOOTSTRAP: CAROUSEL Y OFFCANVAS -->
+        <section id="conoce-fitzone" class="py-5 bg-light ancla-seccion">
             <div class="container">
                 <h2 class="text-center fw-bold mb-4">Conoce FitZone</h2>
 
@@ -142,11 +142,8 @@
                 </div>
 
                 <div class="text-center">
-                    <button class="btn btn-outline-primary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBeneficios">
-                        Ver beneficios rápidos
-                    </button>
-                    <button type="button" class="btn btn-success" data-bs-toggle="toast" data-bs-target="#toastFitZone">
-                        Mostrar aviso
+                    <button class="boton-secundario" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBeneficios">
+                        Ver beneficios FitZone
                     </button>
                 </div>
             </div>
@@ -164,17 +161,7 @@
             </div>
         </div>
 
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div id="toastFitZone" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <strong class="me-auto">FitZone</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                </div>
-                <div class="toast-body">Puedes elegir el plan que mejor se adapte a tus objetivos.</div>
-            </div>
-        </div>
-
-        <section class="seccion-faq">
+        <section id="faq" class="seccion-faq ancla-seccion">
             <div class="contenedor" style="max-width:800px;">
                 <h2 class="titulo-seccion">Preguntas Frecuentes</h2>
 
@@ -265,7 +252,7 @@
                     <li><a href="entrenadores.html">Entrenadores</a></li>
                     <li><a href="clases.html">Clases</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -282,5 +269,6 @@
     <script src="../js/validation.js"></script>
     <script src="../js/planes.js"></script>
 
+    <script src="../js/interacciones.js"></script>
 </body>
 </html>

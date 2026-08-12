@@ -41,7 +41,20 @@ if (formularioRegistro) {
         usuarios.push(usuario);
         guardarLista("usuarios", usuarios);
 
-        alert("Registro completado. El pago fue registrado de forma simulada. ¡Bienvenido a FitZone!");
-        window.location.href = "dashboard.html";
+        const overlay = document.createElement("div");
+        overlay.className = "confirmacion-pago-overlay";
+        overlay.innerHTML = `
+            <div class="confirmacion-pago" role="dialog" aria-modal="true" aria-labelledby="tituloPagoExitoso">
+                <h2 id="tituloPagoExitoso">Pago exitoso</h2>
+                <p>Tu membresía fue registrada correctamente. ¡Bienvenido a FitZone!</p>
+                <button type="button" class="boton-principal" id="aceptarPagoExitoso">Aceptar</button>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        document.getElementById("aceptarPagoExitoso").addEventListener("click", function () {
+            window.location.href = "../index.html";
+        });
     });
 }

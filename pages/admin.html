@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitZone - Acceso Administrador</title>
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+<header class="header"><nav class="navbar"><a href="../index.html" class="logo">Fit<span class="logo-verde">Zone</span></a><button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button></nav></header>
+<main>
+<section class="hero-section text-center"><div class="contenedor"><h1 class="hero-titulo">ENTRA A TU CENTRO DE CONTROL</h1><p class="hero-descripcion">Acceso privado del administrador de FitZone.</p></div></section>
+<section class="seccion-contacto"><div class="contenedor"><form id="formAdmin" class="formulario-contacto tarjeta-formulario login-admin"><div class="grupo-campo"><label for="adminUsuario" class="etiqueta">Usuario</label><input id="adminUsuario" class="campo-texto" required autocomplete="username"></div><div class="grupo-campo"><label for="adminClave" class="etiqueta">Contraseña</label><input id="adminClave" type="password" class="campo-texto" required autocomplete="current-password"></div><button class="boton-principal boton-bloque" type="submit">Entrar al Dashboard</button><p id="mensajeAdmin" class="texto-tarjeta" role="status"></p></form></div></section>
+</main>
+<script src="../js/darkmode.js"></script>
+<script>document.getElementById("formAdmin").addEventListener("submit",function(e){e.preventDefault();const u=document.getElementById("adminUsuario").value.trim();const c=document.getElementById("adminClave").value;const m=document.getElementById("mensajeAdmin");if(u==="admin"&&c==="fitzone123"){sessionStorage.setItem("fitzoneAdmin","si");window.location.href="dashboard.html";}else{m.textContent="Usuario o contraseña incorrectos.";m.style.color="#b42318";}});</script>
+</body></html>

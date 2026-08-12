@@ -1,9 +1,12 @@
 // api.js
-// Consulta una API pública y muestra los datos en la página.
+// Consulta una API pública y muestra los datos en tarjetas compactas.
 
 function cargarUsuariosApi() {
     fetch("https://jsonplaceholder.typicode.com/users")
         .then(function(respuesta) {
+            if (!respuesta.ok) {
+                throw new Error("No se pudo consultar la API");
+            }
             return respuesta.json();
         })
         .then(function(usuarios) {
@@ -16,15 +19,16 @@ function cargarUsuariosApi() {
             contenedor.innerHTML = "";
 
             usuarios.slice(0, 6).forEach(function(usuario) {
-                const tarjeta = document.createElement("div");
-                tarjeta.className = "bg-white p-4 rounded-xl shadow";
-
+                const tarjeta = document.createElement("article");
+                tarjeta.className = "tarjeta-api-usuario";
                 tarjeta.innerHTML = `
-                    <h3 class="font-bold text-blue-900">${usuario.name}</h3>
-                    <p class="text-gray-600">${usuario.email}</p>
-                    <p class="text-gray-500">${usuario.company.name}</p>
+                    <div class="avatar-api">${usuario.name.charAt(0)}</div>
+                    <div class="datos-api">
+                        <h3>${usuario.name}</h3>
+                        <p>${usuario.email}</p>
+                        <span>${usuario.company.name}</span>
+                    </div>
                 `;
-
                 contenedor.appendChild(tarjeta);
             });
         })
@@ -32,7 +36,7 @@ function cargarUsuariosApi() {
             const contenedor = document.getElementById("listaUsuariosApi");
 
             if (contenedor) {
-                contenedor.innerHTML = "<p class='text-red-600'>No se pudieron cargar los datos.</p>";
+                contenedor.innerHTML = '<p class="mensaje-api-error">No se pudieron cargar los usuarios de la API.</p>';
             }
 
             console.log("No se pudo consultar la API:", error);

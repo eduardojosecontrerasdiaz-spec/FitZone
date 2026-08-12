@@ -29,7 +29,7 @@
                 <li><a href="pages/entrenadores.html" class="nav-link">Entrenadores</a></li>
                 <li><a href="pages/clases.html" class="nav-link">Clases</a></li>
                 <li><a href="pages/contacto.html" class="nav-link">Contacto</a></li>
-                <li><a href="pages/dashboard.html" class="nav-link">Dashboard</a></li>
+                
             </ul>
             <button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button>
         </nav>
@@ -44,59 +44,80 @@
         <section class="hero-section">
             <div class="contenedor-hero">
                 <div class="hero-texto">
-                    <h1 class="hero-titulo">Transforma tu cuerpo, supera tus límites</h1>
+                    <h1 class="hero-titulo">FORJA TU FUERZA.<br><span class="acento-hero">DOMINA TU MENTE.</span><br>CONVIÉRTETE EN TU PROPIA LEYENDA.</h1>
                     <p class="hero-descripcion">
                         El mejor espacio, equipamiento de alto nivel y entrenadores calificados para ayudarte a lograr
                         tus metas.
                     </p>
-                    <a href="pages/planes.html" class="boton-principal">Consultar Planes</a>
+                    <div class="hero-botones">
+                        <a href="pages/planes.html" class="boton-principal">VER PLANES</a>
+                        <a href="pages/entrenadores.html" class="boton-secundario hero-boton-secundario">CONOCE A NUESTROS ENTRENADORES</a>
+                    </div>
                 </div>
                 <div class="hero-imagen">
-                    <img src="https://static.vecteezy.com/system/resources/thumbnails/022/995/026/small_2x/interior-of-a-modern-gym-with-fitness-equipment-generative-ai-photo.jpg"
+                    <img src="assets/images/crossFit.png"
                         alt="Entrenamiento en FitZone" class="imagen-redondeada">
                 </div>
             </div>
         </section>
 
         <!-- 2. SERVICIOS (4 Cards) -->
-        <section class="seccion-servicios">
+        <section id="servicios" class="seccion-servicios ancla-seccion">
             <div class="contenedor">
                 <h2 class="titulo-seccion">Nuestros Servicios</h2>
 
-                <div class="grid-servicios">
-                    <article class="tarjeta-servicio">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/002/992/447/small_2x/dumbbells-placed-on-shelves-in-the-gym-for-exercise-photo.jpg"
+                <div class="servicios-carrusel">
+                    <article class="tarjeta-servicio" tabindex="0" data-titulo="Zona de Pesas" data-descripcion="Entrenamiento de fuerza con pesas libres y máquinas para desarrollar fuerza, hipertrofia y técnica segura.">
+                        <img src="assets/images/sinss.png"
                             alt="Zona de Pesas FitZone" class="imagen-tarjeta">
                         <h3 class="titulo-tarjeta">Zona de Pesas</h3>
                         <p class="texto-tarjeta">Equipamiento completo para hipertrofia y trabajo de fuerza libre.</p>
                     </article>
 
-                    <article class="tarjeta-servicio">
-                        <img src="https://static.vecteezy.com/system/resources/thumbnails/024/653/947/small/men-and-women-in-gym-cycling-together-happily-generated-by-ai-photo.jpg"
+                    <article class="tarjeta-servicio" tabindex="0" data-titulo="Cardio & Resistencia" data-descripcion="Trabajo cardiovascular con caminadoras, bicicletas y rutinas progresivas para mejorar resistencia y rendimiento.">
+                        <img src="assets/images/Spinning.png"
                             alt="Zona Cardiovascular FitZone" class="imagen-tarjeta">
                         <h3 class="titulo-tarjeta">Cardio & Resistencia</h3>
                         <p class="texto-tarjeta">Cintas, caminadoras y bicicletas de última generación.</p>
                     </article>
 
-                    <article class="tarjeta-servicio">
-                        <img src="https://media.istockphoto.com/id/1149242178/es/foto/fitness-mujer-en-cuestas-con-campana-de-tetera.jpg?s=1024x1024&w=is&k=20&c=GBCTiEK_4gUZBaegI7ibMlxZfgnjY3ItijrRG3qggo8="
+                    <article class="tarjeta-servicio" tabindex="0" data-titulo="Clases Grupales" data-descripcion="Sesiones dirigidas de Spinning, Yoga, Pilates y CrossFit para entrenar acompañado y mantener la motivación.">
+                        <img src="assets/images/yoga.png"
                             alt="Clases Grupales" class="imagen-tarjeta">
                         <h3 class="titulo-tarjeta">Clases Grupales</h3>
                         <p class="texto-tarjeta">Spinning, Yoga, Pilates y CrossFit dirigidos por profesionales.</p>
                     </article>
 
-                    <article class="tarjeta-servicio">
-                        <img src="https://media.istockphoto.com/id/2225841005/es/foto/entrenadores-personales-explicando-el-entrenamiento-funcional-a-los-atletas.jpg?s=1024x1024&w=is&k=20&c=90ng-is_PwhAGakL-b52spHGxkJ6HxozyqypJD0yU-Y="
+                    <article class="tarjeta-servicio" tabindex="0" data-titulo="Asesoría Personal" data-descripcion="Acompañamiento individual con objetivos, rutinas y recomendaciones adaptadas al progreso de cada persona.">
+                        <img src="assets/images/crossFit.png"
                             alt="Entrenamiento Personal" class="imagen-tarjeta">
                         <h3 class="titulo-tarjeta">Asesoría Personal</h3>
                         <p class="texto-tarjeta">Planes y rutinas adaptadas 100% a tus necesidades específicas.</p>
                     </article>
+
+
+
+
+                </div>
+                <div class="controles-servicios" aria-label="Controles de servicios">
+                    <button type="button" id="servicioAnterior" class="control-servicio" aria-label="Ver servicio anterior">←</button>
+                    <button type="button" id="servicioSiguiente" class="control-servicio" aria-label="Ver siguiente servicio">→</button>
                 </div>
             </div>
         </section>
 
+        <!-- Ventana de detalle de servicios -->
+        <div id="modalServicio" class="modal-servicio" role="dialog" aria-modal="true" aria-labelledby="modalServicioTitulo">
+            <div class="modal-servicio-contenido">
+                <button type="button" class="cerrar-modal" data-cerrar-modal aria-label="Cerrar">×</button>
+                <h2 id="modalServicioTitulo" class="titulo-seccion">Servicio FitZone</h2>
+                <p id="modalServicioTexto" class="texto-tarjeta"></p>
+                <p class="texto-tarjeta"><strong>Consejo:</strong> elige una rutina progresiva y solicita orientación a nuestros entrenadores para aprovechar mejor el servicio.</p>
+            </div>
+        </div>
+
         <!-- 3. PLANES DESTACADOS (3 Cards) -->
-        <section class="seccion-planes">
+        <section id="planes" class="seccion-planes ancla-seccion">
             <div class="contenedor">
                 <h2 class="titulo-seccion">Planes Destacados</h2>
 
@@ -141,7 +162,7 @@
         </section>
 
         <!-- 4. ENTRENADORES DESTACADOS (3 Cards) -->
-        <section class="seccion-entrenadores">
+        <section id="entrenadores" class="seccion-entrenadores ancla-seccion">
             <div class="contenedor">
                 <h2 class="titulo-seccion">Entrenadores Destacados</h2>
 
@@ -174,7 +195,7 @@
         </section>
 
         <!-- 5. TESTIMONIOS (3 testimonios) -->
-        <section class="seccion-testimonios">
+        <section id="testimonios" class="seccion-testimonios ancla-seccion">
             <div class="contenedor">
                 <h2 class="titulo-seccion">Lo que dicen nuestros miembros</h2>
 
@@ -196,6 +217,33 @@
                             a corregir tu técnica para prevenir lesiones."</p>
                         <h3 class="usuario-testimonio">- Camilo Torres</h3>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5.5 VALORACIONES DE ENTRENADORES -->
+        <section id="valoraciones" class="seccion-testimonios ancla-seccion">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Opiniones de nuestra comunidad</h2>
+                <p class="hero-descripcion texto-centro">Conoce opiniones y valora al entrenador que te acompaña.</p>
+                <div id="listaValoraciones" class="grid-testimonios"></div>
+                <div class="tarjeta-formulario formulario-valoracion">
+                    <h3 class="titulo-tarjeta">Deja tu valoración</h3>
+                    <div class="grid-formulario-valoracion">
+                        <input id="valoracionNombre" class="campo-texto" type="text" placeholder="Tu nombre" aria-label="Tu nombre">
+                        <select id="valoracionEntrenador" class="campo-select" aria-label="Entrenador a valorar">
+                            <option value="Carlos Gómez">Carlos Gómez</option>
+                            <option value="Ana Martínez">Ana Martínez</option>
+                            <option value="David Silva">David Silva</option>
+                            <option value="Elena Ríos">Elena Ríos</option>
+                        </select>
+                        <select id="valoracionEstrellas" class="campo-select" aria-label="Calificación">
+                            <option value="5">★★★★★ 5</option><option value="4">★★★★☆ 4</option><option value="3">★★★☆☆ 3</option><option value="2">★★☆☆☆ 2</option><option value="1">★☆☆☆☆ 1</option>
+                        </select>
+                    </div>
+                    <textarea id="valoracionComentario" class="campo-textarea" rows="4" placeholder="Escribe tu experiencia..."></textarea>
+                    <button id="botonValoracion" type="button" class="boton-principal">Publicar valoración</button>
+                    <p id="mensajeValoracion" class="texto-tarjeta" role="status"></p>
                 </div>
             </div>
         </section>
@@ -267,7 +315,6 @@
                     <li><a href="pages/entrenadores.html">Entrenadores</a></li>
                     <li><a href="pages/clases.html">Clases</a></li>
                     <li><a href="pages/contacto.html">Contacto</a></li>
-                    <li><a href="pages/dashboard.html">Dashboard</a></li>
                 </ul>
             </div>
 
@@ -282,7 +329,9 @@
     <script src="js/app.js"></script>
     <script src="js/darkmode.js"></script>
     <script src="js/storage.js"></script>
+    <script src="js/servicios.js"></script>
     <script src="js/validation.js"></script>
+    <script src="js/interacciones.js"></script>
 
 </body>
 

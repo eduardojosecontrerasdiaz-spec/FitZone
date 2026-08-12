@@ -1558,3 +1558,980 @@ body[style*="#111827"] .btn-close{
   background:var(--green-500);
   transition:width .4s ease;
 }
+
+/* ==========================================================
+   FITZONE V2 - CAPA VISUAL
+   Cambios sencillos: color, hover, animaciones y accesibilidad.
+   ========================================================== */
+:root{color-scheme:light;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg-primary);color:var(--text-primary);}
+.header{background:rgba(4,17,31,.96)!important;border-bottom:1px solid rgba(48,227,111,.28);box-shadow:0 8px 28px rgba(4,17,31,.18);}
+.logo{letter-spacing:-.03em;}
+.logo-verde{color:var(--green-500)!important;}
+.nav-link{color:#eef7ff!important;position:relative;transition:var(--transition);}
+.nav-link:hover,.nav-link:focus-visible{color:var(--green-500)!important;transform:translateY(-2px);}
+.nav-link.activo{color:var(--green-500)!important;}
+.nav-link.activo::after{background:var(--green-500)!important;height:3px!important;border-radius:20px;}
+.nav-link:focus-visible,.boton-principal:focus-visible,.boton-secundario:focus-visible,.boton-modo:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid rgba(48,227,111,.55);outline-offset:3px;}
+.hero-section{background:linear-gradient(135deg,#04111f 0%,#082f52 55%,#0759a8 100%)!important;position:relative;overflow:hidden;}
+.hero-section::before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(48,227,111,.13);right:-100px;top:-150px;filter:blur(8px);}
+.hero-titulo,.hero-descripcion{position:relative;z-index:1;}
+.hero-titulo{letter-spacing:-.035em;text-transform:uppercase;text-shadow:0 8px 25px rgba(0,0,0,.28);}
+.hero-imagen{max-height:480px;overflow:hidden;border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,.32);}
+.hero-imagen img{height:100%;width:100%;object-fit:cover;transition:transform .5s ease;}
+.hero-imagen:hover img{transform:scale(1.035);}
+.boton-principal{background:linear-gradient(135deg,var(--green-500),#18b85a)!important;color:#04111f!important;border:none!important;box-shadow:0 10px 24px rgba(48,227,111,.20);font-weight:800;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;}
+.boton-principal:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(48,227,111,.30);filter:saturate(1.08);}
+.boton-secundario{border-color:var(--green-500)!important;color:var(--green-700)!important;transition:var(--transition);}
+.boton-secundario:hover{background:var(--green-500)!important;color:#04111f!important;transform:translateY(-2px);}
+.titulo-seccion{color:var(--blue-800)!important;font-weight:900;letter-spacing:-.025em;}
+.seccion-servicios,.seccion-entrenadores,.seccion-testimonios{background:#f3f6f8;}
+.seccion-planes{background:linear-gradient(180deg,#eaf4ff 0%,#f3f6f8 100%);}
+.tarjeta-servicio,.tarjeta-plan,.tarjeta-entrenador,.tarjeta-testimonio{border:1px solid rgba(6,27,49,.08);box-shadow:var(--shadow-card);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;overflow:hidden;position:relative;}
+.tarjeta-servicio:hover,.tarjeta-plan:hover,.tarjeta-entrenador:hover,.tarjeta-testimonio:hover{transform:translateY(-8px);box-shadow:var(--shadow-hover);border-color:rgba(48,227,111,.55);}
+.tarjeta-servicio .imagen-tarjeta,.tarjeta-entrenador img{transition:transform .45s ease;}
+.tarjeta-servicio:hover .imagen-tarjeta,.tarjeta-entrenador:hover img{transform:scale(1.07);}
+.tarjeta-servicio{cursor:pointer;}
+.tarjeta-servicio::after,.tarjeta-entrenador::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,var(--green-500),var(--blue-600));transform:scaleX(0);transform-origin:left;transition:transform .25s ease;}
+.tarjeta-servicio:hover::after,.tarjeta-entrenador:hover::after{transform:scaleX(1);}
+.plan-destacado{transform:translateY(-8px) scale(1.025);border:2px solid var(--green-500)!important;box-shadow:0 25px 55px rgba(48,227,111,.22)!important;}
+.plan-destacado::before{content:"★ MÁS POPULAR";position:absolute;top:14px;right:14px;background:var(--green-500);color:#04111f;padding:7px 11px;border-radius:999px;font-size:.72rem;font-weight:900;letter-spacing:.05em;}
+.plan-destacado:hover{transform:translateY(-12px) scale(1.035);}
+.imagen-tarjeta,.tarjeta-entrenador img{overflow:hidden;}
+.modal-servicio{position:fixed;inset:0;background:rgba(2,10,18,.78);display:flex;align-items:center;justify-content:center;padding:20px;z-index:9999;opacity:0;visibility:hidden;transition:.2s ease;backdrop-filter:blur(5px);}
+.modal-servicio.abierto{opacity:1;visibility:visible;}
+.modal-servicio-contenido{width:min(650px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:0 30px 80px rgba(0,0,0,.35);position:relative;transform:translateY(20px);transition:.25s ease;}
+.modal-servicio.abierto .modal-servicio-contenido{transform:translateY(0);}
+.cerrar-modal{position:absolute;right:14px;top:12px;border:0;background:#eef3f7;border-radius:50%;width:38px;height:38px;font-size:1.2rem;cursor:pointer;}
+.servicios-carrusel{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;padding:10px 4px 24px;scroll-snap-type:x mandatory;}
+.servicios-carrusel .tarjeta-servicio{min-width:min(320px,84vw);scroll-snap-align:start;}
+.controles-servicios{display:flex;justify-content:center;gap:12px;margin-top:8px;}
+.control-servicio{border:0;background:#061b31;color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.2rem;transition:.2s ease;}
+.control-servicio:hover{background:var(--green-500);color:#04111f;transform:scale(1.08);}
+.filtro-entrenadores{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;margin:0 auto 28px;}
+.filtro-entrenadores input{max-width:420px;}
+.tarjeta-entrenador.destacado{border:2px solid var(--green-500)!important;box-shadow:0 22px 55px rgba(48,227,111,.20)!important;}
+.tarjeta-entrenador.destacado::before{content:"★ ENTRENADOR DESTACADO";position:absolute;top:12px;left:12px;z-index:2;background:var(--green-500);color:#04111f;padding:7px 10px;border-radius:999px;font-size:.7rem;font-weight:900;}
+.tarjeta-entrenador.destacado:nth-child(2)::before{content:"★ TOP 2";}
+.rating-entrenador{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0;font-weight:800;color:#0b7d3b;}
+.votos-entrenador{font-size:.82rem;color:var(--text-secondary);font-weight:600;}
+.botones-voto{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;margin:8px 0 14px;}
+.boton-voto{border:1px solid #b9c9d7;background:#fff;color:#526579;border-radius:8px;padding:5px 8px;cursor:pointer;font-size:.78rem;transition:.2s ease;}
+.boton-voto:hover{border-color:var(--green-500);color:#0b7d3b;transform:translateY(-1px);}
+.nav-ayuda{position:absolute;top:100%;left:0;background:#061b31;border:1px solid rgba(48,227,111,.3);border-radius:0 0 12px 12px;padding:10px 14px;min-width:180px;opacity:0;visibility:hidden;transform:translateY(-5px);transition:.18s ease;box-shadow:0 15px 30px rgba(0,0,0,.25);z-index:20;}
+.nav-item-con-ayuda{position:relative;}
+.nav-item-con-ayuda:hover .nav-ayuda,.nav-item-con-ayuda:focus-within .nav-ayuda{opacity:1;visibility:visible;transform:translateY(0);}
+.nav-ayuda span{display:block;color:#e9f4ff;font-size:.78rem;padding:3px 0;white-space:nowrap;}
+.boton-modo{border:1px solid rgba(48,227,111,.5)!important;background:#0b253c!important;color:#fff!important;border-radius:50%;width:42px;height:42px;cursor:pointer;transition:.2s ease;}
+.boton-modo:hover{transform:rotate(12deg) scale(1.08);background:var(--green-500)!important;color:#04111f!important;}
+.reveal{animation:fitzoneReveal .55s ease both;}
+@keyframes fitzoneReveal{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+/* ======================================================================
+   FITZONE — AJUSTE VISUAL FINAL
+   Diseño claro, deportivo y energético. El oscuro es una alternativa,
+   no la identidad principal.
+   ====================================================================== */
+
+body{
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  transition:background-color .25s ease,color .25s ease;
+}
+
+h1,h2,h3,h4,h5,h6,.titulo-tarjeta,.nombre-plan,.nombre-entrenador,.titulo-sede,.titulo-footer,.etiqueta{
+  color:var(--heading);
+}
+
+.header{
+  background:rgba(255,255,255,.92)!important;
+  border-bottom:1px solid rgba(7,104,197,.14)!important;
+  box-shadow:0 7px 24px rgba(7,59,112,.08)!important;
+}
+
+.nav-link{color:#284d70!important;}
+.nav-link:hover,.nav-link:focus-visible,.nav-link.activo{color:var(--blue-700)!important;background:var(--bg-soft)!important;}
+.nav-link.activo::after{background:var(--green-500)!important;}
+
+.hero-section:not(.text-center){
+  background:
+    radial-gradient(circle at 12% 15%,rgba(57,238,120,.24),transparent 25%),
+    radial-gradient(circle at 88% 18%,rgba(32,169,255,.24),transparent 28%),
+    linear-gradient(135deg,#eefaff 0%,#ffffff 55%,#eafff1 100%)!important;
+}
+
+.hero-titulo{
+  color:var(--blue-950)!important;
+  text-shadow:none!important;
+  font-size:clamp(2.15rem,5vw,4.3rem);
+}
+
+.hero-descripcion{color:var(--text-secondary)!important;}
+.hero-botones{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;}
+.hero-boton-secundario{padding:12px 18px;border:2px solid var(--blue-700)!important;color:var(--blue-700)!important;background:#fff!important;border-radius:10px;}
+.hero-boton-secundario:hover{background:var(--blue-700)!important;color:#fff!important;}
+
+.hero-imagen{
+  max-height:390px!important;
+  border:5px solid #fff;
+  box-shadow:0 24px 55px rgba(7,59,112,.16)!important;
+}
+.hero-imagen::before{opacity:.55;}
+
+.seccion-servicios,.seccion-entrenadores,.seccion-ubicacion{background:var(--bg-secondary)!important;}
+.seccion-planes{background:linear-gradient(180deg,var(--bg-soft),var(--bg-primary))!important;}
+.seccion-testimonios,.seccion-metricas{background:var(--bg-primary)!important;}
+.seccion-contacto{background:linear-gradient(180deg,var(--bg-soft),var(--bg-secondary))!important;}
+.seccion-faq,.seccion-certificaciones,.seccion-filosofia,.seccion-gestion{background:var(--bg-secondary)!important;}
+
+.tarjeta-servicio,.tarjeta-plan,.tarjeta-entrenador,.tarjeta-testimonio,.tarjeta-ubicacion,.tarjeta-info-contacto,.tarjeta-formulario,.tarjeta-faq,.tarjeta-metrica,.panel-acciones,.tarjeta-certificacion,.tarjeta-filosofia,.formulario-contacto{
+  background:var(--bg-secondary)!important;
+  color:var(--text-primary);
+  border-color:var(--border)!important;
+}
+
+.tarjeta-servicio,.tarjeta-plan,.tarjeta-entrenador,.tarjeta-testimonio{
+  box-shadow:var(--shadow-card);
+}
+
+.tarjeta-servicio:hover,.tarjeta-plan:hover,.tarjeta-entrenador:hover,.tarjeta-testimonio:hover{
+  border-color:rgba(57,238,120,.7)!important;
+  box-shadow:var(--shadow-hover),0 0 18px rgba(57,238,120,.08);
+}
+
+/* Brillo LED en tarjetas destacadas */
+.plan-destacado,.tarjeta-entrenador.destacado{
+  border-color:var(--green-500)!important;
+  box-shadow:
+    0 0 8px rgba(57,238,120,.55),
+    0 0 24px rgba(57,238,120,.25),
+    0 18px 45px rgba(7,59,112,.16)!important;
+}
+
+.plan-destacado::after,.tarjeta-entrenador.destacado::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+  box-shadow:inset 0 0 20px rgba(57,238,120,.13);
+}
+
+.plan-destacado::before{
+  content:"★ MÁS POPULAR"!important;
+  background:linear-gradient(135deg,var(--green-500),#7affaa)!important;
+  box-shadow:0 0 15px rgba(57,238,120,.55);
+}
+
+.tarjeta-entrenador.destacado:nth-child(2)::before{content:"★ TOP 2"!important;}
+
+.tarjeta-entrenador.destacado:hover,.plan-destacado:hover{
+  box-shadow:
+    0 0 12px rgba(57,238,120,.75),
+    0 0 34px rgba(57,238,120,.34),
+    0 25px 55px rgba(7,59,112,.18)!important;
+}
+
+.imagen-tarjeta,.tarjeta-entrenador img{transition:transform .45s ease,filter .35s ease;}
+.tarjeta-servicio:hover .imagen-tarjeta,.tarjeta-entrenador:hover img{transform:scale(1.06);filter:saturate(1.08);}
+
+.texto-tarjeta,.especialidad-entrenador,.experiencia-entrenador,.lista-beneficios,.lista-info,.tarjeta-ubicacion p,.tarjeta-faq p,.comentario-testimonio{color:var(--text-secondary)!important;}
+
+.campo-texto,.formulario-entrenador-caja select,.filtro-entrenadores input,.boton-voto{
+  background:var(--bg-secondary)!important;
+  color:var(--text-primary)!important;
+  border-color:var(--border-strong)!important;
+}
+.campo-texto:focus{background:var(--bg-secondary)!important;}
+
+/* Menús desplegables: espacio de seguridad para que no desaparezcan al cruzar el mouse. */
+.nav-item-con-ayuda{padding-bottom:10px;margin-bottom:-10px;}
+.nav-ayuda{top:calc(100% - 1px);background:var(--surface-dark)!important;border:1px solid rgba(57,238,120,.45)!important;box-shadow:0 16px 32px rgba(0,0,0,.22)!important;}
+.nav-ayuda span{color:#effff5!important;}
+.nav-item-con-ayuda:hover .nav-ayuda,.nav-item-con-ayuda:focus-within .nav-ayuda{transform:translateY(0);}
+
+.boton-modo{
+  background:var(--bg-secondary)!important;
+  color:var(--blue-700)!important;
+  border:2px solid var(--green-500)!important;
+  box-shadow:0 4px 14px rgba(7,59,112,.10);
+}
+.boton-modo:hover{background:var(--green-500)!important;color:var(--blue-950)!important;}
+
+.footer{background:#08233c!important;}
+.lista-footer a{color:#e8f3fb!important;}
+
+/* Tema oscuro: se activa desde el botón y afecta toda la interfaz de la pestaña. */
+html[data-theme="dark"] body{background:var(--bg-primary);color:var(--text-primary);}
+html[data-theme="dark"] .header{background:rgba(10,20,29,.96)!important;border-bottom-color:rgba(57,238,120,.28)!important;}
+html[data-theme="dark"] .nav-link{color:#eaf5fc!important;}
+html[data-theme="dark"] .nav-link:hover,html[data-theme="dark"] .nav-link:focus-visible,html[data-theme="dark"] .nav-link.activo{color:var(--green-500)!important;background:#1b3448!important;}
+html[data-theme="dark"] .hero-section:not(.text-center){background:linear-gradient(135deg,#142c3d 0%,#183f5d 55%,#164c36 100%)!important;}
+html[data-theme="dark"] .hero-titulo,html[data-theme="dark"] .titulo-seccion,html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] h4,html[data-theme="dark"] h5,html[data-theme="dark"] h6{color:#ffffff!important;}
+html[data-theme="dark"] .hero-descripcion,html[data-theme="dark"] .texto-tarjeta,html[data-theme="dark"] p,html[data-theme="dark"] li,html[data-theme="dark"] .especialidad-entrenador,html[data-theme="dark"] .experiencia-entrenador{color:var(--text-secondary)!important;}
+html[data-theme="dark"] .seccion-servicios,html[data-theme="dark"] .seccion-entrenadores,html[data-theme="dark"] .seccion-ubicacion,html[data-theme="dark"] .seccion-faq,html[data-theme="dark"] .seccion-certificaciones,html[data-theme="dark"] .seccion-filosofia,html[data-theme="dark"] .seccion-gestion{background:#101b25!important;}
+html[data-theme="dark"] .seccion-planes,html[data-theme="dark"] .seccion-testimonios,html[data-theme="dark"] .seccion-metricas{background:#0d1720!important;}
+html[data-theme="dark"] .seccion-contacto{background:#101b25!important;}
+html[data-theme="dark"] .tarjeta-servicio,html[data-theme="dark"] .tarjeta-plan,html[data-theme="dark"] .tarjeta-entrenador,html[data-theme="dark"] .tarjeta-testimonio,html[data-theme="dark"] .tarjeta-ubicacion,html[data-theme="dark"] .tarjeta-info-contacto,html[data-theme="dark"] .tarjeta-formulario,html[data-theme="dark"] .tarjeta-faq,html[data-theme="dark"] .tarjeta-metrica,html[data-theme="dark"] .panel-acciones,html[data-theme="dark"] .tarjeta-certificacion,html[data-theme="dark"] .tarjeta-filosofia,html[data-theme="dark"] .formulario-contacto,html[data-theme="dark"] .detalle-clase-card{background:#182734!important;color:#f3f8fc!important;border-color:#2c4253!important;}
+html[data-theme="dark"] .hero-boton-secundario{background:#182734!important;color:#8acbff!important;border-color:#39ee78!important;}
+html[data-theme="dark"] .hero-boton-secundario:hover{background:#39ee78!important;color:#07131f!important;}
+html[data-theme="dark"] .modal-servicio-contenido{background:#182734!important;color:#f3f8fc!important;}
+html[data-theme="dark"] .cerrar-modal{background:#243b4d;color:#fff;}
+html[data-theme="dark"] .campo-texto,html[data-theme="dark"] .formulario-entrenador-caja select,html[data-theme="dark"] .filtro-entrenadores input,html[data-theme="dark"] .boton-voto{background:#101b25!important;color:#f3f8fc!important;border-color:#456174!important;}
+html[data-theme="dark"] .tabla-admin th,html[data-theme="dark"] .tabla-admin td{border-color:#2c4253!important;color:#eaf5fc;}
+html[data-theme="dark"] .boton-modo{background:#182734!important;color:#8acbff!important;}
+html[data-theme="dark"] .footer{background:#07131f!important;}
+
+@media (max-width:768px){
+  .hero-botones{flex-direction:column;}
+  .hero-botones a{width:min(100%,360px);text-align:center;}
+}
+
+
+/* ================================================================
+   FITZONE V2 - CAPA VISUAL DEFINITIVA
+   ================================================================ */
+html{scroll-behavior:smooth}*{box-sizing:border-box}
+body{background:var(--color-bg)!important;color:var(--color-text)!important;transition:background-color .3s ease,color .3s ease}
+body::selection{background:var(--color-accent);color:#151515}
+h1,h2,h3,h4,h5,h6,.titulo-seccion,.titulo-tarjeta,.nombre-plan,.nombre-entrenador{color:var(--color-text)!important}
+.titulo-seccion{font-weight:900;letter-spacing:-.04em}
+.titulo-seccion::after{background:linear-gradient(90deg,var(--color-primary),var(--color-accent))!important}
+.header{background:rgba(255,255,255,.92)!important;border-bottom:1px solid var(--color-border)!important;box-shadow:0 8px 25px rgba(21,21,21,.06)!important;backdrop-filter:blur(16px)}
+.nav-link{color:var(--color-text)!important}.nav-link:hover,.nav-link.activo{color:var(--color-primary)!important;background:rgba(109,40,217,.08)!important}.nav-link.activo::after{background:var(--color-accent)!important}
+.logo{color:var(--color-text)!important}.logo-verde{color:var(--color-primary)!important}
+.hero-section{background:linear-gradient(135deg,#fff 0%,#f5f5f7 65%,#eee9ff 100%)!important;border-bottom:1px solid var(--color-border)!important}
+.hero-titulo{font-size:clamp(2.6rem,6vw,5.7rem)!important;font-weight:950!important;letter-spacing:-.065em!important;line-height:.95!important;text-transform:uppercase!important;background:linear-gradient(120deg,var(--color-text) 0%,var(--color-primary) 52%,#9a6bff 72%,var(--color-text) 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:none!important;animation:heroEntrada .8s ease both}
+.hero-titulo strong,.hero-titulo .acento-hero{color:var(--color-primary)!important}
+.hero-descripcion{color:var(--color-text-secondary)!important}
+@keyframes heroEntrada{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+.boton-principal{background:var(--color-accent)!important;color:#151515!important;border-color:var(--color-accent)!important;box-shadow:0 10px 25px rgba(183,255,0,.22)!important}.boton-principal:hover{background:var(--color-accent-hover)!important;color:#151515!important;transform:translateY(-3px) scale(1.02)}
+.boton-secundario,.boton-plan{background:var(--color-surface)!important;color:var(--color-primary)!important;border-color:var(--color-primary)!important}.boton-secundario:hover,.boton-plan:hover{background:var(--color-primary)!important;color:#fff!important}
+.boton-modo{background:var(--color-surface)!important;color:var(--color-text)!important;border:2px solid var(--color-primary)!important;box-shadow:0 0 0 3px rgba(109,40,217,.08);}
+.boton-modo:hover{background:var(--color-accent)!important;color:#151515!important;border-color:var(--color-accent)!important;transform:scale(1.08)}
+.seccion-servicios,.seccion-entrenadores,.seccion-ubicacion,.seccion-faq,.seccion-certificaciones,.seccion-filosofia,.seccion-gestion{background:var(--color-bg)!important}
+.seccion-planes,.seccion-testimonios,.seccion-metricas{background:var(--color-bg-secondary)!important}
+.seccion-contacto{background:linear-gradient(180deg,#f5f5f7,#fff)!important}
+.tarjeta-servicio,.tarjeta-plan,.tarjeta-entrenador,.tarjeta-testimonio,.tarjeta-ubicacion,.tarjeta-info-contacto,.tarjeta-formulario,.tarjeta-faq,.tarjeta-metrica,.panel-acciones,.tarjeta-certificacion,.tarjeta-filosofia{background:var(--color-surface)!important;color:var(--color-text)!important;border:1px solid var(--color-border)!important;box-shadow:var(--shadow-card)!important;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease,background-color .3s ease}
+.tarjeta-servicio:hover,.tarjeta-plan:hover,.tarjeta-entrenador:hover,.tarjeta-testimonio:hover{transform:translateY(-8px) scale(1.015);border-color:var(--color-primary)!important;box-shadow:var(--shadow-hover)!important}
+.tarjeta-servicio img,.tarjeta-entrenador img,.tarjeta-plan img,.tarjeta-testimonio img{transition:transform .45s ease}.tarjeta-servicio:hover img,.tarjeta-entrenador:hover img,.tarjeta-plan:hover img,.tarjeta-testimonio:hover img{transform:scale(1.055)}
+.tarjeta-servicio,.tarjeta-plan,.tarjeta-entrenador{position:relative;overflow:hidden}.tarjeta-servicio::after,.tarjeta-plan::after,.tarjeta-entrenador::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;box-shadow:inset 0 0 22px rgba(109,40,217,.18),0 0 18px rgba(183,255,0,.10);transition:opacity .3s ease}.tarjeta-servicio:hover::after,.tarjeta-plan:hover::after,.tarjeta-entrenador:hover::after{opacity:1}
+.plan-destacado{border:2px solid var(--color-accent)!important;transform:translateY(-6px);box-shadow:0 0 0 2px rgba(183,255,0,.12),0 20px 50px rgba(109,40,217,.18)!important}.plan-destacado:hover{transform:translateY(-12px) scale(1.025)}.plan-destacado::before{background:var(--color-accent)!important;color:#151515!important;box-shadow:0 0 18px rgba(183,255,0,.55)}
+.precio-plan{color:var(--color-primary)!important}.plan-destacado .precio-plan{color:var(--color-primary)!important}
+.campo-texto,.campo-select,.campo-textarea,.form-control,.form-select{background:var(--color-surface)!important;color:var(--color-text)!important;border-color:var(--color-border)!important}.campo-texto:focus,.campo-select:focus,.campo-textarea:focus,.form-control:focus,.form-select:focus{border-color:var(--color-primary)!important;box-shadow:0 0 0 3px rgba(109,40,217,.12)!important;outline:none}
+.texto-tarjeta,.hero-descripcion,.lista-info,.descripcion-entrenador,.texto-footer,.copyright-footer{color:var(--color-text-secondary)!important}
+.control-servicio{background:var(--color-primary)!important;color:#fff!important}.control-servicio:hover{background:var(--color-accent)!important;color:#151515!important;box-shadow:0 0 18px rgba(183,255,0,.45)}
+.nav-item-con-ayuda{position:relative}.nav-ayuda{background:#fff!important;color:#151515!important;border:1px solid var(--color-primary)!important;box-shadow:0 18px 35px rgba(21,21,21,.14)!important}.nav-ayuda a{display:block;color:inherit!important;padding:5px 0}.nav-ayuda span{display:block}.nav-item-con-ayuda:hover .nav-ayuda,.nav-item-con-ayuda:focus-within .nav-ayuda{opacity:1!important;visibility:visible!important;transform:translateY(0)!important}
+.footer{background:#151515!important}.footer .logo{color:#fff!important}.footer .logo-verde{color:var(--color-accent)!important}
+.reveal{animation:revealFit .6s ease both}@keyframes revealFit{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.tarjeta-entrenador.destacado::before{background:var(--color-accent)!important;color:#151515!important;box-shadow:0 0 18px rgba(183,255,0,.55)}
+.rating-entrenador{color:var(--color-primary)!important}.boton-voto{border-color:var(--color-primary)!important;color:var(--color-primary)!important;background:var(--color-surface)!important}.boton-voto:hover{background:var(--color-primary)!important;color:#fff!important}
+.focus-ring:focus-visible,.nav-link:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--color-accent)!important;outline-offset:3px}
+/* Secciones de navegación rápida */
+.ancla-seccion{scroll-margin-top:95px}
+/* Compatibilidad con clases del dashboard que antes dependían de Tailwind */
+.bg-slate-100{background:var(--color-bg-secondary)!important}.text-blue-900{color:var(--color-primary)!important}.text-slate-600{color:var(--color-text-secondary)!important}.bg-slate-100 .text-white{color:var(--color-text)!important}
+/* Dark mode */
+html[data-theme="dark"] body{background:var(--dark-bg)!important;color:var(--dark-text)!important}
+html[data-theme="dark"] .header{background:rgba(11,13,12,.94)!important;border-color:var(--dark-border)!important;box-shadow:0 8px 25px rgba(0,0,0,.35)!important}
+html[data-theme="dark"] .nav-link{color:var(--dark-text)!important}html[data-theme="dark"] .nav-link:hover,html[data-theme="dark"] .nav-link.activo{color:var(--dark-accent)!important;background:rgba(183,255,0,.08)!important}html[data-theme="dark"] .nav-link.activo::after{background:var(--dark-accent)!important}
+html[data-theme="dark"] .logo{color:var(--dark-text)!important}html[data-theme="dark"] .logo-verde{color:var(--dark-accent)!important}
+html[data-theme="dark"] .hero-section{background:linear-gradient(135deg,#0B0D0C 0%,#141816 70%,#1b221d 100%)!important;border-color:var(--dark-border)!important}
+html[data-theme="dark"] .hero-titulo{background:linear-gradient(120deg,#fff 0%,#fff 35%,var(--dark-accent) 55%,#fff 90%);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+html[data-theme="dark"] .hero-descripcion,html[data-theme="dark"] .texto-tarjeta,html[data-theme="dark"] .descripcion-entrenador,html[data-theme="dark"] .lista-info,html[data-theme="dark"] .texto-footer{color:var(--dark-text-secondary)!important}
+html[data-theme="dark"] .seccion-servicios,html[data-theme="dark"] .seccion-entrenadores,html[data-theme="dark"] .seccion-ubicacion,html[data-theme="dark"] .seccion-faq,html[data-theme="dark"] .seccion-certificaciones,html[data-theme="dark"] .seccion-filosofia,html[data-theme="dark"] .seccion-gestion{background:var(--dark-bg)!important}
+html[data-theme="dark"] .seccion-planes,html[data-theme="dark"] .seccion-testimonios,html[data-theme="dark"] .seccion-metricas{background:var(--dark-bg-secondary)!important}
+html[data-theme="dark"] .seccion-contacto{background:linear-gradient(180deg,#141816,#0B0D0C)!important}
+html[data-theme="dark"] .tarjeta-servicio,html[data-theme="dark"] .tarjeta-plan,html[data-theme="dark"] .tarjeta-entrenador,html[data-theme="dark"] .tarjeta-testimonio,html[data-theme="dark"] .tarjeta-ubicacion,html[data-theme="dark"] .tarjeta-info-contacto,html[data-theme="dark"] .tarjeta-formulario,html[data-theme="dark"] .tarjeta-faq,html[data-theme="dark"] .tarjeta-metrica,html[data-theme="dark"] .panel-acciones,html[data-theme="dark"] .tarjeta-certificacion,html[data-theme="dark"] .tarjeta-filosofia{background:var(--dark-surface)!important;color:var(--dark-text)!important;border-color:var(--dark-border)!important}
+html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] h4,html[data-theme="dark"] h5,html[data-theme="dark"] h6,html[data-theme="dark"] .titulo-seccion,html[data-theme="dark"] .titulo-tarjeta,html[data-theme="dark"] .nombre-plan,html[data-theme="dark"] .nombre-entrenador{color:var(--dark-text)!important}
+html[data-theme="dark"] .boton-principal{background:var(--dark-accent)!important;color:#0B0D0C!important;border-color:var(--dark-accent)!important}html[data-theme="dark"] .boton-secundario,html[data-theme="dark"] .boton-plan{background:var(--dark-surface)!important;color:var(--dark-text)!important;border-color:var(--dark-accent)!important}html[data-theme="dark"] .boton-secundario:hover,html[data-theme="dark"] .boton-plan:hover{background:var(--dark-accent)!important;color:#0B0D0C!important}
+html[data-theme="dark"] .campo-texto,html[data-theme="dark"] .campo-select,html[data-theme="dark"] .campo-textarea,html[data-theme="dark"] .form-control,html[data-theme="dark"] .form-select{background:#141816!important;color:#F5F5F5!important;border-color:#292D2A!important}html[data-theme="dark"] .campo-texto::placeholder,html[data-theme="dark"] .campo-textarea::placeholder{color:#8f9792!important}
+html[data-theme="dark"] .nav-ayuda{background:#191C1A!important;color:#F5F5F5!important;border-color:var(--dark-accent)!important}
+html[data-theme="dark"] .boton-modo{background:var(--dark-surface)!important;color:var(--dark-text)!important;border-color:var(--dark-accent)!important}
+html[data-theme="dark"] .boton-modo:hover{background:var(--dark-accent)!important;color:#0B0D0C!important}
+html[data-theme="dark"] .footer{background:#070908!important}
+html[data-theme="dark"] .accordion-button{background:#191C1A!important;color:#F5F5F5!important}.accordion-button:not(.collapsed){background:var(--color-primary)!important;color:#fff!important}
+html[data-theme="dark"] .bg-slate-100{background:#141816!important}.text-blue-900{color:var(--color-primary)!important}
+
+
+/* Extras V2 */
+.grid-formulario-valoracion{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}.formulario-valoracion{max-width:900px;margin:28px auto 0;padding:26px}.formulario-valoracion .campo-textarea{width:100%;margin-bottom:14px}.estrellas-valoracion{color:var(--color-accent);font-size:1.2rem;letter-spacing:2px;margin-bottom:8px}.texto-centro{text-align:center!important}.nav-ayuda-link{display:block!important;text-decoration:none!important;color:inherit!important;border-radius:8px;padding:7px 9px!important}.nav-ayuda-link:hover,.nav-ayuda-link:focus{background:rgba(109,40,217,.10)!important;color:var(--color-primary)!important}.servicios-carrusel{scrollbar-width:thin;scrollbar-color:var(--color-primary) var(--color-bg-secondary)}
+html[data-theme="dark"] .nav-ayuda-link:hover,html[data-theme="dark"] .nav-ayuda-link:focus{background:rgba(183,255,0,.10)!important;color:var(--dark-accent)!important}
+html[data-theme="dark"] .modal-servicio-contenido{background:var(--dark-surface)!important;color:var(--dark-text)!important}.modal-servicio-contenido .cerrar-modal{background:var(--color-bg-secondary)!important;color:var(--color-text)!important}
+@media(max-width:680px){.grid-formulario-valoracion{grid-template-columns:1fr}.formulario-valoracion{padding:18px}}
+
+.login-admin{width:min(520px,100%);margin:0 auto;padding:30px;box-shadow:0 0 0 1px var(--color-primary),0 20px 55px rgba(109,40,217,.14)!important}.login-admin .boton-principal{margin-top:8px}.login-admin .texto-tarjeta{min-height:24px;margin-top:12px}
+html[data-theme="dark"] .login-admin{box-shadow:0 0 0 1px var(--dark-accent),0 20px 55px rgba(183,255,0,.12)!important}
+
+/* ================================================================
+   FITZONE - CORRECCIONES V2.1
+   Correcciones de tema, API, dashboard, planes y contenido vacío.
+   ================================================================ */
+
+/* MODO CLARO: ningún fondo oscuro debe imponerse por los estilos antiguos. */
+html:not([data-theme="dark"]) body,
+html:not([data-theme="dark"]) main,
+html:not([data-theme="dark"]) section {
+  color: var(--color-text);
+}
+
+html:not([data-theme="dark"]) .header {
+  background: rgba(255,255,255,.96) !important;
+  color: var(--color-text) !important;
+}
+
+html:not([data-theme="dark"]) .footer {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+  border-top: 1px solid var(--color-border);
+}
+html:not([data-theme="dark"]) .footer .logo,
+html:not([data-theme="dark"]) .footer .titulo-footer,
+html:not([data-theme="dark"]) .footer .lista-footer a {
+  color: var(--color-text) !important;
+}
+html:not([data-theme="dark"]) .footer .logo-verde,
+html:not([data-theme="dark"]) .footer .lista-footer a:hover {
+  color: var(--color-primary) !important;
+}
+
+/* API: tarjetas compactas, sin depender de Tailwind. */
+.seccion-api {
+  background: var(--color-bg-secondary) !important;
+  padding: 58px 0;
+}
+.grid-usuarios-api {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.tarjeta-api-usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 15px;
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 14px;
+  color: var(--color-text) !important;
+  box-shadow: var(--shadow-soft);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .3s ease;
+}
+.tarjeta-api-usuario:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary) !important;
+  box-shadow: var(--shadow-hover);
+}
+.avatar-api {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 900;
+}
+.datos-api { min-width: 0; }
+.datos-api h3 {
+  margin: 0 0 2px;
+  font-size: .98rem;
+  color: var(--color-text) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.datos-api p,
+.datos-api span {
+  display: block;
+  margin: 0;
+  font-size: .78rem;
+  color: var(--color-text-secondary) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mensaje-api-error { color: #b42318 !important; text-align:center; grid-column:1/-1; }
+
+/* Dashboard: gestión y tabla siguen el mismo tema. */
+.contenedor-tabla {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-soft) !important;
+  overflow-x: auto;
+}
+.tabla-admin {
+  color: var(--color-text) !important;
+  background: var(--color-surface) !important;
+}
+.tabla-admin th {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+.tabla-admin td {
+  background: var(--color-surface) !important;
+  color: var(--color-text-secondary) !important;
+  border-color: var(--color-border) !important;
+}
+.tabla-admin tr:hover td {
+  background: rgba(109,40,217,.06) !important;
+}
+
+/* Planes: Bootstrap no debe imponer blanco en Light ni blanco en Dark. */
+.pagina-planes #conoce-fitzone.bg-light {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes #conoce-fitzone .container { color: var(--color-text) !important; }
+.pagina-planes #conoce-fitzone .bg-primary {
+  background: var(--color-primary) !important;
+}
+.pagina-planes #conoce-fitzone .bg-success {
+  background: var(--color-accent) !important;
+  color: #151515 !important;
+}
+.pagina-planes #conoce-fitzone .bg-success h3,
+.pagina-planes #conoce-fitzone .bg-success p { color: #151515 !important; }
+.pagina-planes #conoce-fitzone .bg-dark {
+  background: var(--color-text) !important;
+}
+.pagina-planes .offcanvas {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes .offcanvas-title { color: var(--color-text) !important; }
+.pagina-planes .offcanvas-body { color: var(--color-text-secondary) !important; }
+.pagina-planes .offcanvas-body p { color: var(--color-text-secondary) !important; }
+.pagina-planes .accordion-item,
+.pagina-planes .accordion-button,
+.pagina-planes .accordion-body {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+.pagina-planes .accordion-button:not(.collapsed) {
+  background: rgba(109,40,217,.09) !important;
+  color: var(--color-primary) !important;
+}
+.pagina-planes .modal-content,
+.pagina-planes .modal-header,
+.pagina-planes .modal-body,
+.pagina-planes .modal-footer {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+
+/* Modo oscuro real para Bootstrap + Dashboard. */
+html[data-theme="dark"] .seccion-api {
+  background: var(--dark-bg-secondary) !important;
+}
+html[data-theme="dark"] .tarjeta-api-usuario,
+html[data-theme="dark"] .contenedor-tabla,
+html[data-theme="dark"] .tabla-admin,
+html[data-theme="dark"] .tabla-admin td {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+html[data-theme="dark"] .tabla-admin th {
+  background: var(--dark-bg-secondary) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+html[data-theme="dark"] .tabla-admin tr:hover td {
+  background: rgba(183,255,0,.06) !important;
+}
+html[data-theme="dark"] .datos-api h3 { color: var(--dark-text) !important; }
+html[data-theme="dark"] .datos-api p,
+html[data-theme="dark"] .datos-api span { color: var(--dark-text-secondary) !important; }
+html[data-theme="dark"] .avatar-api {
+  background: var(--dark-accent) !important;
+  color: #0B0D0C !important;
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone.bg-light {
+  background: var(--dark-bg-secondary) !important;
+  color: var(--dark-text) !important;
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone .bg-primary {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border: 1px solid var(--dark-border);
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone .bg-success {
+  background: var(--dark-accent) !important;
+  color: #0B0D0C !important;
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone .bg-dark {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border: 1px solid var(--dark-border);
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone h2,
+html[data-theme="dark"] .pagina-planes #conoce-fitzone h3,
+html[data-theme="dark"] .pagina-planes #conoce-fitzone p { color: var(--dark-text) !important; }
+html[data-theme="dark"] .pagina-planes .offcanvas,
+html[data-theme="dark"] .pagina-planes .offcanvas-header,
+html[data-theme="dark"] .pagina-planes .offcanvas-body,
+html[data-theme="dark"] .pagina-planes .modal-content,
+html[data-theme="dark"] .pagina-planes .modal-header,
+html[data-theme="dark"] .pagina-planes .modal-body,
+html[data-theme="dark"] .pagina-planes .modal-footer,
+html[data-theme="dark"] .pagina-planes .accordion-item,
+html[data-theme="dark"] .pagina-planes .accordion-button,
+html[data-theme="dark"] .pagina-planes .accordion-body {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+html[data-theme="dark"] .pagina-planes .accordion-button:not(.collapsed) {
+  background: rgba(183,255,0,.10) !important;
+  color: var(--dark-accent) !important;
+}
+html[data-theme="dark"] .pagina-planes .offcanvas-body p,
+html[data-theme="dark"] .pagina-planes .accordion-body,
+html[data-theme="dark"] .pagina-planes .modal-body,
+html[data-theme="dark"] .pagina-planes .modal-body li {
+  color: var(--dark-text-secondary) !important;
+}
+html[data-theme="dark"] .pagina-planes .btn-close {
+  filter: invert(1) grayscale(1);
+}
+
+/* Estado vacío de Nuevas Clases. */
+.tarjeta-vacio {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  background: var(--color-surface) !important;
+  border: 1px dashed var(--color-primary) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-soft);
+}
+.tarjeta-vacio .icono-vacio {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #151515;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+.tarjeta-vacio h3 { color: var(--color-primary) !important; margin-bottom: 8px; }
+.tarjeta-vacio p { color: var(--color-text-secondary) !important; max-width: 520px; }
+html[data-theme="dark"] .tarjeta-vacio {
+  background: var(--dark-surface) !important;
+  border-color: var(--dark-accent) !important;
+}
+html[data-theme="dark"] .tarjeta-vacio h3 { color: var(--dark-accent) !important; }
+html[data-theme="dark"] .tarjeta-vacio p { color: var(--dark-text-secondary) !important; }
+
+@media (max-width: 900px) {
+  .grid-usuarios-api { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .grid-usuarios-api { grid-template-columns: 1fr; }
+}
+
+
+/* Ajustes puntuales solicitados: Planes, Premium y acciones del Dashboard. */
+.pagina-planes {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes .navbar {
+  background: var(--color-surface) !important;
+}
+.pagina-planes .navbar .nav-link {
+  color: var(--color-text) !important;
+}
+.pagina-planes .navbar .nav-link:hover,
+.pagina-planes .navbar .nav-link.activo {
+  color: var(--color-primary) !important;
+}
+.pagina-planes .seccion-planes,
+.pagina-planes .seccion-faq {
+  background: var(--color-bg-secondary) !important;
+}
+.pagina-planes #conoce-fitzone {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes .accordion-button {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes .accordion-button:not(.collapsed) {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) !important;
+  color: var(--color-primary) !important;
+}
+.pagina-planes .tarjeta-plan-destacado {
+  border: 2px solid var(--color-accent) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 18%, transparent),
+              0 0 24px color-mix(in srgb, var(--color-accent) 25%, transparent),
+              var(--shadow-card) !important;
+}
+.pagina-planes .tarjeta-plan-destacado:hover {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent),
+              0 0 34px color-mix(in srgb, var(--color-accent) 35%, transparent),
+              var(--shadow-hover) !important;
+}
+.boton-editar {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) !important;
+  color: var(--color-primary) !important;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, var(--color-border)) !important;
+}
+.boton-eliminar {
+  background: color-mix(in srgb, #ef4444 10%, var(--color-surface)) !important;
+  color: #c0392b !important;
+  border: 1px solid color-mix(in srgb, #ef4444 20%, var(--color-border)) !important;
+}
+html[data-theme="dark"] .pagina-planes .navbar {
+  background: var(--dark-bg) !important;
+}
+html[data-theme="dark"] .pagina-planes {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+html[data-theme="dark"] .pagina-planes .seccion-planes,
+html[data-theme="dark"] .pagina-planes .seccion-faq {
+  background: var(--dark-bg-secondary) !important;
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+html[data-theme="dark"] .pagina-planes .accordion-button {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+}
+html[data-theme="dark"] .pagina-planes .accordion-button:not(.collapsed) {
+  background: color-mix(in srgb, var(--dark-accent) 10%, var(--dark-surface)) !important;
+  color: var(--dark-accent) !important;
+}
+html[data-theme="dark"] .pagina-planes .tarjeta-plan-destacado {
+  border-color: var(--dark-accent) !important;
+  box-shadow: 0 0 0 2px rgba(183,255,0,.16),
+              0 0 28px rgba(183,255,0,.20),
+              var(--shadow-card) !important;
+}
+html[data-theme="dark"] .boton-editar {
+  background: var(--dark-surface) !important;
+  color: var(--dark-accent) !important;
+  border-color: var(--dark-accent) !important;
+}
+html[data-theme="dark"] .boton-eliminar {
+  background: rgba(239,68,68,.12) !important;
+  color: #ff8f8f !important;
+  border-color: rgba(239,68,68,.35) !important;
+}
+
+/* ================================================================
+   AJUSTE SOLICITADO — FORMULARIOS Y CONFIRMACIÓN DE PAGO
+   Solo corrige la visibilidad de los formularios en ambos temas.
+   ================================================================ */
+.formulario-entrenador-dashboard{
+  background:rgba(21,21,21,.62)!important;
+  backdrop-filter:blur(4px);
+}
+
+.formulario-entrenador-caja{
+  background:var(--color-surface)!important;
+  color:var(--color-text)!important;
+  border:1px solid var(--color-border)!important;
+  box-shadow:0 25px 70px rgba(21,21,21,.22)!important;
+}
+
+.formulario-entrenador-caja h2,
+.formulario-entrenador-caja label{
+  color:var(--color-text)!important;
+}
+
+.formulario-entrenador-caja input,
+.formulario-entrenador-caja select,
+.formulario-entrenador-caja textarea{
+  width:100%;
+  background:var(--color-bg)!important;
+  color:var(--color-text)!important;
+  border:1px solid var(--color-border)!important;
+  border-radius:10px;
+  box-shadow:none;
+}
+
+.formulario-entrenador-caja input::placeholder,
+.formulario-entrenador-caja textarea::placeholder{
+  color:var(--color-text-secondary)!important;
+  opacity:1;
+}
+
+.formulario-entrenador-caja input:focus,
+.formulario-entrenador-caja select:focus,
+.formulario-entrenador-caja textarea:focus{
+  border-color:var(--color-primary)!important;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary) 14%,transparent)!important;
+  outline:none;
+}
+
+.formulario-registro{
+  background:var(--color-surface)!important;
+  color:var(--color-text)!important;
+  border-color:var(--color-border)!important;
+}
+
+.formulario-registro .titulo-seccion,
+.formulario-registro label{
+  color:var(--color-text)!important;
+}
+
+.formulario-grid input,
+.formulario-grid select,
+.formulario-grid textarea{
+  background:var(--color-bg)!important;
+  color:var(--color-text)!important;
+  border:1px solid var(--color-border)!important;
+}
+
+.formulario-grid input::placeholder,
+.formulario-grid textarea::placeholder{
+  color:var(--color-text-secondary)!important;
+  opacity:1;
+}
+
+.formulario-grid input:focus,
+.formulario-grid select:focus,
+.formulario-grid textarea:focus{
+  border-color:var(--color-primary)!important;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary) 14%,transparent)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-dashboard{
+  background:rgba(11,13,12,.72)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja,
+html[data-theme="dark"] .formulario-registro{
+  background:var(--dark-surface)!important;
+  color:var(--dark-text)!important;
+  border-color:var(--dark-border)!important;
+  box-shadow:0 25px 70px rgba(0,0,0,.42)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja h2,
+html[data-theme="dark"] .formulario-entrenador-caja label,
+html[data-theme="dark"] .formulario-registro .titulo-seccion{
+  color:var(--dark-text)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja input,
+html[data-theme="dark"] .formulario-entrenador-caja select,
+html[data-theme="dark"] .formulario-entrenador-caja textarea,
+html[data-theme="dark"] .formulario-grid input,
+html[data-theme="dark"] .formulario-grid select,
+html[data-theme="dark"] .formulario-grid textarea{
+  background:var(--dark-bg-secondary)!important;
+  color:var(--dark-text)!important;
+  border-color:var(--dark-border)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja input::placeholder,
+html[data-theme="dark"] .formulario-entrenador-caja textarea::placeholder,
+html[data-theme="dark"] .formulario-grid input::placeholder,
+html[data-theme="dark"] .formulario-grid textarea::placeholder{
+  color:var(--dark-text-secondary)!important;
+  opacity:1;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja input:focus,
+html[data-theme="dark"] .formulario-entrenador-caja select:focus,
+html[data-theme="dark"] .formulario-entrenador-caja textarea:focus,
+html[data-theme="dark"] .formulario-grid input:focus,
+html[data-theme="dark"] .formulario-grid select:focus,
+html[data-theme="dark"] .formulario-grid textarea:focus{
+  border-color:var(--dark-accent)!important;
+  box-shadow:0 0 0 3px rgba(183,255,0,.13)!important;
+}
+
+/* Confirmación visual después de completar la membresía. */
+.confirmacion-pago-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(21,21,21,.62);
+  backdrop-filter:blur(5px);
+}
+
+.confirmacion-pago{
+  width:min(430px,100%);
+  padding:32px;
+  text-align:center;
+  background:var(--color-surface);
+  color:var(--color-text);
+  border:1px solid var(--color-border);
+  border-radius:20px;
+  box-shadow:0 25px 70px rgba(21,21,21,.25);
+}
+
+.confirmacion-pago h2{
+  margin:0 0 10px;
+  color:var(--color-primary)!important;
+}
+
+.confirmacion-pago p{
+  margin:0 0 22px;
+  color:var(--color-text-secondary)!important;
+}
+
+.confirmacion-pago button{
+  min-width:130px;
+}
+
+html[data-theme="dark"] .confirmacion-pago-overlay{
+  background:rgba(11,13,12,.78);
+}
+
+html[data-theme="dark"] .confirmacion-pago{
+  background:var(--dark-surface);
+  color:var(--dark-text);
+  border-color:var(--dark-border);
+  box-shadow:0 25px 70px rgba(0,0,0,.45);
+}
+
+html[data-theme="dark"] .confirmacion-pago h2{
+  color:var(--dark-accent)!important;
+}
+
+html[data-theme="dark"] .confirmacion-pago p{
+  color:var(--dark-text-secondary)!important;
+}
+
+
+
+/* ================================================================
+   AJUSTE FINAL SOLICITADO — CLASES Y PERFILES DE ENTRENADORES
+   Solo afecta el modal de clases, el perfil del entrenador y el zoom
+   de las tarjetas de entrenadores.
+   ================================================================ */
+.formulario-clase-dashboard .formulario-entrenador-caja{
+  width:min(600px,100%);
+  max-height:calc(100vh - 40px);
+  overflow-y:auto;
+  padding:22px 26px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja h2{
+  margin-bottom:14px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja label{
+  display:block;
+  margin:8px 0 5px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja input,
+.formulario-clase-dashboard .formulario-entrenador-caja select,
+.formulario-clase-dashboard .formulario-entrenador-caja textarea{
+  margin-bottom:7px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja textarea{
+  min-height:78px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja > div{
+  position:sticky;
+  bottom:0;
+  padding-top:10px;
+  margin-top:8px;
+  background:var(--color-surface);
+  z-index:2;
+}
+
+/* Perfil visible y coherente en ambos temas. */
+.perfil-entrenador-card{
+  background:var(--color-surface)!important;
+  color:var(--color-text)!important;
+  border-color:var(--color-border)!important;
+}
+
+.perfil-entrenador-card h2{
+  color:var(--color-text)!important;
+}
+
+.perfil-entrenador-card h3{
+  color:var(--color-primary)!important;
+}
+
+.perfil-entrenador-card p,
+.perfil-entrenador-card p strong{
+  color:var(--color-text-secondary)!important;
+}
+
+html[data-theme="dark"] .perfil-entrenador-card{
+  background:var(--dark-surface)!important;
+  color:var(--dark-text)!important;
+  border-color:var(--dark-border)!important;
+  box-shadow:var(--shadow-card)!important;
+}
+
+html[data-theme="dark"] .perfil-entrenador-card h2{
+  color:var(--dark-text)!important;
+}
+
+html[data-theme="dark"] .perfil-entrenador-card h3{
+  color:var(--dark-accent)!important;
+}
+
+html[data-theme="dark"] .perfil-entrenador-card p,
+html[data-theme="dark"] .perfil-entrenador-card p strong{
+  color:var(--dark-text-secondary)!important;
+}
+
+/* El zoom queda contenido dentro de la zona de imagen y no invade el nombre. */
+.tarjeta-entrenador{
+  overflow:hidden!important;
+}
+
+.tarjeta-entrenador > img{
+  display:block;
+  transform-origin:center top;
+  clip-path:inset(0 round 14px);
+}
+
+.tarjeta-entrenador:hover > img{
+  transform:scale(1.035)!important;
+}
+
+.tarjeta-entrenador .nombre-entrenador{
+  position:relative;
+  z-index:2;
+  background:var(--color-surface);
+  padding-top:3px;
+}
+
+html[data-theme="dark"] .tarjeta-entrenador .nombre-entrenador{
+  background:var(--dark-surface);
+}
+
+@media(max-width:700px){
+  .formulario-clase-dashboard .formulario-entrenador-caja{
+    max-height:calc(100vh - 24px);
+    padding:18px 20px;
+  }
+}

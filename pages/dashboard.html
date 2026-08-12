@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FitZone - Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Archivos CSS vinculados según la arquitectura del proyecto -->
     <link rel="stylesheet" href="../css/variables.css">
@@ -14,6 +13,7 @@
 </head>
 
 <body>
+<script>if(sessionStorage.getItem("fitzoneAdmin")!=="si"){window.location.href="admin.html";}</script>
 
     <!-- ========================================== -->
     <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL          -->
@@ -30,7 +30,7 @@
                 <li><a href="entrenadores.html" class="nav-link">Entrenadores</a></li>
                 <li><a href="clases.html" class="nav-link">Clases</a></li>
                 <li><a href="contacto.html" class="nav-link">Contacto</a></li>
-                <li><a href="dashboard.html" class="nav-link activo">Dashboard</a></li>
+                <li><button type="button" id="cerrarAdmin" class="nav-link boton-salida">Salir</button></li>
             </ul>
             <button type="button" id="botonModo" class="boton-modo" aria-label="Cambiar modo">🌙</button>
         </nav>
@@ -52,7 +52,7 @@
         </section>
 
         <!-- 2. TARJETAS DE ESTADÍSTICAS (4 Cards) -->
-        <section class="seccion-metricas">
+        <section id="resumen" class="seccion-metricas ancla-seccion">
             <div class="contenedor">
                 <div class="grid-metricas">
 
@@ -81,7 +81,7 @@
         </section>
 
         <!-- 2.1 BARRA DE PROGRESO -->
-        <section class="seccion-metricas">
+        <section id="resumen" class="seccion-metricas ancla-seccion">
             <div class="contenedor">
                 <div class="tarjeta-metrica">
                     <h3 class="titulo-tarjeta">Meta de usuarios activos</h3>
@@ -93,17 +93,17 @@
             </div>
         </section>
 
-        <!-- 2.2 SECCIÓN TAILWIND + API PÚBLICA -->
-        <section class="bg-slate-100 py-12">
-            <div class="max-w-6xl mx-auto px-6">
-                <h2 class="text-3xl font-bold text-blue-900 text-center mb-3">Usuarios de una API pública</h2>
-                <p class="text-center text-slate-600 mb-8">Datos cargados dinámicamente desde JSONPlaceholder.</p>
-                <div id="listaUsuariosApi" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        <!-- 2.2 API PÚBLICA -->
+        <section id="api" class="seccion-api ancla-seccion">
+            <div class="contenedor">
+                <h2 class="titulo-seccion">Usuarios de una API pública</h2>
+                <p class="texto-centro texto-tarjeta">Datos cargados dinámicamente desde JSONPlaceholder.</p>
+                <div id="listaUsuariosApi" class="grid-usuarios-api"></div>
             </div>
         </section>
 
         <!-- 3. GESTIÓN DE USUARIOS Y TABLA -->
-        <section class="seccion-gestion">
+        <section id="usuarios" class="seccion-gestion ancla-seccion">
             <div class="contenedor">
 
                 <div class="panel-acciones">
@@ -183,7 +183,7 @@
         </section>
 
         <!-- 4. GESTIÓN DE ENTRENADORES -->
-        <section class="seccion-gestion seccion-entrenadores-dashboard">
+        <section id="entrenadores-admin" class="seccion-gestion seccion-entrenadores-dashboard ancla-seccion">
             <div class="contenedor">
                 <div class="panel-acciones">
                     <h2 class="titulo-seccion">Gestión de Entrenadores</h2>
@@ -197,7 +197,7 @@
         </section>
 
         <!-- 5. GESTIÓN DE CLASES -->
-        <section class="seccion-gestion seccion-clases-dashboard">
+        <section id="clases-admin" class="seccion-gestion seccion-clases-dashboard ancla-seccion">
             <div class="contenedor">
                 <div class="panel-acciones">
                     <h2 class="titulo-seccion">Gestión de Clases</h2>
@@ -207,6 +207,20 @@
                     </button>
                 </div>
                 <div id="listaClasesDashboard" class="grid-entrenadores"></div>
+            </div>
+        </section>
+
+        <!-- 6. GESTIÓN DE SERVICIOS -->
+        <section id="servicios-admin" class="seccion-gestion ancla-seccion">
+            <div class="contenedor">
+                <div class="panel-acciones">
+                    <h2 class="titulo-seccion">Gestión de Servicios</h2>
+                    <p>Agrega, edita o elimina los servicios que se muestran en Inicio.</p>
+                    <button type="button" id="botonAgregarServicio" class="boton-principal">
+                        + Agregar Servicio
+                    </button>
+                </div>
+                <div id="listaServiciosDashboard" class="grid-servicios"></div>
             </div>
         </section>
 
@@ -235,7 +249,6 @@
                     <li><a href="entrenadores.html">Entrenadores</a></li>
                     <li><a href="clases.html">Clases</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
                 </ul>
             </div>
 
@@ -250,9 +263,12 @@
     <script src="../js/storage.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/crud.js"></script>
+    <script src="../js/servicios.js"></script>
     <script src="../js/darkmode.js"></script>
     <script src="../js/validation.js"></script>
 
+<script>const salir=document.getElementById("cerrarAdmin");if(salir){salir.addEventListener("click",function(){sessionStorage.removeItem("fitzoneAdmin");window.location.href="../index.html";});}</script>
+    <script src="../js/interacciones.js"></script>
 </body>
 
 </html>

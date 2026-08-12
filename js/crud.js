@@ -68,22 +68,25 @@ function agregarFilaUsuario(usuario) {
 }
 
 function prepararBotonesUsuario(fila) {
-    fila.querySelector(".boton-eliminar").addEventListener("click", function() {
-        const nombre = fila.cells[0].textContent;
+    fila.querySelector(".boton-eliminar").onclick = function() {
+        const nombre = fila.cells[0].textContent.trim();
 
         if (confirm("¿Seguro que quieres eliminar a " + nombre + "?")) {
             fila.remove();
             guardarUsuarios();
+            actualizarResumen();
         }
-    });
+    };
 
-    fila.querySelector(".boton-editar").addEventListener("click", function() {
-        abrirFormularioUsuario("editar", {
-            nombre: fila.cells[0].textContent,
-            correo: fila.cells[1].textContent,
-            plan: fila.cells[2].textContent,
+    fila.querySelector(".boton-editar").onclick = function() {
+        const usuarioActual = {
+            nombre: fila.cells[0].textContent.trim(),
+            correo: fila.cells[1].textContent.trim(),
+            plan: fila.cells[2].textContent.trim(),
             estado: fila.cells[3].textContent.trim()
-        }, function(usuario) {
+        };
+
+        abrirFormularioUsuario("editar", usuarioActual, function(usuario) {
             fila.cells[0].textContent = usuario.nombre;
             fila.cells[1].textContent = usuario.correo;
             fila.cells[2].textContent = usuario.plan;
@@ -97,7 +100,7 @@ function prepararBotonesUsuario(fila) {
             guardarUsuarios();
             actualizarResumen();
         });
-    });
+    };
 }
 
 function abrirFormularioUsuario(tipo, usuario, alGuardar) {
@@ -432,7 +435,7 @@ function abrirFormularioClase(clase, alGuardar) {
     const editar = !!clase;
     const formulario = document.createElement("div");
     formulario.id = "formularioClase";
-    formulario.className = "formulario-entrenador-dashboard";
+    formulario.className = "formulario-entrenador-dashboard formulario-clase-dashboard";
 
     formulario.innerHTML = `
         <div class="formulario-entrenador-caja">

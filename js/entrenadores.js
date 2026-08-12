@@ -77,3 +77,53 @@ function prepararPerfiles() {
 
 mostrarEntrenadoresNuevos();
 prepararPerfiles();
+
+
+// Buscador y votación sencilla de entrenadores.
+document.addEventListener("DOMContentLoaded", function () {
+    const buscador = document.getElementById("buscarEntrenador");
+    const tarjetas = Array.from(document.querySelectorAll(".grid-entrenadores .tarjeta-entrenador"));
+    const clave = "fitzoneCalificaciones";
+    let calificaciones = JSON.parse(localStorage.getItem(clave) || "{}");
+    const nombresBase = {"Carlos Gómez":5.0,"Ana Martínez":4.8,"David Silva":4.7,"Elena Ríos":4.9};
+
+    function promedio(nombre){
+        const dato=calificaciones[nombre];
+        if(!dato) return nombresBase[nombre] || 5;
+        return dato.total / dato.votos;
+    }
+    function actualizar(){
+        tarjetas.forEach(function(t){
+            const nombre=t.querySelector(".nombre-entrenador")?.textContent.trim();
+            if(!nombre) return;
+            const valor=promedio(nombre);
+            const span=t.querySelector(".valor-rating");
+            if(span) span.textContent=valor.toFixed(1);
+            const estrellas=t.querySelector(".estrellas-entrenador");
+            if(estrellas) estrellas.textContent="★★★★★";
+        });
+        const orden=tarjetas.slice().sort((a,b)=>promedio(b.querySelector(".nombre-entrenador").textContent.trim())-promedio(a.querySelector(".nombre-entrenador").textContent.trim()));
+        tarjetas.forEach(t=>t.classList.remove("destacado"));
+        orden.slice(0,2).forEach(t=>t.classList.add("destacado"));
+    }
+    tarjetas.forEach(function(t){
+        t.querySelectorAll(".boton-voto").forEach(function(btn){
+            btn.addEventListener("click",function(){
+                const nombre=t.querySelector(".nombre-entrenador").textContent.trim();
+                const valor=Number(btn.dataset.voto);
+                if(!calificaciones[nombre]) calificaciones[nombre]={total:nombresBase[nombre]||5,votos:1};
+                calificaciones[nombre].total+=valor;
+                calificaciones[nombre].votos+=1;
+                localStorage.setItem(clave,JSON.stringify(calificaciones));
+                actualizar();
+            });
+        });
+    });
+    if(buscador){
+        buscador.addEventListener("input",function(){
+            const texto=buscador.value.toLowerCase().trim();
+            tarjetas.forEach(function(t){t.style.display=t.textContent.toLowerCase().includes(texto)?"":"none";});
+        });
+    }
+    actualizar();
+});
