@@ -12,7 +12,8 @@ function normalizarRutaImagen(foto) {
         nombreArchivo = "elena.png";
     }
 
-    return "../assets/images/" + nombreArchivo;
+    const ruta = "../assets/images/" + nombreArchivo;
+    return ruta + "?v=" + Date.now();
 }
 // crud.js
 // Gestión sencilla de usuarios, entrenadores y clases.
@@ -284,13 +285,19 @@ function abrirFormularioEntrenador(entrenador, alGuardar) {
             const entrenadores = obtenerLista("entrenadores");
 
             if (editar) {
-                entrenador.nombre = nombre;
-                entrenador.especialidad = especialidad;
-                entrenador.experiencia = experiencia;
-                entrenador.descripcion = descripcion;
+                const indice = entrenadores.findIndex(function (item) { return item.id === entrenador.id; });
+                if (indice === -1) {
+                    alert("No se encontró el entrenador que intentas editar.");
+                    return;
+                }
+
+                entrenadores[indice].nombre = nombre;
+                entrenadores[indice].especialidad = especialidad;
+                entrenadores[indice].experiencia = experiencia;
+                entrenadores[indice].descripcion = descripcion;
 
                 if (foto) {
-                    entrenador.foto = foto;
+                    entrenadores[indice].foto = foto;
                 }
             } else {
                 entrenadores.push({
@@ -495,15 +502,21 @@ function abrirFormularioClase(clase, alGuardar) {
             const clases = obtenerLista("clases");
 
             if (editar) {
-                clase.nombre = nombre;
-                clase.nivel = nivel;
-                clase.duracion = duracion;
-                clase.horario = horario;
-                clase.instructor = instructor;
-                clase.descripcion = descripcion;
+                const indice = clases.findIndex(function (item) { return item.id === clase.id; });
+                if (indice === -1) {
+                    alert("No se encontró la clase que intentas editar.");
+                    return;
+                }
+
+                clases[indice].nombre = nombre;
+                clases[indice].nivel = nivel;
+                clases[indice].duracion = duracion;
+                clases[indice].horario = horario;
+                clases[indice].instructor = instructor;
+                clases[indice].descripcion = descripcion;
 
                 if (foto) {
-                    clase.foto = foto;
+                    clases[indice].foto = foto;
                 }
             } else {
                 clases.push({

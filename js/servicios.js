@@ -57,8 +57,12 @@
     function rutaFoto(foto, esDashboard) {
         if (!foto) return (esDashboard ? "../" : "") + "assets/images/crossFit.png";
         if (foto.startsWith("data:") || foto.startsWith("http://") || foto.startsWith("https://")) return foto;
-        if (foto.startsWith("../") || foto.startsWith("assets/")) return esDashboard ? (foto.startsWith("assets/") ? "../" + foto : foto) : foto.replace(/^\.\.\//, "");
-        return (esDashboard ? "../" : "") + "assets/images/" + foto;
+        if (foto.startsWith("../") || foto.startsWith("assets/")) {
+            const ruta = esDashboard ? (foto.startsWith("assets/") ? "../" + foto : foto) : foto.replace(/^\.\//, "").replace(/^\.\.\//, "");
+            return ruta + (ruta.includes("?") ? "&" : "?") + "v=" + Date.now();
+        }
+        const ruta = (esDashboard ? "../" : "") + "assets/images/" + foto;
+        return ruta + "?v=" + Date.now();
     }
 
     function escapar(texto) {
@@ -176,10 +180,16 @@
             function guardar(foto) {
                 const servicios = obtenerServicios();
                 if (editar) {
-                    servicio.titulo = titulo;
-                    servicio.descripcion = descripcion;
-                    servicio.detalle = detalle;
-                    if (foto) servicio.foto = foto;
+                    const indice = servicios.findIndex(function (item) { return item.id === servicio.id; });
+                    if (indice === -1) {
+                        alert("No se encontró el servicio que intentas editar.");
+                        return;
+                    }
+
+                    servicios[indice].titulo = titulo;
+                    servicios[indice].descripcion = descripcion;
+                    servicios[indice].detalle = detalle;
+                    if (foto) servicios[indice].foto = foto;
                 } else {
                     servicios.push({ id: Date.now(), titulo, descripcion, detalle, foto: foto || "crossFit.png" });
                 }
