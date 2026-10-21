@@ -13,7 +13,7 @@ function eliminarDato(nombre) {
 function guardarLista(nombre, lista) {
     localStorage.setItem(nombre, JSON.stringify(lista));
 
-    // Persistencia en PostgreSQL para colecciones que administra el Dashboard.
+    // Persistencia remota mediante la API Flask para colecciones que administra el Dashboard.
     if (["entrenadores", "clases"].includes(nombre) &&
         window.FitZoneAPI && window.FitZoneAPI.isAdminAuthenticated() &&
         (!window.FitZoneRemoteCollections || window.FitZoneRemoteCollections[nombre] !== false)) {
