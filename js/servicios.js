@@ -1,4 +1,4 @@
-/* CRUD de Servicios FitZone. Usa LocalStorage para sincronizar Dashboard e Inicio. */
+/* CRUD de Servicios FitZone; LocalStorage actúa como caché y PostgreSQL como persistencia compartida. */
 (function () {
     const CLAVE = "servicios";
 
@@ -44,6 +44,12 @@
 
     function guardarServicios(servicios) {
         localStorage.setItem(CLAVE, JSON.stringify(servicios));
+        if (window.FitZoneAPI && window.FitZoneAPI.isAdminAuthenticated() &&
+            (!window.FitZoneRemoteCollections || window.FitZoneRemoteCollections[CLAVE] !== false)) {
+            window.FitZoneAPI.saveCollection(CLAVE, servicios).catch(function (error) {
+                window.FitZoneAPI.reportSyncError("No se pudieron guardar los servicios en PostgreSQL: " + error.message);
+            });
+        }
     }
 
     function inicializarServicios() {
@@ -408,20 +414,41 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-        if (document.querySelector(".servicios-carrusel")) {
-            renderizarInicio();
-        }
+        const esInicio = Boolean(document.querySelector(".servicios-carrusel"));
+        const esDashboard = Boolean(document.getElementById("listaServiciosDashboard"));
+        if (!esInicio && !esDashboard) return;
 
-        if (document.getElementById("listaServiciosDashboard")) {
-            renderizarDashboard();
+        (async function cargarServiciosCompartidos() {
+            try {
+                if (window.FitZoneAPI) {
+                    const tieneSesionAdmin = esDashboard && window.FitZoneAPI.isAdminAuthenticated();
+                    window.FitZoneRemoteCollections = window.FitZoneRemoteCollections || {};
+                    const remotos = tieneSesionAdmin
+                        ? await window.FitZoneAPI.getAdminCollection(CLAVE)
+                        : await window.FitZoneAPI.getPublicCollection(CLAVE);
 
-            const boton = document.getElementById("botonAgregarServicio");
-
-            if (boton) {
-                boton.addEventListener("click", function () {
-                    abrirFormularioServicio();
-                });
+                    if (Array.isArray(remotos)) {
+                        window.FitZoneRemoteCollections[CLAVE] = true;
+                        localStorage.setItem(CLAVE, JSON.stringify(remotos));
+                    } else if (tieneSesionAdmin) {
+                        window.FitZoneRemoteCollections[CLAVE] = true;
+                        const iniciales = inicializarServicios();
+                        await window.FitZoneAPI.saveCollection(CLAVE, iniciales);
+                    }
+                }
+            } catch (error) {
+                // No escribimos sobre el servidor si la lectura no fue confiable.
+                window.FitZoneRemoteCollections = window.FitZoneRemoteCollections || {};
+                if (esDashboard) window.FitZoneRemoteCollections[CLAVE] = false;
+                console.warn("No se pudieron sincronizar los servicios; se conserva la copia local.", error.message);
             }
-        }
+
+            if (esInicio) renderizarInicio();
+            if (esDashboard) {
+                renderizarDashboard();
+                const boton = document.getElementById("botonAgregarServicio");
+                if (boton) boton.addEventListener("click", function () { abrirFormularioServicio(); });
+            }
+        })();
     });
 })();

@@ -1,0 +1,374 @@
+/* ================================================================
+   FITZONE - CORRECCIONES V2.1
+   Correcciones de tema, API, dashboard, planes y contenido vacío.
+   ================================================================ */
+
+/* MODO CLARO: ningún fondo oscuro debe imponerse por los estilos antiguos. */
+html:not([data-theme="dark"]) body,
+html:not([data-theme="dark"]) main,
+html:not([data-theme="dark"]) section {
+  color: var(--color-text);
+}
+
+html:not([data-theme="dark"]) .header {
+  background: rgba(255,255,255,.96) !important;
+  color: var(--color-text) !important;
+}
+
+html:not([data-theme="dark"]) .footer {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+  border-top: 1px solid var(--color-border);
+}
+html:not([data-theme="dark"]) .footer .logo,
+html:not([data-theme="dark"]) .footer .titulo-footer,
+html:not([data-theme="dark"]) .footer .lista-footer a {
+  color: var(--color-text) !important;
+}
+html:not([data-theme="dark"]) .footer .logo-verde,
+html:not([data-theme="dark"]) .footer .lista-footer a:hover {
+  color: var(--color-primary) !important;
+}
+
+/* API: tarjetas compactas, sin depender de Tailwind. */
+.seccion-api {
+  background: var(--color-bg-secondary) !important;
+  padding: 58px 0;
+}
+.grid-usuarios-api {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.tarjeta-api-usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 15px;
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 14px;
+  color: var(--color-text) !important;
+  box-shadow: var(--shadow-soft);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .3s ease;
+}
+.tarjeta-api-usuario:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary) !important;
+  box-shadow: var(--shadow-hover);
+}
+.avatar-api {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 900;
+}
+.datos-api { min-width: 0; }
+.datos-api h3 {
+  margin: 0 0 2px;
+  font-size: .98rem;
+  color: var(--color-text) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.datos-api p,
+.datos-api span {
+  display: block;
+  margin: 0;
+  font-size: .78rem;
+  color: var(--color-text-secondary) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mensaje-api-error { color: #b42318 !important; text-align:center; grid-column:1/-1; }
+
+/* Dashboard: gestión y tabla siguen el mismo tema. */
+.contenedor-tabla {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-soft) !important;
+  overflow-x: auto;
+}
+.tabla-admin {
+  color: var(--color-text) !important;
+  background: var(--color-surface) !important;
+}
+.tabla-admin th {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+.tabla-admin td {
+  background: var(--color-surface) !important;
+  color: var(--color-text-secondary) !important;
+  border-color: var(--color-border) !important;
+}
+.tabla-admin tr:hover td {
+  background: rgba(109,40,217,.06) !important;
+}
+
+/* Planes: Bootstrap no debe imponer blanco en Light ni blanco en Dark. */
+.pagina-planes #conoce-fitzone.bg-light {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes #conoce-fitzone .container { color: var(--color-text) !important; }
+.pagina-planes #conoce-fitzone .bg-primary {
+  background: var(--color-primary) !important;
+}
+.pagina-planes #conoce-fitzone .bg-success {
+  background: var(--color-accent) !important;
+  color: #151515 !important;
+}
+.pagina-planes #conoce-fitzone .bg-success h3,
+.pagina-planes #conoce-fitzone .bg-success p { color: #151515 !important; }
+.pagina-planes #conoce-fitzone .bg-dark {
+  background: var(--color-text) !important;
+}
+.pagina-planes .offcanvas {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes .offcanvas-title { color: var(--color-text) !important; }
+.pagina-planes .offcanvas-body { color: var(--color-text-secondary) !important; }
+.pagina-planes .offcanvas-body p { color: var(--color-text-secondary) !important; }
+.pagina-planes .accordion-item,
+.pagina-planes .accordion-button,
+.pagina-planes .accordion-body {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+.pagina-planes .accordion-button:not(.collapsed) {
+  background: rgba(109,40,217,.09) !important;
+  color: var(--color-primary) !important;
+}
+.pagina-planes .modal-content,
+.pagina-planes .modal-header,
+.pagina-planes .modal-body,
+.pagina-planes .modal-footer {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+
+/* Modo oscuro real para Bootstrap + Dashboard. */
+html[data-theme="dark"] .seccion-api {
+  background: var(--dark-bg-secondary) !important;
+}
+html[data-theme="dark"] .tarjeta-api-usuario,
+html[data-theme="dark"] .contenedor-tabla,
+html[data-theme="dark"] .tabla-admin,
+html[data-theme="dark"] .tabla-admin td {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+html[data-theme="dark"] .tabla-admin th {
+  background: var(--dark-bg-secondary) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+html[data-theme="dark"] .tabla-admin tr:hover td {
+  background: rgba(183,255,0,.06) !important;
+}
+html[data-theme="dark"] .datos-api h3 { color: var(--dark-text) !important; }
+html[data-theme="dark"] .datos-api p,
+html[data-theme="dark"] .datos-api span { color: var(--dark-text-secondary) !important; }
+html[data-theme="dark"] .avatar-api {
+  background: var(--dark-accent) !important;
+  color: #0B0D0C !important;
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone.bg-light {
+  background: var(--dark-bg-secondary) !important;
+  color: var(--dark-text) !important;
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone .bg-primary {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border: 1px solid var(--dark-border);
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone .bg-success {
+  background: var(--dark-accent) !important;
+  color: #0B0D0C !important;
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone .bg-dark {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border: 1px solid var(--dark-border);
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone h2,
+html[data-theme="dark"] .pagina-planes #conoce-fitzone h3,
+html[data-theme="dark"] .pagina-planes #conoce-fitzone p { color: var(--dark-text) !important; }
+html[data-theme="dark"] .pagina-planes .offcanvas,
+html[data-theme="dark"] .pagina-planes .offcanvas-header,
+html[data-theme="dark"] .pagina-planes .offcanvas-body,
+html[data-theme="dark"] .pagina-planes .modal-content,
+html[data-theme="dark"] .pagina-planes .modal-header,
+html[data-theme="dark"] .pagina-planes .modal-body,
+html[data-theme="dark"] .pagina-planes .modal-footer,
+html[data-theme="dark"] .pagina-planes .accordion-item,
+html[data-theme="dark"] .pagina-planes .accordion-button,
+html[data-theme="dark"] .pagina-planes .accordion-body {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+  border-color: var(--dark-border) !important;
+}
+html[data-theme="dark"] .pagina-planes .accordion-button:not(.collapsed) {
+  background: rgba(183,255,0,.10) !important;
+  color: var(--dark-accent) !important;
+}
+html[data-theme="dark"] .pagina-planes .offcanvas-body p,
+html[data-theme="dark"] .pagina-planes .accordion-body,
+html[data-theme="dark"] .pagina-planes .modal-body,
+html[data-theme="dark"] .pagina-planes .modal-body li {
+  color: var(--dark-text-secondary) !important;
+}
+html[data-theme="dark"] .pagina-planes .btn-close {
+  filter: invert(1) grayscale(1);
+}
+
+/* Estado vacío de Nuevas Clases. */
+.tarjeta-vacio {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  background: var(--color-surface) !important;
+  border: 1px dashed var(--color-primary) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-soft);
+}
+.tarjeta-vacio .icono-vacio {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #151515;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+.tarjeta-vacio h3 { color: var(--color-primary) !important; margin-bottom: 8px; }
+.tarjeta-vacio p { color: var(--color-text-secondary) !important; max-width: 520px; }
+html[data-theme="dark"] .tarjeta-vacio {
+  background: var(--dark-surface) !important;
+  border-color: var(--dark-accent) !important;
+}
+html[data-theme="dark"] .tarjeta-vacio h3 { color: var(--dark-accent) !important; }
+html[data-theme="dark"] .tarjeta-vacio p { color: var(--dark-text-secondary) !important; }
+
+@media (max-width: 900px) {
+  .grid-usuarios-api { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .grid-usuarios-api { grid-template-columns: 1fr; }
+}
+
+
+/* Ajustes puntuales solicitados: Planes, Premium y acciones del Dashboard. */
+.pagina-planes {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes .navbar {
+  background: var(--color-surface) !important;
+}
+.pagina-planes .navbar .nav-link {
+  color: var(--color-text) !important;
+}
+.pagina-planes .navbar .nav-link:hover,
+.pagina-planes .navbar .nav-link.activo {
+  color: var(--color-primary) !important;
+}
+.pagina-planes .seccion-planes,
+.pagina-planes .seccion-faq {
+  background: var(--color-bg-secondary) !important;
+}
+.pagina-planes #conoce-fitzone {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes .accordion-button {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+}
+.pagina-planes .accordion-button:not(.collapsed) {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) !important;
+  color: var(--color-primary) !important;
+}
+.pagina-planes .tarjeta-plan-destacado {
+  border: 2px solid var(--color-accent) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 18%, transparent),
+              0 0 24px color-mix(in srgb, var(--color-accent) 25%, transparent),
+              var(--shadow-card) !important;
+}
+.pagina-planes .tarjeta-plan-destacado:hover {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent),
+              0 0 34px color-mix(in srgb, var(--color-accent) 35%, transparent),
+              var(--shadow-hover) !important;
+}
+.boton-editar {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)) !important;
+  color: var(--color-primary) !important;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, var(--color-border)) !important;
+}
+.boton-eliminar {
+  background: color-mix(in srgb, #ef4444 10%, var(--color-surface)) !important;
+  color: #c0392b !important;
+  border: 1px solid color-mix(in srgb, #ef4444 20%, var(--color-border)) !important;
+}
+html[data-theme="dark"] .pagina-planes .navbar {
+  background: var(--dark-bg) !important;
+}
+html[data-theme="dark"] .pagina-planes {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+html[data-theme="dark"] .pagina-planes .seccion-planes,
+html[data-theme="dark"] .pagina-planes .seccion-faq {
+  background: var(--dark-bg-secondary) !important;
+}
+html[data-theme="dark"] .pagina-planes #conoce-fitzone {
+  background: var(--dark-bg) !important;
+  color: var(--dark-text) !important;
+}
+html[data-theme="dark"] .pagina-planes .accordion-button {
+  background: var(--dark-surface) !important;
+  color: var(--dark-text) !important;
+}
+html[data-theme="dark"] .pagina-planes .accordion-button:not(.collapsed) {
+  background: color-mix(in srgb, var(--dark-accent) 10%, var(--dark-surface)) !important;
+  color: var(--dark-accent) !important;
+}
+html[data-theme="dark"] .pagina-planes .tarjeta-plan-destacado {
+  border-color: var(--dark-accent) !important;
+  box-shadow: 0 0 0 2px rgba(183,255,0,.16),
+              0 0 28px rgba(183,255,0,.20),
+              var(--shadow-card) !important;
+}
+html[data-theme="dark"] .boton-editar {
+  background: var(--dark-surface) !important;
+  color: var(--dark-accent) !important;
+  border-color: var(--dark-accent) !important;
+}
+html[data-theme="dark"] .boton-eliminar {
+  background: rgba(239,68,68,.12) !important;
+  color: #ff8f8f !important;
+  border-color: rgba(239,68,68,.35) !important;
+}

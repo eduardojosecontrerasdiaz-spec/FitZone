@@ -1,4 +1,8 @@
 
+function escaparHTMLFitZone(valor) {
+    return String(valor == null ? "" : valor).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+}
+
 function normalizarRutaImagen(foto) {
     if (!foto) return "../assets/images/crossFit.png";
 
@@ -43,13 +47,13 @@ function mostrarClasesNuevas() {
         tarjeta.className = "tarjeta-entrenador";
 
         tarjeta.innerHTML = `
-            <img class="imagen-entrenador" src="${normalizarRutaImagen(clase.foto)}" alt="${clase.nombre}">
-            <h3 class="nombre-entrenador">${clase.nombre}</h3>
-            <p class="texto-tarjeta">${clase.descripcion}</p>
-            <p class="experiencia-entrenador"><strong>Nivel:</strong> ${clase.nivel}</p>
-            <p class="experiencia-entrenador"><strong>Duración:</strong> ${clase.duracion}</p>
-            <p class="experiencia-entrenador"><strong>Horario:</strong> ${clase.horario}</p>
-            <p class="experiencia-entrenador"><strong>Instructor:</strong> ${clase.instructor}</p>
+            <img class="imagen-entrenador" src="${normalizarRutaImagen(clase.foto)}" alt="${escaparHTMLFitZone(clase.nombre)}">
+            <h3 class="nombre-entrenador">${escaparHTMLFitZone(clase.nombre)}</h3>
+            <p class="texto-tarjeta">${escaparHTMLFitZone(clase.descripcion)}</p>
+            <p class="experiencia-entrenador"><strong>Nivel:</strong> ${escaparHTMLFitZone(clase.nivel)}</p>
+            <p class="experiencia-entrenador"><strong>Duración:</strong> ${escaparHTMLFitZone(clase.duracion)}</p>
+            <p class="experiencia-entrenador"><strong>Horario:</strong> ${escaparHTMLFitZone(clase.horario)}</p>
+            <p class="experiencia-entrenador"><strong>Instructor:</strong> ${escaparHTMLFitZone(clase.instructor)}</p>
             <a href="detalle-clase.html?id=${clase.id}" class="boton-principal">Ver detalles</a>
         `;
 
@@ -58,3 +62,14 @@ function mostrarClasesNuevas() {
 }
 
 mostrarClasesNuevas();
+
+if (window.FitZoneAPI) {
+    window.FitZoneAPI.getPublicCollection("clases").then(function (remotas) {
+        if (Array.isArray(remotas)) {
+            localStorage.setItem("clases", JSON.stringify(remotas));
+            mostrarClasesNuevas();
+        }
+    }).catch(function (error) {
+        console.warn("No se pudieron cargar nuevas clases desde el servidor; se conservan los datos locales.", error.message);
+    });
+}

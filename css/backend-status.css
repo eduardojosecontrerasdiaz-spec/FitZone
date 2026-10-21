@@ -1,0 +1,36 @@
+/* Componentes añadidos para el backend y el panel de mensajes. */
+.fitzone-sync-notice {
+  position: fixed;
+  z-index: 2000;
+  right: 18px;
+  bottom: 18px;
+  width: min(420px, calc(100vw - 36px));
+  padding: 14px 16px;
+  border: 1px solid #d97706;
+  border-radius: 12px;
+  background: #fff7ed;
+  color: #7c2d12;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+  font-weight: 600;
+}
+.fitzone-sync-notice[hidden] { display: none; }
+.lista-mensajes-admin { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 18px; }
+.tarjeta-mensaje-admin { min-width: 0; padding: 20px; border: 1px solid var(--border, #dbe7f1); border-radius: 16px; background: var(--bg-card, #fff); box-shadow: var(--shadow-card, 0 8px 24px rgba(7,59,112,.07)); overflow-wrap: anywhere; }
+.tarjeta-mensaje-admin.mensaje-no-leido { border-inline-start: 4px solid var(--green-500, #22c55e); }
+.mensaje-admin-cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.mensaje-admin-cabecera h3 { margin: 0; }
+.fecha-mensaje-admin { color: var(--text-secondary, #64748b); font-size: .85rem; }
+.texto-mensaje-admin { white-space: pre-wrap; overflow-wrap: anywhere; }
+html[data-theme="dark"] .tarjeta-mensaje-admin { background: #1e293b; color: #e5e7eb; border-color: #334155; }
+html[data-theme="dark"] .fitzone-sync-notice { background: #422006; color: #ffedd5; border-color: #d97706; }
+@media (max-width: 560px) {
+  .mensaje-admin-cabecera { flex-direction: column; }
+  .fitzone-sync-notice { right: 12px; bottom: 12px; width: calc(100vw - 24px); }
+}
+
+/* La solicitud de membresía no se activa hasta que el gimnasio la confirme. */
+.insignia-pendiente {
+    background: #fff4e5;
+    color: #8a4b08;
+    border: 1px solid #f4d19b;
+}

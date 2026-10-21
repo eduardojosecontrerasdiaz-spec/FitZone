@@ -1,0 +1,85 @@
+/* --------------------------------------------------------------------------
+   PLANES
+   -------------------------------------------------------------------------- */
+
+.precio-plan{
+  font-size:2.05rem;
+  font-weight:900;
+  color:var(--blue-700);
+  margin:8px 0;
+}
+
+.precio-plan span{
+  color:var(--text-secondary);
+  font-size:.92rem;
+  font-weight:600;
+}
+
+.lista-beneficios{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  color:var(--text-secondary);
+  margin:14px 0 20px;
+}
+
+.lista-beneficios li::before{
+  content:"✓";
+  margin-right:8px;
+  color:var(--green-700);
+  font-weight:900;
+}
+
+.plan-destacado{
+  position:relative;
+  overflow:hidden;
+  border:2px solid var(--green-500);
+  box-shadow:0 18px 42px rgba(18,170,97,.14);
+}
+
+.plan-destacado::before{
+  content:"MÁS ELEGIDO";
+  position:absolute;
+  top:17px;
+  right:-37px;
+  padding:5px 38px;
+  color:var(--blue-950);
+  background:var(--green-500);
+  font-size:.63rem;
+  font-weight:900;
+  letter-spacing:.5px;
+  transform:rotate(45deg);
+}
+
+/* --------------------------------------------------------------------------
+   TESTIMONIOS
+   -------------------------------------------------------------------------- */
+
+.tarjeta-testimonio{
+  border-left:5px solid var(--green-500);
+}
+
+.comentario-testimonio{
+  color:#425b74;
+  font-style:italic;
+}
+
+.usuario-testimonio{
+  margin-top:16px;
+  color:var(--blue-700);
+  font-size:.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   UBICACIÓN
+   -------------------------------------------------------------------------- */
+
+.tarjeta-ubicacion{
+  padding:30px;
+  border-top:5px solid var(--blue-600);
+}
+
+.tarjeta-ubicacion p{
+  margin-top:8px;
+  color:var(--text-secondary);
+}

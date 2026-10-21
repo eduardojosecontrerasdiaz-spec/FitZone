@@ -43,19 +43,19 @@
                     <input id="telefonoRegistro" type="tel" placeholder="Teléfono" required>
                     <input id="documentoRegistro" type="text" placeholder="Documento" required>
                     <input id="fechaRegistro" type="date" required>
-                    <select id="metodoPago" required>
-                        <option value="">Método de pago</option>
-                        <option>Tarjeta</option>
-                        <option>Transferencia</option>
-                        <option>Efectivo</option>
-                    </select>
-                    <input id="numeroPago" type="text" placeholder="Número de tarjeta / referencia" required>
-                    <input id="nombrePago" type="text" placeholder="Nombre del titular" required>
-                    <input id="passwordRegistro" type="password" placeholder="Contraseña (mínimo 6 caracteres)" minlength="6" required>
-                    <input id="confirmarPasswordRegistro" type="password" placeholder="Confirmar contraseña" minlength="6" required>
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="metodoPago">Preferencia de pago (no se realiza ningún cobro en línea)</label>
+                        <select id="metodoPago" class="campo-texto">
+                            <option value="Por definir">Prefiero coordinarlo con FitZone</option>
+                            <option value="Tarjeta">Tarjeta en el establecimiento</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Efectivo">Efectivo</option>
+                        </select>
+                    </div>
                 </div>
 
-                <button type="submit" class="boton-principal">Confirmar membresía</button>
+                <p id="mensajeRegistro" class="texto-tarjeta" role="status" aria-live="polite"></p>
+                <button type="submit" class="boton-principal">Enviar solicitud de membresía</button>
             </form>
         </div>
     </section>

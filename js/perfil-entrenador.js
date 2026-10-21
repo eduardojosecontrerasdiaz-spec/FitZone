@@ -65,50 +65,56 @@ const entrenadoresBase = [
     }
 ];
 
+function escaparPerfilHTML(valor) {
+    return String(valor == null ? "" : valor)
+        .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+}
+
 function buscarEntrenador() {
     const guardados = obtenerLista("entrenadores");
-    const todos = entrenadoresBase.concat(guardados);
-
-    if (idEntrenador) {
-        return todos.find(function(entrenador) {
-            return String(entrenador.id) === String(idEntrenador);
-        });
-    }
-
-    if (nombreEntrenador) {
-        return todos.find(function(entrenador) {
-            return entrenador.nombre === nombreEntrenador;
-        });
-    }
-
+    const todos = guardados.concat(entrenadoresBase);
+    if (idEntrenador) return todos.find(function (entrenador) { return String(entrenador.id) === String(idEntrenador); });
+    if (nombreEntrenador) return todos.find(function (entrenador) { return entrenador.nombre === nombreEntrenador; });
     return null;
 }
 
-const entrenador = buscarEntrenador();
-
-if (entrenador && contenedorPerfil) {
+function renderizarPerfil(entrenador) {
+    if (!contenedorPerfil) return;
+    if (!entrenador) {
+        contenedorPerfil.innerHTML = `
+            <div class="tarjeta-info-contacto">
+                <h2>Entrenador no encontrado</h2>
+                <p>Regresa a la sección de entrenadores y selecciona un perfil.</p>
+                <a href="entrenadores.html" class="boton-principal">Ver entrenadores</a>
+            </div>`;
+        return;
+    }
     contenedorPerfil.innerHTML = `
         <div class="perfil-entrenador-card">
-            <img src="${normalizarRutaImagen(entrenador.foto)}" alt="${entrenador.nombre}">
+            <img src="${normalizarRutaImagen(entrenador.foto)}" alt="${escaparPerfilHTML(entrenador.nombre)}">
             <div>
-                <h2>${entrenador.nombre}</h2>
-                <h3>${entrenador.especialidad}</h3>
-                <p><strong>Experiencia:</strong> ${entrenador.experiencia}</p>
-                <p>${entrenador.descripcion}</p>
-                <p><strong>Enfoque:</strong> ${entrenador.enfoque || "Entrenamiento personalizado y seguimiento del progreso."}</p>
-                <p><strong>Certificaciones:</strong> ${entrenador.certificaciones || "Formación profesional especializada."}</p>
-                <p><strong>Metodología:</strong> ${entrenador.metodologia || "Planificación adaptada a los objetivos de cada usuario."}</p>
+                <h2>${escaparPerfilHTML(entrenador.nombre)}</h2>
+                <h3>${escaparPerfilHTML(entrenador.especialidad)}</h3>
+                <p><strong>Experiencia:</strong> ${escaparPerfilHTML(entrenador.experiencia)}</p>
+                <p>${escaparPerfilHTML(entrenador.descripcion)}</p>
+                <p><strong>Enfoque:</strong> ${escaparPerfilHTML(entrenador.enfoque || "Entrenamiento personalizado y seguimiento del progreso.")}</p>
+                <p><strong>Certificaciones:</strong> ${escaparPerfilHTML(entrenador.certificaciones || "Formación profesional especializada.")}</p>
+                <p><strong>Metodología:</strong> ${escaparPerfilHTML(entrenador.metodologia || "Planificación adaptada a los objetivos de cada usuario.")}</p>
                 <a href="contacto.html" class="boton-principal">Contactar entrenador</a>
                 <a href="entrenadores.html" class="boton-secundario">Ver todos</a>
             </div>
-        </div>
-    `;
-} else if (contenedorPerfil) {
-    contenedorPerfil.innerHTML = `
-        <div class="tarjeta-info-contacto">
-            <h2>Entrenador no encontrado</h2>
-            <p>Regresa a la sección de entrenadores y selecciona un perfil.</p>
-            <a href="entrenadores.html" class="boton-principal">Ver entrenadores</a>
-        </div>
-    `;
+        </div>`;
+}
+
+renderizarPerfil(buscarEntrenador());
+if (window.FitZoneAPI) {
+    window.FitZoneAPI.getPublicCollection("entrenadores").then(function (remotos) {
+        if (Array.isArray(remotos)) {
+            localStorage.setItem("entrenadores", JSON.stringify(remotos));
+            renderizarPerfil(buscarEntrenador());
+        }
+    }).catch(function (error) {
+        console.warn("No se pudo actualizar el perfil desde el servidor; se conserva la versión local.", error.message);
+    });
 }

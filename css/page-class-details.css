@@ -1,0 +1,41 @@
+/* --------------------------------------------------------------------------
+   GESTION DE CLASES
+   -------------------------------------------------------------------------- */
+.detalle-clase-card{
+  width:min(950px,100%);
+  margin:0 auto;
+  padding:30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+  align-items:center;
+  background:#1F2937;
+  border:1px solid #374151;
+  border-radius:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,.18);
+}
+.detalle-clase-card img{
+  width:100%;
+  height:330px;
+  object-fit:cover;
+  border-radius:16px;
+}
+.detalle-clase-card h2{
+  color:#22C55E;
+  font-size:32px;
+  margin-bottom:15px;
+}
+.detalle-clase-card p{
+  color:#D1D5DB;
+  margin-bottom:12px;
+}
+.detalle-clase-descripcion{
+  font-size:17px;
+}
+.seccion-clases-dashboard .panel-acciones p{
+  color:var(--text-secondary);
+}
+@media(max-width:700px){
+  .detalle-clase-card{grid-template-columns:1fr;padding:20px;}
+  .detalle-clase-card img{height:250px;}
+}

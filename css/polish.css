@@ -1,0 +1,296 @@
+/* ================================================================
+   AJUSTE SOLICITADO — FORMULARIOS Y CONFIRMACIÓN DE PAGO
+   Solo corrige la visibilidad de los formularios en ambos temas.
+   ================================================================ */
+.formulario-entrenador-dashboard{
+  background:rgba(21,21,21,.62)!important;
+  backdrop-filter:blur(4px);
+}
+
+.formulario-entrenador-caja{
+  background:var(--color-surface)!important;
+  color:var(--color-text)!important;
+  border:1px solid var(--color-border)!important;
+  box-shadow:0 25px 70px rgba(21,21,21,.22)!important;
+}
+
+.formulario-entrenador-caja h2,
+.formulario-entrenador-caja label{
+  color:var(--color-text)!important;
+}
+
+.formulario-entrenador-caja input,
+.formulario-entrenador-caja select,
+.formulario-entrenador-caja textarea{
+  width:100%;
+  background:var(--color-bg)!important;
+  color:var(--color-text)!important;
+  border:1px solid var(--color-border)!important;
+  border-radius:10px;
+  box-shadow:none;
+}
+
+.formulario-entrenador-caja input::placeholder,
+.formulario-entrenador-caja textarea::placeholder{
+  color:var(--color-text-secondary)!important;
+  opacity:1;
+}
+
+.formulario-entrenador-caja input:focus,
+.formulario-entrenador-caja select:focus,
+.formulario-entrenador-caja textarea:focus{
+  border-color:var(--color-primary)!important;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary) 14%,transparent)!important;
+  outline:none;
+}
+
+.formulario-registro{
+  background:var(--color-surface)!important;
+  color:var(--color-text)!important;
+  border-color:var(--color-border)!important;
+}
+
+.formulario-registro .titulo-seccion,
+.formulario-registro label{
+  color:var(--color-text)!important;
+}
+
+.formulario-grid input,
+.formulario-grid select,
+.formulario-grid textarea{
+  background:var(--color-bg)!important;
+  color:var(--color-text)!important;
+  border:1px solid var(--color-border)!important;
+}
+
+.formulario-grid input::placeholder,
+.formulario-grid textarea::placeholder{
+  color:var(--color-text-secondary)!important;
+  opacity:1;
+}
+
+.formulario-grid input:focus,
+.formulario-grid select:focus,
+.formulario-grid textarea:focus{
+  border-color:var(--color-primary)!important;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary) 14%,transparent)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-dashboard{
+  background:rgba(11,13,12,.72)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja,
+html[data-theme="dark"] .formulario-registro{
+  background:var(--dark-surface)!important;
+  color:var(--dark-text)!important;
+  border-color:var(--dark-border)!important;
+  box-shadow:0 25px 70px rgba(0,0,0,.42)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja h2,
+html[data-theme="dark"] .formulario-entrenador-caja label,
+html[data-theme="dark"] .formulario-registro .titulo-seccion{
+  color:var(--dark-text)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja input,
+html[data-theme="dark"] .formulario-entrenador-caja select,
+html[data-theme="dark"] .formulario-entrenador-caja textarea,
+html[data-theme="dark"] .formulario-grid input,
+html[data-theme="dark"] .formulario-grid select,
+html[data-theme="dark"] .formulario-grid textarea{
+  background:var(--dark-bg-secondary)!important;
+  color:var(--dark-text)!important;
+  border-color:var(--dark-border)!important;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja input::placeholder,
+html[data-theme="dark"] .formulario-entrenador-caja textarea::placeholder,
+html[data-theme="dark"] .formulario-grid input::placeholder,
+html[data-theme="dark"] .formulario-grid textarea::placeholder{
+  color:var(--dark-text-secondary)!important;
+  opacity:1;
+}
+
+html[data-theme="dark"] .formulario-entrenador-caja input:focus,
+html[data-theme="dark"] .formulario-entrenador-caja select:focus,
+html[data-theme="dark"] .formulario-entrenador-caja textarea:focus,
+html[data-theme="dark"] .formulario-grid input:focus,
+html[data-theme="dark"] .formulario-grid select:focus,
+html[data-theme="dark"] .formulario-grid textarea:focus{
+  border-color:var(--dark-accent)!important;
+  box-shadow:0 0 0 3px rgba(183,255,0,.13)!important;
+}
+
+/* Confirmación visual después de completar la membresía. */
+.confirmacion-pago-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(21,21,21,.62);
+  backdrop-filter:blur(5px);
+}
+
+.confirmacion-pago{
+  width:min(430px,100%);
+  padding:32px;
+  text-align:center;
+  background:var(--color-surface);
+  color:var(--color-text);
+  border:1px solid var(--color-border);
+  border-radius:20px;
+  box-shadow:0 25px 70px rgba(21,21,21,.25);
+}
+
+.confirmacion-pago h2{
+  margin:0 0 10px;
+  color:var(--color-primary)!important;
+}
+
+.confirmacion-pago p{
+  margin:0 0 22px;
+  color:var(--color-text-secondary)!important;
+}
+
+.confirmacion-pago button{
+  min-width:130px;
+}
+
+html[data-theme="dark"] .confirmacion-pago-overlay{
+  background:rgba(11,13,12,.78);
+}
+
+html[data-theme="dark"] .confirmacion-pago{
+  background:var(--dark-surface);
+  color:var(--dark-text);
+  border-color:var(--dark-border);
+  box-shadow:0 25px 70px rgba(0,0,0,.45);
+}
+
+html[data-theme="dark"] .confirmacion-pago h2{
+  color:var(--dark-accent)!important;
+}
+
+html[data-theme="dark"] .confirmacion-pago p{
+  color:var(--dark-text-secondary)!important;
+}
+
+
+
+/* ================================================================
+   AJUSTE FINAL SOLICITADO — CLASES Y PERFILES DE ENTRENADORES
+   Solo afecta el modal de clases, el perfil del entrenador y el zoom
+   de las tarjetas de entrenadores.
+   ================================================================ */
+.formulario-clase-dashboard .formulario-entrenador-caja{
+  width:min(600px,100%);
+  max-height:calc(100vh - 40px);
+  overflow-y:auto;
+  padding:22px 26px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja h2{
+  margin-bottom:14px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja label{
+  display:block;
+  margin:8px 0 5px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja input,
+.formulario-clase-dashboard .formulario-entrenador-caja select,
+.formulario-clase-dashboard .formulario-entrenador-caja textarea{
+  margin-bottom:7px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja textarea{
+  min-height:78px;
+}
+
+.formulario-clase-dashboard .formulario-entrenador-caja > div{
+  position:sticky;
+  bottom:0;
+  padding-top:10px;
+  margin-top:8px;
+  background:var(--color-surface);
+  z-index:2;
+}
+
+/* Perfil visible y coherente en ambos temas. */
+.perfil-entrenador-card{
+  background:var(--color-surface)!important;
+  color:var(--color-text)!important;
+  border-color:var(--color-border)!important;
+}
+
+.perfil-entrenador-card h2{
+  color:var(--color-text)!important;
+}
+
+.perfil-entrenador-card h3{
+  color:var(--color-primary)!important;
+}
+
+.perfil-entrenador-card p,
+.perfil-entrenador-card p strong{
+  color:var(--color-text-secondary)!important;
+}
+
+html[data-theme="dark"] .perfil-entrenador-card{
+  background:var(--dark-surface)!important;
+  color:var(--dark-text)!important;
+  border-color:var(--dark-border)!important;
+  box-shadow:var(--shadow-card)!important;
+}
+
+html[data-theme="dark"] .perfil-entrenador-card h2{
+  color:var(--dark-text)!important;
+}
+
+html[data-theme="dark"] .perfil-entrenador-card h3{
+  color:var(--dark-accent)!important;
+}
+
+html[data-theme="dark"] .perfil-entrenador-card p,
+html[data-theme="dark"] .perfil-entrenador-card p strong{
+  color:var(--dark-text-secondary)!important;
+}
+
+/* El zoom queda contenido dentro de la zona de imagen y no invade el nombre. */
+.tarjeta-entrenador{
+  overflow:hidden!important;
+}
+
+.tarjeta-entrenador > img{
+  display:block;
+  transform-origin:center top;
+  clip-path:inset(0 round 14px);
+}
+
+.tarjeta-entrenador:hover > img{
+  transform:scale(1.035)!important;
+}
+
+.tarjeta-entrenador .nombre-entrenador{
+  position:relative;
+  z-index:2;
+  background:var(--color-surface);
+  padding-top:3px;
+}
+
+html[data-theme="dark"] .tarjeta-entrenador .nombre-entrenador{
+  background:var(--dark-surface);
+}
+
+@media(max-width:700px){
+  .formulario-clase-dashboard .formulario-entrenador-caja{
+    max-height:calc(100vh - 24px);
+    padding:18px 20px;
+  }
+}

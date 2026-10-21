@@ -1,0 +1,109 @@
+/* --------------------------------------------------------------------------
+   PLANES - DISEÑO CLARO Y UNIFORME
+   -------------------------------------------------------------------------- */
+.pagina-planes .seccion-planes{
+  padding:78px 0;
+  background:var(--bg-primary);
+}
+
+.pagina-planes .tarjeta-plan{
+  color:var(--text-primary);
+  background:#fff;
+  border:1px solid var(--border);
+  padding:28px;
+  border-radius:var(--border-radius);
+}
+
+.pagina-planes .tarjeta-plan-destacado{
+  border:2px solid var(--green-500);
+}
+
+.pagina-planes .precio-plan{
+  color:var(--green-600);
+  font-size:1.8rem;
+}
+
+.pagina-planes .precio-plan small{
+  color:var(--text-secondary);
+  font-size:.9rem;
+}
+
+.pagina-planes .lista-plan{
+  color:var(--text-secondary);
+  text-align:left;
+  padding-left:0;
+}
+
+.pagina-planes .lista-plan li{
+  padding:6px 0;
+}
+
+.pagina-planes .etiqueta-plan{
+  display:block;
+  width:max-content;
+  margin:0 auto 10px;
+  padding:5px 12px;
+  border-radius:999px;
+  background:var(--green-100);
+  color:var(--green-700);
+  font-size:.8rem;
+  font-weight:800;
+}
+
+.pagina-planes .seccion-faq{
+  padding:78px 0;
+  background:#fff;
+}
+
+.pagina-planes .accordion-item{
+  border:1px solid var(--border);
+  margin-bottom:10px;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.pagina-planes .accordion-button{
+  color:var(--blue-950);
+  background:#fff;
+  box-shadow:none;
+}
+
+.pagina-planes .accordion-button:not(.collapsed){
+  color:var(--blue-700);
+  background:var(--bg-blue-soft);
+}
+
+.pagina-planes .accordion-body{
+  color:var(--text-secondary);
+}
+
+.pagina-planes .modal-content{
+  color:var(--text-primary);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:16px;
+}
+
+.pagina-planes .modal-title{
+  color:var(--blue-950) !important;
+}
+
+.pagina-planes .modal-body,
+.pagina-planes .modal-body li{
+  color:var(--text-secondary);
+}
+
+.detalle-clase-card h2{
+  color:var(--blue-950) !important;
+  font-family:var(--font-heading) !important;
+}
+
+.detalle-clase-card p{
+  color:var(--text-secondary) !important;
+}
+
+.detalle-clase-card{
+  background:#fff !important;
+  border:1px solid var(--border) !important;
+  box-shadow:var(--shadow-card) !important;
+}
