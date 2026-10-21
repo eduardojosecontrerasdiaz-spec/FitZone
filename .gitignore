@@ -6,3 +6,9 @@ npm-debug.log*
 .DS_Store
 coverage/
 *.log
+
+# Python / Flask
+__pycache__/
+*.py[cod]
+.venv/
+venv/
