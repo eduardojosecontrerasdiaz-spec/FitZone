@@ -122,7 +122,7 @@ def text(value, maximum=500):
 
 
 def valid_email(value):
-    return bool(re.fullmatch(r"[^\\s@]+@[^\\s@]+\\.[^\\s@]+", text(value, 254)))
+    return bool(re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", text(value, 254)))
 
 
 def valid_date(value):
