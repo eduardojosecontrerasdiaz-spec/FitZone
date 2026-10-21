@@ -1,207 +1,46 @@
-# Estructura del Proyecto FitZone
-
-## 1. Estructura general
-
-El proyecto está organizado en diferentes carpetas de acuerdo con la función de cada recurso.
-
-```text
-FitZone/
-│
-├── index.html
-├── README.md
-│
-├── pages/
-├── css/
-├── js/
-├── assets/
-├── data/
-└── docs/
-```
-
----
-
-## 2. Archivos HTML
-
-### `index.html`
-
-Es la página principal de FitZone. Presenta la identidad del gimnasio y las principales secciones informativas.
-
-### `pages/planes.html`
-
-Presenta los planes de membresía disponibles.
-
-Esta página utiliza componentes de Bootstrap 5.
-
-### `pages/registro.html`
-
-Contiene el formulario utilizado para el registro de una membresía.
-
-### `pages/clases.html`
-
-Presenta las clases disponibles en FitZone.
-
-### `pages/detalle-clase.html`
-
-Muestra información detallada de una clase seleccionada.
-
-### `pages/entrenadores.html`
-
-Presenta información de los entrenadores del gimnasio.
-
-### `pages/perfil-entrenador.html`
-
-Muestra información detallada de un entrenador seleccionado.
-
-### `pages/contacto.html`
-
-Contiene el formulario de contacto de FitZone.
-
-### `pages/dashboard.html`
-
-Contiene el panel administrativo del proyecto.
-
-Esta página permite gestionar información mediante JavaScript y LocalStorage y utiliza una sección desarrollada con Tailwind CSS.
-
----
-
-## 3. Carpeta `css/`
-
-Contiene los archivos relacionados con los estilos propios del proyecto.
-
-### `variables.css`
-
-Contiene las variables CSS utilizadas para mantener una identidad visual consistente.
-
-### `style.css`
-
-Contiene los estilos generales y principales de la aplicación.
-
-### `responsive.css`
-
-Contiene las reglas necesarias para adaptar la interfaz a diferentes tamaños de pantalla.
-
----
-
-## 4. Carpeta `js/`
-
-Contiene la lógica JavaScript del proyecto.
-
-### `app.js`
-
-Gestiona comportamientos generales de la aplicación y eventos relacionados con la interfaz.
-
-### `storage.js`
-
-Contiene las funciones relacionadas con LocalStorage.
-
-Permite guardar, obtener y eliminar información almacenada localmente.
-
-### `crud.js`
-
-Implementa las operaciones CRUD utilizadas en el Dashboard.
-
-Permite gestionar:
-
-* Usuarios.
-* Entrenadores.
-* Clases.
-
-### `validation.js`
-
-Contiene las validaciones utilizadas en los formularios.
-
-### `api.js`
-
-Realiza el consumo de la API pública JSONPlaceholder mediante `fetch()`.
-
-### `darkmode.js`
-
-Gestiona la funcionalidad del modo oscuro.
-
-### `planes.js`
-
-Gestiona las interacciones relacionadas con los planes de membresía.
-
-### `registro.js`
-
-Gestiona la lógica del formulario de registro y la información del plan seleccionado.
-
-### `clases.js`
-
-Gestiona información y comportamiento relacionado con las clases.
-
-### `detalle-clase.js`
-
-Gestiona la información mostrada en el detalle de una clase.
-
-### `entrenadores.js`
-
-Gestiona información relacionada con los entrenadores.
-
-### `perfil-entrenador.js`
-
-Gestiona la información mostrada en el perfil individual de un entrenador.
-
----
-
-## 5. Carpeta `assets/`
-
-Contiene los recursos utilizados por la aplicación.
-
-### `assets/images/`
-
-Contiene imágenes utilizadas en las diferentes páginas del gimnasio.
-
-### `assets/icons/`
-
-Contiene iconos y recursos gráficos del proyecto.
-
----
-
-## 6. Carpeta `data/`
-
-Contiene el espacio destinado a información o recursos relacionados con los datos del proyecto.
-
-La persistencia principal de la aplicación se realiza mediante LocalStorage.
-
----
-
-## 7. Carpeta `docs/`
-
-Contiene la documentación del proyecto.
-
-### `bitacora.md`
-
-Registra las actividades realizadas durante las jornadas de desarrollo.
-
-### `cambios.md`
-
-Registra la evolución y los cambios importantes realizados durante el proyecto.
-
-### `estructura.md`
-
-Explica la organización de carpetas y archivos.
-
-### `funcionalidades.md`
-
-Describe las funcionalidades implementadas.
-
-### `REDISENO_V2.md`
-
-Documenta la segunda versión del rediseño visual de FitZone.
-
----
-
-## 8. Organización del código
-
-La estructura busca separar responsabilidades para facilitar el mantenimiento del proyecto.
-
-Los archivos HTML contienen la estructura de las páginas.
-
-Los archivos CSS contienen los estilos.
-
-Los archivos JavaScript contienen la lógica y funcionalidades.
-
-Los recursos gráficos se encuentran en `assets/`.
-
-La documentación se encuentra en `docs/`.
+# Estructura de FitZone
+
+## Páginas
+
+- `index.html`: página principal.
+- `pages/planes.html`: planes disponibles.
+- `pages/registro.html`: formulario de solicitud de membresía.
+- `pages/clases.html` y `pages/detalle-clase.html`: catálogo y detalle de clases.
+- `pages/entrenadores.html` y `pages/perfil-entrenador.html`: catálogo y perfiles de entrenadores.
+- `pages/contacto.html`: formulario de contacto.
+- `pages/admin.html` y `pages/dashboard.html`: acceso y panel de administración.
+
+## CSS
+
+`css/style.css` es el manifiesto compatible que importa estilos por responsabilidad: `global.css`, `navigation.css`, `hero.css`, `buttons-sections.css`, `grids-cards.css`, `plans-testimonials-location.css`, `contact.css`, `trainers-dashboard.css`, `footer.css`, `page-classes.css`, `page-plans.css`, `page-animation.css`, `page-registration-profile.css`, `page-class-details.css`, `uniformity.css`, `plans-components.css`, `dashboard-forms.css`, `interactions.css`, `theme-fixes.css` y `polish.css`. `backend-status.css` contiene los nuevos avisos de sincronización y estado de solicitud. `variables.css` y `responsive.css` se siguen cargando aparte en las páginas para conservar las rutas existentes.
+
+## JavaScript
+
+- `js/api.js`: cliente HTTP para la API propia y consulta de muestra a JSONPlaceholder.
+- `js/app.js`: envío del formulario de contacto.
+- `js/storage.js`: funciones de compatibilidad con LocalStorage y sincronización con el servidor.
+- `js/admin/dashboard-core.js`: utilidades compartidas del dashboard.
+- `js/admin/members.js`: gestión de miembros y solicitudes.
+- `js/admin/trainers.js`: gestión de entrenadores.
+- `js/admin/classes.js`: gestión de clases.
+- `js/servicios.js`: gestión de servicios.
+- `js/admin-login.js`, `js/dashboard-guard.js`, `js/admin-dashboard.js`, `js/admin-messages.js`: acceso, sesión y mensajes.
+- Los otros archivos `js/*.js` mantienen la lógica específica de cada página.
+
+## Backend y base de datos
+
+- `server/index.js`: verifica configuración, prepara esquema e inicia el servicio.
+- `server/app.js`: configura Express, cabeceras de seguridad y archivos públicos.
+- `server/db.js`: pool PostgreSQL y esquema mínimo de datos.
+- `server/auth.js`: sesión de administrador firmada y middleware de protección.
+- `server/validation.js`: validación de datos de formularios.
+- `server/routes/public.js`: rutas públicas y rutas de administración protegidas.
+
+Tablas: `members`, `contact_messages` y `site_collections`. El esquema se crea o actualiza al iniciar el servicio. Las credenciales de administrador se configuran en variables de entorno; la versión actual no recopila ni guarda contraseñas de clientes, porque no incluye inicio de sesión para clientes. Si el Dashboard encuentra miembros antiguos en LocalStorage mientras la tabla remota está vacía, solicita permiso antes de importarlos.
+
+## Configuración y pruebas
+
+- `.env.example`: muestra el nombre de las variables requeridas sin guardar secretos.
+- `railway.json`: define `npm start` y la comprobación `/api/health`.
+- `tests/`: pruebas automáticas de validación de datos.
+- `docs/DEPLOY_RAILWAY.md`: guía de despliegue y comprobaciones.

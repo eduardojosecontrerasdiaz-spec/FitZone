@@ -172,3 +172,16 @@ Al finalizar el desarrollo, FitZone cuenta con:
 * Barra de progreso.
 
 La evolución del proyecto fue registrada también mediante Git, permitiendo mantener un historial de los cambios realizados durante el desarrollo.
+---
+
+# Actualización 2.0 - Separación de responsabilidades y backend
+
+- Se dividió `css/style.css` en módulos manteniendo exacta la concatenación original de sus reglas.
+- Se separó `js/crud.js` en archivos específicos para el dashboard.
+- Se añadió backend Node.js/Express y persistencia PostgreSQL para miembros, mensajes de contacto y colecciones de contenido.
+- Se sustituyó el acceso fijo de administrador por variables de entorno y sesiones firmadas.
+- Se convirtió el registro en una solicitud de membresía pendiente y se quitaron entradas de datos de tarjeta y contraseña de cliente no utilizadas por el sistema.
+- Se configuró un endpoint de salud y un inicio apto para Railway.
+- Se ejecutaron pruebas básicas de validación y comprobaciones sintácticas.
+
+Nota de alcance: en este entorno no fue posible instalar dependencias de npm desde el registro, por lo que no se levantó la aplicación contra PostgreSQL ni se hizo una prueba visual de extremo a extremo. Esa verificación debe completarse en Railway antes de compartir la URL pública.

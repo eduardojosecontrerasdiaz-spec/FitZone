@@ -1,0 +1,157 @@
+/* --------------------------------------------------------------------------
+   FUNCIONES NUEVAS: REGISTRO Y PERFIL DE ENTRENADOR
+   -------------------------------------------------------------------------- */
+
+.pagina-planes{
+  background:#f5f9fd !important;
+  color:var(--text-primary) !important;
+}
+
+.pagina-planes .navbar{
+  background:#ffffff !important;
+}
+
+.formulario-registro{
+  width:min(850px,100%);
+  margin:0 auto;
+  padding:35px;
+  background:#ffffff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow-card);
+}
+
+.formulario-registro .titulo-seccion{margin-bottom:18px}
+
+.formulario-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-bottom:24px;
+}
+
+.formulario-grid input,
+.formulario-grid select,
+.formulario-grid textarea{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid var(--border-strong);
+  border-radius:10px;
+  background:#fff;
+  color:var(--text-primary);
+  outline:none;
+}
+
+.formulario-grid input:focus,
+.formulario-grid select:focus{
+  border-color:var(--blue-600);
+}
+
+.plan-seleccionado{
+  margin:0 auto 24px;
+  width:max-content;
+  max-width:100%;
+  padding:9px 16px;
+  border-radius:999px;
+  background:var(--bg-green-soft);
+  color:var(--green-700);
+  font-weight:800;
+}
+
+.perfil-entrenador-card{
+  width:min(950px,100%);
+  margin:0 auto;
+  padding:30px;
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:30px;
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:var(--shadow-card);
+}
+
+.perfil-entrenador-card img{
+  width:100%;
+  height:330px;
+  object-fit:cover;
+  border-radius:18px;
+}
+
+.perfil-entrenador-card h2{
+  margin-bottom:8px;
+}
+
+.perfil-entrenador-card h3{
+  color:var(--green-700);
+  margin-bottom:16px;
+}
+
+.perfil-entrenador-card p{
+  margin-bottom:14px;
+  color:var(--text-secondary);
+}
+
+.formulario-entrenador-dashboard{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(6,40,77,.55);
+}
+
+.formulario-entrenador-caja{
+  width:min(600px,100%);
+  padding:28px;
+  background:#fff;
+  border-radius:20px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.formulario-entrenador-caja h2{
+  margin-bottom:20px;
+}
+
+.formulario-entrenador-caja input,
+.formulario-entrenador-caja textarea{
+  width:100%;
+  margin-bottom:12px;
+  padding:12px;
+  border:1px solid var(--border-strong);
+  border-radius:10px;
+}
+
+.formulario-entrenador-caja textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.formulario-entrenador-caja > div{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+
+.seccion-entrenadores-dashboard{
+  background:var(--bg-blue-soft);
+}
+
+@media(max-width:700px){
+  .formulario-grid,
+  .perfil-entrenador-card{
+    grid-template-columns:1fr;
+  }
+
+  .perfil-entrenador-card img{
+    height:280px;
+  }
+
+  .formulario-registro{
+    padding:22px;
+  }
+}

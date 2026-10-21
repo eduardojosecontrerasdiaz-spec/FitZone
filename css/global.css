@@ -1,0 +1,67 @@
+
+/* ==========================================================================
+   FITZONE — REDISEÑO VISUAL V2
+   HTML y contenido conservados.
+   Dirección: blanco + azul + verde energético.
+   ========================================================================== */
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--font-body);
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+body::selection{background:var(--green-500);color:var(--blue-950)}
+
+h1,h2,h3,h4,h5,h6{
+  font-family:var(--font-heading);
+  color:var(--blue-950);
+  line-height:1.2;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+ul{list-style:none;padding:0}
+
+img{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+button,input,textarea,select{font:inherit}
+
+section{padding:78px 0}
+
+.contenedor{
+  width:min(92%,1200px);
+  margin:0 auto;
+}
+
+.titulo-seccion{
+  position:relative;
+  text-align:center;
+  font-size:clamp(1.75rem,3vw,2.45rem);
+  font-weight:850;
+  margin-bottom:42px;
+  color:var(--blue-950);
+}
+
+.titulo-seccion::after{
+  content:"";
+  display:block;
+  width:58px;
+  height:4px;
+  margin:13px auto 0;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--blue-600),var(--green-500));
+}

@@ -1,0 +1,117 @@
+/* ==========================================================================
+   PÁGINA PLANES — Bootstrap se mantiene; solo se cambia la piel visual.
+   ========================================================================== */
+
+body[style*="#111827"]{
+  background:var(--bg-primary)!important;
+  color:var(--text-primary)!important;
+}
+
+body[style*="#111827"] > header nav,
+body[style*="#111827"] nav[style*="#1F2937"]{
+  background:#fff!important;
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] .navbar-brand{
+  color:var(--blue-950)!important;
+}
+
+body[style*="#111827"] .navbar-brand .text-white{
+  color:var(--green-600)!important;
+}
+
+body[style*="#111827"] .navbar .nav-link{
+  color:#49637d!important;
+  font-weight:700;
+}
+
+body[style*="#111827"] .navbar .nav-link:hover,
+body[style*="#111827"] .navbar .nav-link[style*="#22C55E"]{
+  color:var(--blue-700)!important;
+}
+
+body[style*="#111827"] main > section[style*="#1F2937"]{
+  background:linear-gradient(135deg,#eef8ff,#fff)!important;
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] main > section[style*="#1F2937"] h1{
+  color:var(--blue-950)!important;
+}
+
+body[style*="#111827"] .card{
+  color:var(--text-primary)!important;
+  background:#fff!important;
+  border-color:var(--border)!important;
+  border-radius:var(--border-radius)!important;
+  box-shadow:var(--shadow-card)!important;
+}
+
+body[style*="#111827"] .card:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow-hover)!important;
+}
+
+body[style*="#111827"] .card .text-light,
+body[style*="#111827"] .accordion-body,
+body[style*="#111827"] .list-unstyled{
+  color:var(--text-secondary)!important;
+}
+
+body[style*="#111827"] .card h4[style*="#22C55E"]{
+  color:var(--blue-700)!important;
+}
+
+body[style*="#111827"] .card .btn{
+  color:var(--blue-700)!important;
+  border-color:#bcd8ef!important;
+  border-radius:11px;
+}
+
+body[style*="#111827"] .card .btn:hover{
+  color:#fff!important;
+  background:var(--blue-700)!important;
+  border-color:var(--blue-700)!important;
+}
+
+body[style*="#111827"] footer{
+  background:var(--blue-950)!important;
+  color:#d9e7f4!important;
+  border-color:rgba(255,255,255,.12)!important;
+}
+
+body[style*="#111827"] .accordion-item{
+  background:#fff!important;
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] .accordion-button{
+  color:var(--blue-950)!important;
+  background:#fff!important;
+}
+
+body[style*="#111827"] .accordion-button:not(.collapsed){
+  color:var(--blue-700)!important;
+  background:var(--bg-blue-soft)!important;
+  box-shadow:none!important;
+}
+
+body[style*="#111827"] .modal-content{
+  background:#fff!important;
+  color:var(--text-primary)!important;
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] .modal-header,
+body[style*="#111827"] .modal-footer{
+  border-color:var(--border)!important;
+}
+
+body[style*="#111827"] .modal-title{
+  color:var(--blue-950)!important;
+}
+
+body[style*="#111827"] .btn-close{
+  filter:none!important;
+}

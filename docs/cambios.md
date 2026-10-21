@@ -157,3 +157,23 @@ La evolución se realizó mediante Git, permitiendo mantener un historial de los
 * Planes.
 * Registro.
 * Documentación.
+---
+
+## Versión 2.0 - Organización y preparación para Railway
+
+### Cambios
+
+- Separación del CSS monolítico en archivos por responsabilidad sin cambiar el orden de las reglas originales.
+- División del antiguo CRUD del dashboard en módulos de miembros, entrenadores, clases y funciones compartidas.
+- Incorporación de una API Express con autenticación administrativa por variables de entorno y PostgreSQL.
+- Persistencia de solicitudes de membresía, mensajes de contacto y colecciones editables.
+- Eliminación de las credenciales fijas del HTML administrativo.
+- Eliminación de campos de tarjeta; el registro se confirma como solicitud pendiente, no como pago.
+- Incorporación de `railway.json`, variables de ejemplo, pruebas automáticas y guía de despliegue.
+
+### Comprobaciones
+
+- Sintaxis JavaScript validada.
+- Pruebas automatizadas de validación ejecutadas.
+- Rutas locales de páginas, CSS, imágenes y scripts revisadas.
+- No se completó una prueba de despliegue ni una prueba visual en navegador desde el entorno de edición.

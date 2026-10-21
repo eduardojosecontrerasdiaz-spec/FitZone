@@ -1,0 +1,114 @@
+/* --------------------------------------------------------------------------
+   HERO — HOME
+   -------------------------------------------------------------------------- */
+
+.hero-section{
+  position:relative;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(36,201,120,.12),transparent 25%),
+    radial-gradient(circle at 88% 8%,rgba(20,121,214,.12),transparent 30%),
+    linear-gradient(180deg,#eef8ff 0%,#f8fbfe 75%,var(--bg-primary) 100%);
+  border-bottom:1px solid #e0edf6;
+}
+
+.hero-section:not(.text-center){
+  padding:0 0 82px;
+}
+
+.contenedor-hero{
+  width:min(94%,1240px);
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.hero-texto{
+  width:min(900px,100%);
+  padding:72px 12px 36px;
+  margin:0 auto;
+}
+
+.hero-titulo{
+  max-width:900px;
+  margin:0 auto 18px;
+  color:var(--blue-950);
+  font-size:clamp(2.35rem,5vw,4.6rem);
+  font-weight:900;
+  letter-spacing:-2.2px;
+  text-wrap:balance;
+}
+
+.hero-descripcion{
+  max-width:760px;
+  margin:0 auto 30px;
+  color:var(--text-secondary);
+  font-size:clamp(1rem,1.8vw,1.15rem);
+  text-wrap:balance;
+}
+
+.hero-imagen{
+  position:relative;
+  width:min(1080px,100%);
+  margin:0 auto;
+}
+
+.imagen-redondeada{
+  width:100%;
+  height:clamp(310px,46vw,560px);
+  object-fit:cover;
+  object-position:center;
+  border-radius:28px;
+  border:7px solid rgba(255,255,255,.9);
+  box-shadow:0 28px 65px rgba(7,59,112,.20);
+}
+
+.hero-imagen::before{
+  content:"";
+  position:absolute;
+  width:105px;
+  height:105px;
+  left:-20px;
+  top:-20px;
+  border-radius:28px;
+  background:linear-gradient(135deg,var(--green-500),var(--blue-600));
+  opacity:.9;
+  z-index:0;
+}
+
+.hero-imagen::after{
+  content:"FITZONE  •  ENTRENA  •  EVOLUCIONA";
+  position:absolute;
+  z-index:2;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  color:#fff;
+  background:rgba(6,40,77,.88);
+  border:1px solid rgba(255,255,255,.18);
+  padding:9px 17px;
+  border-radius:999px;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:1.2px;
+}
+
+/* Heroes internos */
+.hero-section.text-center{
+  padding:64px 0;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(36,201,120,.10),transparent 25%),
+    linear-gradient(135deg,#eef8ff,#ffffff);
+  border-bottom:1px solid var(--border);
+}
+
+.hero-section.text-center .hero-titulo{
+  font-size:clamp(2rem,4vw,3.4rem);
+  letter-spacing:-1.3px;
+}
+
+.hero-section.text-center .hero-descripcion{
+  margin-bottom:0;
+}

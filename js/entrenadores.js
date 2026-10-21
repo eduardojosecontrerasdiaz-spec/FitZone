@@ -1,3 +1,7 @@
+function escaparHTMLFitZone(valor) {
+    return String(valor == null ? "" : valor).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+}
+
 
 function normalizarRutaImagen(foto) {
     if (!foto) return "../assets/images/elena.png";
@@ -15,7 +19,7 @@ function normalizarRutaImagen(foto) {
     return "../assets/images/" + nombreArchivo;
 }
 // entrenadores.js
-// Muestra perfiles individuales y agrega entrenadores guardados en el navegador.
+// Muestra entrenadores adicionales sincronizados con la API y conserva los datos locales como respaldo.
 
 function obtenerEntrenadoresGuardados() {
     const datos = localStorage.getItem("entrenadores");
@@ -47,11 +51,11 @@ function mostrarEntrenadoresNuevos() {
         tarjeta.className = "tarjeta-entrenador entrenador-nuevo";
 
         tarjeta.innerHTML = `
-            <img src="${normalizarRutaImagen(entrenador.foto)}" alt="${entrenador.nombre}">
-            <h3 class="nombre-entrenador">${entrenador.nombre}</h3>
-            <p class="especialidad-entrenador">${entrenador.especialidad}</p>
-            <p class="experiencia-entrenador"><strong>Experiencia:</strong> ${entrenador.experiencia}</p>
-            <p class="texto-tarjeta">${entrenador.descripcion}</p>
+            <img src="${normalizarRutaImagen(entrenador.foto)}" alt="${escaparHTMLFitZone(entrenador.nombre)}">
+            <h3 class="nombre-entrenador">${escaparHTMLFitZone(entrenador.nombre)}</h3>
+            <p class="especialidad-entrenador">${escaparHTMLFitZone(entrenador.especialidad)}</p>
+            <p class="experiencia-entrenador"><strong>Experiencia:</strong> ${escaparHTMLFitZone(entrenador.experiencia)}</p>
+            <p class="texto-tarjeta">${escaparHTMLFitZone(entrenador.descripcion)}</p>
             <a href="perfil-entrenador.html?id=${entrenador.id}" class="boton-principal">Ver Perfil</a>
         `;
 
@@ -77,6 +81,18 @@ function prepararPerfiles() {
 
 mostrarEntrenadoresNuevos();
 prepararPerfiles();
+
+if (window.FitZoneAPI) {
+    window.FitZoneAPI.getPublicCollection("entrenadores").then(function (remotos) {
+        if (Array.isArray(remotos)) {
+            localStorage.setItem("entrenadores", JSON.stringify(remotos));
+            mostrarEntrenadoresNuevos();
+            prepararPerfiles();
+        }
+    }).catch(function (error) {
+        console.warn("No se pudieron cargar entrenadores desde el servidor; se conservan los datos locales.", error.message);
+    });
+}
 
 
 // Buscador y votación sencilla de entrenadores.

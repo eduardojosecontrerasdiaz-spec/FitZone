@@ -1,0 +1,38 @@
+/* --------------------------------------------------------------------------
+   FORMULARIOS DEL DASHBOARD
+   -------------------------------------------------------------------------- */
+.formulario-entrenador-caja label {
+  display:block;
+  margin:4px 0 6px;
+  font-weight:600;
+  color:var(--blue-700);
+}
+
+.formulario-entrenador-caja select {
+  width:100%;
+  margin-bottom:12px;
+  padding:12px;
+  border:1px solid var(--border-strong);
+  border-radius:10px;
+  background:#fff;
+  font:inherit;
+}
+
+.seccion-entrenadores-dashboard,
+.seccion-clases-dashboard {
+  margin-top:24px;
+}
+
+.seccion-entrenadores-dashboard .panel-acciones,
+.seccion-clases-dashboard .panel-acciones {
+  margin-bottom:22px;
+}
+
+.seccion-entrenadores-dashboard .panel-acciones .boton-principal,
+.seccion-clases-dashboard .panel-acciones .boton-principal {
+  margin-top:14px;
+}
+
+.seccion-gestion + .seccion-gestion {
+  border-top:1px solid var(--border-soft);
+}

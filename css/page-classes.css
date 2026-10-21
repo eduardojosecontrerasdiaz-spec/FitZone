@@ -1,0 +1,68 @@
+/* ==========================================================================
+   PÁGINA CLASES — actualmente usa Tailwind.
+   Estas reglas armonizan el aspecto sin cambiar su HTML.
+   ========================================================================== */
+
+body.bg-\[\#111827\]{
+  background:var(--bg-primary)!important;
+  color:var(--text-primary)!important;
+}
+
+body.bg-\[\#111827\] .bg-\[\#1F2937\]{
+  background:#fff!important;
+  border-color:var(--border)!important;
+}
+
+body.bg-\[\#111827\] .text-\[\#22C55E\]{
+  color:var(--green-600)!important;
+}
+
+body.bg-\[\#111827\] .text-white{
+  color:var(--text-primary)!important;
+}
+
+body.bg-\[\#111827\] .text-gray-300,
+body.bg-\[\#111827\] .text-gray-400,
+body.bg-\[\#111827\] .text-gray-500{
+  color:var(--text-secondary)!important;
+}
+
+body.bg-\[\#111827\] header{
+  background:rgba(255,255,255,.96)!important;
+  border-color:var(--border)!important;
+}
+
+body.bg-\[\#111827\] header a.text-\[\#22C55E\]{
+  color:var(--blue-950)!important;
+}
+
+body.bg-\[\#111827\] header a.text-\[\#22C55E\] span{
+  color:var(--green-600)!important;
+}
+
+body.bg-\[\#111827\] section.bg-\[\#1F2937\]{
+  background:linear-gradient(135deg,#eef8ff,#fff)!important;
+}
+
+body.bg-\[\#111827\] article.bg-\[\#1F2937\]{
+  border-radius:var(--border-radius)!important;
+  box-shadow:var(--shadow-card);
+}
+
+body.bg-\[\#111827\] article.bg-\[\#1F2937\]:hover{
+  border-color:var(--green-500)!important;
+  transform:translateY(-5px);
+  box-shadow:var(--shadow-hover);
+}
+
+body.bg-\[\#111827\] article img{
+  object-fit:cover;
+}
+
+body.bg-\[\#111827\] a.bg-\[\#22C55E\]{
+  background:var(--blue-700)!important;
+}
+
+body.bg-\[\#111827\] a.bg-\[\#22C55E\]:hover{
+  background:var(--blue-800)!important;
+}

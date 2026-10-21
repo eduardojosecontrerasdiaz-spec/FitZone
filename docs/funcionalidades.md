@@ -74,7 +74,7 @@ Permite modificar información existente.
 
 Permite eliminar registros.
 
-Estas operaciones utilizan LocalStorage para conservar la información.
+Los registros principales se guardan en PostgreSQL cuando el administrador tiene sesión válida. LocalStorage se conserva como respaldo local/compatibilidad y para el modo de operación sin conexión; no sustituye a la base de datos del servidor.
 
 ---
 
@@ -194,3 +194,14 @@ Durante el desarrollo se realizó una segunda etapa de rediseño visual para mej
 * Dashboard.
 * Footer.
 * Diseño responsive.
+---
+
+## 19. Persistencia con PostgreSQL
+
+La API se ejecuta desde el backend Express y guarda en PostgreSQL las solicitudes de membresía, los mensajes de contacto y el contenido administrable de entrenadores, clases y servicios. El panel requiere un token temporal firmado por el servidor. El servidor valida los campos nuevamente y limita los intentos de formularios y acceso.
+
+La solicitud de membresía queda en estado **Pendiente**. No hay pasarela de pago, cobro ni almacenamiento de datos de tarjeta. El contenido público se puede seguir mostrando cuando no existe una colección remota, utilizando los datos base de la web.
+
+## 20. Publicación
+
+El repositorio incluye `railway.json`, el comando `npm start`, el endpoint de salud `/api/health`, `.env.example` y la guía `docs/DEPLOY_RAILWAY.md`. La publicación requiere que el propietario conecte su repositorio y configure las variables secretas en Railway.

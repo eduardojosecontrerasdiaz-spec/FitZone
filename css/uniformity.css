@@ -1,0 +1,113 @@
+/* ==========================================================================
+   AJUSTES FINALES DE UNIFORMIDAD
+   ========================================================================== */
+
+/* Todos los títulos de páginas mantienen el mismo estilo y centrado. */
+.hero-section.text-center .hero-titulo,
+.hero-section.text-center .hero-descripcion,
+.titulo-seccion {
+  text-align:center;
+}
+
+/* Todas las barras de navegación usan azul y la página actual tiene línea verde. */
+.nav-link,
+.nav-link:visited {
+  color:#49637d !important;
+}
+
+.nav-link:hover,
+.nav-link.activo {
+  color:var(--blue-700) !important;
+}
+
+.nav-link.activo::after {
+  background:var(--green-500) !important;
+}
+
+/* Botones de gestión. */
+.acciones-gestion {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+
+.acciones-gestion .boton-accion {
+  cursor:pointer;
+}
+
+/* Formulario de Dashboard más uniforme. */
+.formulario-entrenador-caja button {
+  min-height:42px;
+}
+
+/* Evita que una página con Tailwind cambie la tipografía general. */
+.pagina-clases,
+.pagina-clases button,
+.pagina-clases input,
+.pagina-clases textarea,
+.pagina-clases a,
+.pagina-clases h1,
+.pagina-clases h2,
+.pagina-clases h3,
+.pagina-clases p,
+.pagina-clases li {
+  font-family:var(--font-body) !important;
+}
+
+.pagina-clases h1,
+.pagina-clases h2,
+.pagina-clases h3 {
+  font-family:var(--font-heading) !important;
+}
+
+/* Página de planes: Bootstrap no debe cambiar el aspecto general. */
+.pagina-planes,
+.pagina-planes button,
+.pagina-planes input,
+.pagina-planes a,
+.pagina-planes h1,
+.pagina-planes h2,
+.pagina-planes h3,
+.pagina-planes h4,
+.pagina-planes h5,
+.pagina-planes p,
+.pagina-planes li {
+  font-family:var(--font-body) !important;
+}
+
+.pagina-planes h1,
+.pagina-planes h2,
+.pagina-planes h3,
+.pagina-planes h4,
+.pagina-planes h5 {
+  font-family:var(--font-heading) !important;
+}
+
+.pagina-planes .navbar .nav-link {
+  position:relative;
+  color:#49637d !important;
+  padding:10px 12px !important;
+}
+
+.pagina-planes .navbar .nav-link:hover,
+.pagina-planes .navbar .nav-link.activo {
+  color:var(--blue-700) !important;
+}
+
+.pagina-planes .navbar .nav-link.activo::after {
+  content:"";
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:3px;
+  height:3px;
+  border-radius:99px;
+  background:var(--green-500);
+}
+
+/* Contacto: el título principal queda centrado siempre. */
+.seccion-contacto .titulo-seccion,
+.seccion-contacto + section .titulo-seccion {
+  text-align:center;
+}

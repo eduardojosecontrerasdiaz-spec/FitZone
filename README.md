@@ -1,199 +1,101 @@
 # FitZone
 
-FitZone es una aplicación web responsive para la gestión y presentación de los servicios de un gimnasio. E
-La aplicación integra HTML5, CSS3, JavaScript Vanilla, Bootstrap 5, Tailwind CSS y LocalStorage para crear una interfaz moderna, responsive y funcional.
+FitZone es una web responsive para presentar los servicios de un gimnasio y administrar solicitudes de membresía, mensajes, clases, entrenadores y servicios. La interfaz se conserva como base; los estilos y el JavaScript se ordenaron por responsabilidades, y ahora existe una API Node.js con PostgreSQL para los datos que deben persistir entre dispositivos.
 
-## Objetivo
+## Tecnologías
 
-Desarrollar una aplicación web para un gimnasio que permita a los usuarios consultar información sobre clases, entrenadores y planes de membresía, además de incorporar funcionalidades dinámicas mediante JavaScript y almacenamiento local.
+- HTML, CSS y JavaScript sin framework de frontend obligatorio.
+- Node.js 20 o superior y Express para servir la web y la API desde el mismo servicio.
+- PostgreSQL para almacenar solicitudes de membresía, mensajes y contenido administrable.
+- Railway para el despliegue; `railway.json` configura el inicio y el chequeo de salud.
 
-## Tecnologías utilizadas
-
-* HTML5
-* CSS3
-* JavaScript Vanilla
-* Bootstrap 5
-* Tailwind CSS
-* LocalStorage
-* API pública JSONPlaceholder
-
-## Estructura del proyecto
+## Estructura
 
 ```text
 FitZone/
-│
 ├── index.html
-├── README.md
-│
-├── pages/
-│   ├── clases.html
-│   ├── contacto.html
-│   ├── dashboard.html
-│   ├── detalle-clase.html
-│   ├── entrenadores.html
-│   ├── perfil-entrenador.html
-│   ├── planes.html
-│   └── registro.html
-│
+├── pages/                   # Páginas públicas y acceso al panel
 ├── css/
+│   ├── style.css            # Manifiesto que importa los estilos divididos
 │   ├── variables.css
-│   ├── style.css
-│   └── responsive.css
-│
+│   ├── responsive.css
+│   └── *.css                # Archivos por sección/componente
 ├── js/
-│   ├── api.js
-│   ├── app.js
-│   ├── clases.js
-│   ├── crud.js
-│   ├── darkmode.js
-│   ├── detalle-clase.js
-│   ├── entrenadores.js
-│   ├── perfil-entrenador.js
-│   ├── planes.js
-│   ├── registro.js
-│   ├── storage.js
-│   └── validation.js
-│
-├── assets/
-│   ├── icons/
-│   └── images/
-│
-├── data/
-│
-└── docs/
-    ├── bitacora.md
-    ├── cambios.md
-    ├── estructura.md
-    ├── funcionalidades.md
-    └── REDISENO_V2.md
+│   ├── api.js               # Cliente para la API del mismo dominio
+│   ├── app.js               # Formulario de contacto y lógica general
+│   ├── storage.js           # Compatibilidad con datos locales
+│   ├── admin/               # Miembros, clases, entrenadores y resumen
+│   └── *.js                 # Lógica específica por página
+├── server/
+│   ├── index.js             # Arranque y cierre del servidor
+│   ├── app.js               # Express, seguridad HTTP y archivos públicos
+│   ├── db.js                # Pool PostgreSQL y esquema mínimo
+│   ├── auth.js              # Sesión firmada para el administrador
+│   ├── validation.js        # Validación del lado servidor
+│   └── routes/public.js     # API pública y rutas protegidas de administración
+├── tests/                   # Pruebas automáticas básicas
+├── scripts/check-syntax.js  # Revisión sintáctica de todos los archivos JS
+├── docs/DEPLOY_RAILWAY.md   # Guía de publicación
+├── .env.example             # Plantilla sin secretos
+├── package.json
+└── railway.json
 ```
 
-## Funcionalidades principales
+## CSS y JavaScript
 
-### Navegación
+`css/style.css` se mantiene como punto de entrada para que las páginas existentes no dependan de un cambio masivo. Importa archivos separados por responsabilidad (globales, navegación, hero, tarjetas, contacto, panel, páginas y pequeños ajustes). Las reglas originales se conservan en el mismo orden; los únicos estilos añadidos son para los avisos de sincronización y el estado de membresía pendiente.
 
-La aplicación cuenta con diferentes páginas relacionadas con los servicios del gimnasio y permite navegar entre ellas mediante los elementos de navegación.
+El antiguo `js/crud.js` se dividió en `js/admin/dashboard-core.js`, `js/admin/members.js`, `js/admin/trainers.js` y `js/admin/classes.js`. Cada página mantiene sus scripts específicos. `js/api.js` centraliza las peticiones a la API.
 
-### Planes
+## Datos que se guardan
 
-Permite consultar los diferentes planes de membresía disponibles y acceder al proceso de registro.
+La app crea automáticamente estas tres tablas en PostgreSQL:
 
-### Registro
+- `members`: datos necesarios para la solicitud de membresía y su estado (`Pendiente`, `Activo` o `Inactivo`).
+- `contact_messages`: mensajes enviados desde los formularios de contacto.
+- `site_collections`: listas pequeñas de entrenadores, clases y servicios editables desde el panel.
 
-Permite ingresar información para realizar el registro de una membresía.
+No se almacena ningún dato de tarjeta y no existe una pasarela de pago integrada. El formulario registra una **solicitud**, inicialmente pendiente; no confirma cobros ni activa una membresía pagada. Tampoco se pide una contraseña a los clientes porque en esta versión no hay inicio de sesión de clientes. El panel administrativo sí tiene autenticación protegida mediante variables de entorno.
 
-### Clases
+Las valoraciones y el tema visual siguen guardándose localmente en el navegador; no son parte de las funciones que se envían a PostgreSQL en esta versión. Si el Dashboard detecta miembros guardados en el navegador cuando PostgreSQL está vacío, pregunta antes de importarlos para evitar borrarlos o mezclarlos sin autorización.
 
-Permite consultar las clases disponibles y acceder a páginas con información detallada.
+## Ejecutar localmente
 
-### Entrenadores
+Necesitas Node.js 20+ y una base PostgreSQL accesible.
 
-Permite consultar los entrenadores disponibles y acceder a sus perfiles individuales.
+1. Copia `.env.example` como `.env` y edita los valores.
+2. Crea una base de datos llamada `fitzone` en PostgreSQL (por ejemplo, desde pgAdmin) o utiliza una `DATABASE_URL` de desarrollo.
+3. Configura `DATABASE_URL`, un usuario de administrador, una contraseña de administrador de al menos 12 caracteres y una `SESSION_SECRET` aleatoria de 32 caracteres o más.
+4. Desde la carpeta raíz del proyecto ejecuta:
 
-### Dashboard
+```bash
+npm install
+npm run check
+npm test
+npm start
+```
 
-Incluye un panel de administración para gestionar información de usuarios, entrenadores y clases.
+Abre `http://localhost:3000`. El inicio del servidor crea o actualiza las tres tablas necesarias. No abras los HTML mediante `file://`: la web necesita la API del servidor.
 
-### CRUD
+## Variables de entorno
 
-El Dashboard implementa operaciones para:
+| Variable | Uso |
+|---|---|
+| `DATABASE_URL` | Cadena de conexión de PostgreSQL; obligatoria. |
+| `ADMIN_USERNAME` | Usuario del administrador; obligatoria. |
+| `ADMIN_PASSWORD` | Contraseña exclusiva del administrador; mínimo 12 caracteres. |
+| `SESSION_SECRET` | Secreto aleatorio para firmar sesiones; mínimo 32 caracteres. |
+| `NODE_ENV` | Usa `production` en Railway. |
+| `PORT` | Puerto local; Railway asigna el puerto de servicio automáticamente. |
+| `PGSSL` | Opcional: usa `require` solo si el proveedor necesita SSL explícito. |
 
-* Crear registros.
-* Consultar registros.
-* Editar registros.
-* Eliminar registros.
+Nunca subas `.env` a GitHub ni escribas secretos dentro del código. `.gitignore` ya excluye el archivo `.env`.
 
-Estas operaciones utilizan LocalStorage como mecanismo de persistencia.
+## Pruebas y alcance
 
-### Buscador
+- `npm run check`: comprueba la sintaxis del backend.
+- `npm test`: ejecuta pruebas de validación de datos.
+- `GET /api/health`: comprueba que la API responde y que PostgreSQL es accesible.
+- Acceso administrativo: `/pages/admin.html`.
 
-El Dashboard cuenta con un buscador para facilitar la consulta de usuarios.
-
-### Modo oscuro
-
-La aplicación incorpora un modo oscuro para modificar la apariencia visual de la interfaz.
-
-### Contadores dinámicos
-
-El Dashboard utiliza contadores para mostrar información resumida de los registros administrados.
-
-### Barra de progreso
-
-Se incorpora una barra de progreso dentro de la interfaz del Dashboard.
-
-### Validaciones
-
-Se realizan validaciones sobre diferentes formularios y campos, incluyendo datos obligatorios, correo electrónico y contraseñas.
-
-### API pública
-
-FitZone consume la API pública JSONPlaceholder mediante `fetch()` y muestra dinámicamente información obtenida de la API en el Dashboard.
-
-### Bootstrap 5
-
-Se utiliza Bootstrap 5 para implementar diferentes componentes de la interfaz, incluyendo:
-
-* Navbar
-* Cards
-* Carousel
-* Modal
-* Toast
-* Accordion
-* Offcanvas
-* Formularios
-* Botones
-* Grid
-
-### Tailwind CSS
-
-El Dashboard incorpora una sección desarrollada utilizando Tailwind CSS.
-
-## Diseño Responsive
-
-El proyecto fue desarrollado buscando una correcta visualización en diferentes dispositivos:
-
-* Computadores.
-* Tablets.
-* Teléfonos móviles.
-
-Para esto se utilizan estilos CSS y reglas responsive.
-
-## LocalStorage
-
-FitZone no utiliza una base de datos externa.
-
-La información administrada desde el Dashboard se almacena localmente mediante LocalStorage.
-
-Esto permite conservar los datos en el navegador del usuario.
-
-## API
-
-Para consumir la API pública es necesaria una conexión a Internet.
-
-La aplicación utiliza JSONPlaceholder para obtener información mediante solicitudes `fetch()`.
-
-## Cómo ejecutar el proyecto
-
-1. Clonar el repositorio de FitZone.
-2. Abrir la carpeta del proyecto.
-3. Abrir `index.html` en un navegador.
-
-También se recomienda utilizar una extensión como Live Server desde Visual Studio Code para ejecutar el proyecto durante el desarrollo.
-
-## Documentación
-
-La carpeta `docs/` contiene documentación sobre:
-
-* Bitácora del desarrollo.
-* Historial de cambios.
-* Estructura del proyecto.
-* Funcionalidades.
-* Rediseño visual.
-
-## Proyecto académico
-
-**SENA**
-
-Programa: Análisis y Desarrollo de Software (ADSO)
-
-Proyecto: FitZone
+La guía para publicar la aplicación está en [`docs/DEPLOY_RAILWAY.md`](docs/DEPLOY_RAILWAY.md). La publicación a Railway no se ejecuta automáticamente desde este paquete: debes conectar el repositorio y configurar las variables del servicio.
