@@ -10,10 +10,12 @@ from functools import wraps
 from pathlib import Path
 
 import pymysql
+from dotenv import load_dotenv
 from flask import Flask, abort, jsonify, request, send_from_directory
 from werkzeug.exceptions import HTTPException
 
 ROOT = Path(__file__).resolve().parent
+load_dotenv(ROOT / ".env")
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024
 PLANS = {"Básico", "Premium", "Profesional"}
