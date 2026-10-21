@@ -27,7 +27,7 @@ function guardarUsuarios() {
             return;
         }
         window.FitZoneAPI.saveMembers(usuarios).catch(function(error) {
-            window.FitZoneAPI.reportSyncError("No se pudieron guardar los miembros en PostgreSQL: " + error.message);
+            window.FitZoneAPI.reportSyncError("No se pudieron guardar los miembros en la base de datos: " + error.message);
         });
     }
 }
