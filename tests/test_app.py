@@ -190,9 +190,9 @@ class FitZoneApiTests(unittest.TestCase):
             "duracion": "45 minutos", "horario": "18:00",
             "instructor": "Ana", "descripcion": "Clase de prueba", "foto": "Spinning.png",
         }]
-        with patch.object(fitzone, "fetch_one", return_value=None), \\
-             patch.object(fitzone, "legacy_table_collection", return_value=sample) as legacy:
-            response = self.client.get("/api/content/clases")
+        with patch.object(fitzone, "fetch_one", return_value=None):
+            with patch.object(fitzone, "legacy_table_collection", return_value=sample) as legacy:
+                response = self.client.get("/api/content/clases")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json()["data"], sample)
         legacy.assert_called_once_with("clases")
