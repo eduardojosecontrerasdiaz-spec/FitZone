@@ -205,7 +205,7 @@ async function cargarMiembrosDelServidor() {
         if (miembros.length === 0 && miembrosLocales.length > 0) {
             const importar = confirm(
                 "La base de datos todavía no tiene miembros, pero este navegador conserva " +
-                miembrosLocales.length + " registro(s). ¿Quieres importarlos a PostgreSQL ahora? " +
+                miembrosLocales.length + " registro(s). ¿Quieres importarlos a MySQL ahora? " +
                 "Si eliges Cancelar, se conservarán en este navegador y no se borrarán."
             );
 
