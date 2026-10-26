@@ -149,5 +149,80 @@ class FitZoneApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
 
+    def test_default_database_name_is_fitzone_db_when_not_configured(self):
+        configuration = {
+            "MYSQLHOST": "127.0.0.1",
+            "MYSQLPORT": "3306",
+            "MYSQLUSER": "fitzone",
+            "MYSQLPASSWORD": "test-password",
+        }
+        with patch.dict(os.environ, configuration, clear=True):
+            with patch.object(fitzone.pymysql, "connect") as mysql_connect:
+                fitzone.database_connection()
+        self.assertEqual(mysql_connect.call_args.kwargs["database"], "fitzone_db")
+
+    def test_plans_endpoint_reads_active_plans_from_mysql_table(self):
+        rows = [{
+            "id_plan": 1,
+            "nombre": "Básico",
+            "precio": 49900.0,
+            "duracion_dias": 30,
+            "descripcion": "Plan de prueba",
+            "estado": "Activo",
+        }]
+        with patch.object(fitzone, "fetch_all", return_value=rows) as query:
+            response = self.client.get("/api/plans")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json()["data"], rows)
+        self.assertIn("FROM planes WHERE estado=%s", query.call_args.args[0])
+        self.assertEqual(query.call_args.args[1], ("Activo",))
+
+    def test_plans_endpoint_falls_back_if_original_table_is_not_imported_yet(self):
+        missing_table = fitzone.pymysql.err.ProgrammingError(1146, "Table 'fitzone_db.planes' doesn't exist")
+        with patch.object(fitzone, "fetch_all", side_effect=missing_table):
+            response = self.client.get("/api/plans")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.get_json()["data"])
+
+    def test_public_classes_use_original_table_when_no_saved_collection_exists(self):
+        sample = [{
+            "id": 3, "nombre": "Spinning", "nivel": "Intermedio",
+            "duracion": "45 minutos", "horario": "18:00",
+            "instructor": "Ana", "descripcion": "Clase de prueba", "foto": "Spinning.png",
+        }]
+        with patch.object(fitzone, "fetch_one", return_value=None), \\
+             patch.object(fitzone, "legacy_table_collection", return_value=sample) as legacy:
+            response = self.client.get("/api/content/clases")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json()["data"], sample)
+        legacy.assert_called_once_with("clases")
+
+    def test_legacy_trainer_table_rows_are_mapped_without_schema_changes(self):
+        metadata = [
+            {"Field": "id_entrenador", "Key": "PRI"},
+            {"Field": "nombre", "Key": ""},
+            {"Field": "especialidad", "Key": ""},
+            {"Field": "experiencia", "Key": ""},
+            {"Field": "descripcion", "Key": ""},
+            {"Field": "foto", "Key": ""},
+        ]
+        rows = [{
+            "id_entrenador": 4,
+            "nombre": "Carlos Gómez",
+            "especialidad": "Musculación",
+            "experiencia": "6 años",
+            "descripcion": "Entrenador de prueba",
+            "foto": "carlos.png",
+        }]
+        with patch.object(fitzone, "fetch_all", side_effect=[metadata, rows]) as query:
+            mapped = fitzone.legacy_table_collection("entrenadores")
+        self.assertEqual(mapped[0]["id"], 4)
+        self.assertEqual(mapped[0]["nombre"], "Carlos Gómez")
+        self.assertEqual(mapped[0]["especialidad"], "Musculación")
+        self.assertEqual(mapped[0]["foto"], "carlos.png")
+        self.assertIn("SHOW COLUMNS FROM", query.call_args_list[0].args[0])
+        self.assertIn("SELECT * FROM", query.call_args_list[1].args[0])
+
+
 if __name__ == "__main__":
     unittest.main()
