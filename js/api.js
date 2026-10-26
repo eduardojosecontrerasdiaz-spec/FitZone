@@ -77,6 +77,9 @@
                 method: "PUT", body: JSON.stringify({ data })
             });
         },
+        async deleteMember(id) {
+            return request("/api/admin/members/" + encodeURIComponent(id), { method: "DELETE" });
+        },
         async getMessages() {
             const respuesta = await request("/api/admin/messages");
             return respuesta.data;
