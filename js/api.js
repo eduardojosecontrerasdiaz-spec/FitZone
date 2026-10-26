@@ -52,6 +52,10 @@
         async registerMembership(datos) {
             return request("/api/register", { method: "POST", body: JSON.stringify(datos) });
         },
+        async getPlans() {
+            const respuesta = await request("/api/plans");
+            return respuesta.data;
+        },
         async getPublicCollection(nombre) {
             if (!COLLECTIONS.has(nombre)) return null;
             const respuesta = await request("/api/content/" + encodeURIComponent(nombre));
