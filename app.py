@@ -419,7 +419,6 @@ def save_members():
     connection = database_connection()
     try:
         with connection.cursor() as cursor:
-            saved_ids = []
             for item in normalized:
                 saved_id = None
                 if item["id"]:
@@ -436,7 +435,6 @@ def save_members():
                         estado=VALUES(estado), id=LAST_INSERT_ID(id)""",
                         (item["nombre"], item["correo"], synthetic_doc, item["plan"], item["estado"]))
                     saved_id = cursor.lastrowid
-                saved_ids.append(int(saved_id))
             # La lista enviada sincroniza altas y ediciones; nunca elimina otros registros.
             # Las eliminaciones se realizan mediante DELETE /api/admin/members/<id>.
         connection.commit()
