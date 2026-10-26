@@ -437,13 +437,28 @@ def save_members():
                         (item["nombre"], item["correo"], synthetic_doc, item["plan"], item["estado"]))
                     saved_id = cursor.lastrowid
                 saved_ids.append(int(saved_id))
-            if saved_ids:
-                marks = ",".join(["%s"] * len(saved_ids))
-                cursor.execute("DELETE FROM members WHERE id NOT IN (" + marks + ")", saved_ids)
-            else:
-                cursor.execute("DELETE FROM members")
+            # La lista enviada sincroniza altas y ediciones; nunca elimina otros registros.
+            # Las eliminaciones se realizan mediante DELETE /api/admin/members/<id>.
         connection.commit()
         return jsonify(ok=True, count=len(normalized))
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        connection.close()
+
+
+@app.delete("/api/admin/members/<int:member_id>")
+@admin_required
+def delete_member(member_id):
+    connection = database_connection()
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("DELETE FROM members WHERE id=%s", (member_id,))
+            if not cursor.rowcount:
+                return jsonify(error="No se encontró el miembro."), 404
+        connection.commit()
+        return jsonify(ok=True)
     except Exception:
         connection.rollback()
         raise
@@ -545,8 +560,7 @@ def internal_error(error):
     return jsonify(error="Ocurrió un error interno. Intenta nuevamente más tarde."), 500
 
 
-validate_environment()
-initialize_database()
-
 if __name__ == "__main__":
+    validate_environment()
+    initialize_database()
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=False)
