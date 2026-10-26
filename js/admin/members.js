@@ -65,9 +65,21 @@ function prepararBotonesUsuario(fila) {
         const nombre = fila.cells[0].textContent.trim();
 
         if (confirm("¿Seguro que quieres eliminar a " + nombre + "?")) {
-            fila.remove();
-            guardarUsuarios();
-            actualizarResumen();
+            const memberId = fila.dataset.memberId;
+            const eliminarFila = function() {
+                fila.remove();
+                guardarUsuarios();
+                actualizarResumen();
+            };
+
+            if (memberId && window.FitZoneAPI && window.FitZoneAPI.isAdminAuthenticated()) {
+                window.FitZoneAPI.deleteMember(memberId).then(eliminarFila).catch(function(error) {
+                    window.FitZoneAPI.reportSyncError("No se pudo eliminar el miembro: " + error.message);
+                });
+                return;
+            }
+
+            eliminarFila();
         }
     };
 
