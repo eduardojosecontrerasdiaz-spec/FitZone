@@ -26,6 +26,16 @@ El repositorio contiene `app.py`, `wsgi.py`, `requirements.txt`, `.python-versio
 
 Usa los nombres y valores que muestra Railway; no publiques estas credenciales en GitHub.
 
+## 2.1 Importar la base que ya tienes en XAMPP
+
+1. En XAMPP abre phpMyAdmin y selecciona la base `fitzone_db`.
+2. Usa **Exportar** en formato SQL e incluye la estructura y los datos de las tablas originales. Guarda el archivo de respaldo en tu equipo.
+3. En Railway usa un servicio MySQL de prueba y una herramienta de conexión MySQL compatible con los datos de conexión que proporciona Railway para importar ese respaldo. Si la herramienta necesita conexión pública, habilita el método de conexión remota que ofrece el servicio.
+4. Revisa que estén presentes las tablas `planes`, `usuarios`, `entrenadores` y `clases`. Si Railway asignó otro nombre de base, configura `MYSQLDATABASE` con ese nombre real; `fitzone_db` es el valor por defecto para desarrollo local.
+5. No ejecutes el respaldo sobre una base que ya tenga datos que quieras conservar sin revisar antes si existen tablas con el mismo nombre.
+
+Al arrancar, Flask crea adicionalmente `members`, `contact_messages` y `site_collections` solo si no existen. No borra ni cambia las cuatro tablas originales. Las credenciales de conexión se mantienen en las variables del servicio web y no se agregan al repositorio.
+
 ## 3. Configurar el administrador
 
 En las variables del servicio web define:
