@@ -1,4 +1,4 @@
-// Consulta y gestión sencilla de mensajes guardados en PostgreSQL.
+// Consulta y gestión sencilla de mensajes guardados en MySQL.
 (function () {
     const contenedor = document.getElementById('listaMensajesAdmin');
     const estado = document.getElementById('estadoMensajesAdmin');
