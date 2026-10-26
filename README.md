@@ -13,9 +13,12 @@ FitZone es una web responsive para presentar los servicios de un gimnasio y admi
 ## Archivos importantes
 
 - `app.py`: aplicación Flask, endpoints API y acceso a MySQL.
+- `wsgi.py`: valida la configuración e inicializa el esquema al iniciar en producción.
 - `requirements.txt`: dependencias Python.
+- `.python-version`: fija Python 3.12 para Railway y mantenerlo alineado con CI.
 - `Procfile`: comando de arranque de Gunicorn.
 - `railway.json`: comando de despliegue y health check.
+- `railpack.json`: proveedor Python y comando de arranque.
 - `.env.example`: plantilla de variables locales sin credenciales reales.
 - `js/api.js`: cliente JavaScript que llama a la API del mismo dominio.
 - `js/storage.js`: compatibilidad con datos locales y sincronización de colecciones.
@@ -34,7 +37,7 @@ No hay pasarela de pago integrada. Las valoraciones, el tema visual y algunos da
 
 ## Ejecutar localmente
 
-Necesitas Python 3.10 o superior y un servidor MySQL accesible.
+Necesitas Python 3.12 y un servidor MySQL accesible.
 
 1. Copia `.env.example` a `.env` y sustituye los valores por los de tu MySQL local.
 2. Instala dependencias:
@@ -72,7 +75,7 @@ Abre `http://localhost:5000`. La aplicación verifica las variables y crea las t
 | `SESSION_SECRET` | Secreto aleatorio para firmar sesiones; mínimo 32 caracteres. |
 | `PORT` | Puerto asignado por Railway; Railway lo define automáticamente. |
 
-Nunca subas el archivo `.env`, claves ni contraseñas a GitHub.
+Nunca subas el archivo `.env`, claves ni contraseñas a GitHub. El workflow de GitHub Actions comprueba que los archivos de configuración de Railway sean coherentes, además de ejecutar las pruebas y validar la sintaxis JavaScript.
 
 ## Publicar en Railway
 
