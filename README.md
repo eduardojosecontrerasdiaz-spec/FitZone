@@ -43,11 +43,17 @@ Necesitas Python 3.10 o superior y un servidor MySQL accesible.
 python -m pip install -r requirements.txt
 ```
 
-3. Configura las variables de entorno de `.env` en tu terminal o usa un gestor local de variables. La aplicación no carga automáticamente `.env`; en Railway las variables se configuran en el panel del servicio.
+3. La aplicación carga las variables de `.env` automáticamente. En Railway, configura esas variables en el panel del servicio.
 4. Inicia el servidor local:
 
 ```bash
 python app.py
+```
+
+Para ejecutar las pruebas automatizadas sin conectarse a un MySQL real:
+
+```bash
+python -m unittest discover -s tests -v
 ```
 
 Abre `http://localhost:5000`. La aplicación verifica las variables y crea las tablas necesarias. No abras los HTML con `file://`; la web necesita el servidor y la API.
@@ -77,4 +83,4 @@ Nunca subas el archivo `.env`, claves ni contraseñas a GitHub.
 5. Despliega el servicio web y genera un dominio público.
 6. Comprueba `https://TU-DOMINIO/api/health`; la respuesta esperada es `{"status":"ok","database":"ok"}`.
 
-La configuración del repositorio usa `gunicorn --bind 0.0.0.0:$PORT app:app`. El despliegue real y la creación de variables siguen requiriendo acciones en tu cuenta de Railway.
+La configuración del repositorio usa `gunicorn --bind 0.0.0.0:$PORT wsgi:app`; este punto de entrada valida variables e inicializa las tablas antes de atender solicitudes. El despliegue real y la creación de variables siguen requiriendo acciones en tu cuenta de Railway.
