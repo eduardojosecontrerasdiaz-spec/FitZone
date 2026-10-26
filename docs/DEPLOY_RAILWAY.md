@@ -8,7 +8,7 @@ Esta versión sirve el frontend y la API desde el mismo servicio Flask. Gunicorn
 2. Crea un proyecto y selecciona Deploy from GitHub repo.
 3. Selecciona FitZone y, para probar esta migración sin tocar la versión principal, usa la rama `railway-flask-mysql`.
 
-El repositorio contiene `app.py`, `requirements.txt`, `Procfile`, `railway.json` y `railpack.json` para indicar el runtime Python y el comando de inicio.
+El repositorio contiene `app.py`, `wsgi.py`, `requirements.txt`, `Procfile`, `railway.json` y `railpack.json` para indicar el runtime Python y el comando de inicio. El punto de entrada `wsgi.py` valida las variables e inicializa las tablas al arrancar.
 
 ## 2. Crear MySQL
 
@@ -39,7 +39,7 @@ No reutilices la contraseña de tu correo o GitHub. No subas `.env` a GitHub.
 
 ## 4. Desplegar y probar
 
-Railway instala las dependencias de `requirements.txt` y ejecuta Gunicorn con el comando del Procfile/configuración.
+Railway instala las dependencias de `requirements.txt` y ejecuta Gunicorn con el comando del Procfile/configuración. Antes de desplegar, puedes ejecutar localmente `python -m unittest discover -s tests -v`; las pruebas no usan una base de datos real.
 
 1. Espera a que el despliegue termine.
 2. En Networking genera un dominio público.
