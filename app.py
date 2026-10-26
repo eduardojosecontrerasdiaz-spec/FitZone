@@ -39,7 +39,7 @@ def database_connection():
         port=int(env_value("MYSQLPORT", "MYSQL_PORT", default="3306")),
         user=env_value("MYSQLUSER", "MYSQL_USER", default="root"),
         password=env_value("MYSQLPASSWORD", "MYSQL_PASSWORD", default=""),
-        database=env_value("MYSQLDATABASE", "MYSQL_DATABASE", default="fitzone"),
+        database=env_value("MYSQLDATABASE", "MYSQL_DATABASE", default="fitzone_db"),
         charset="utf8mb4",
         cursorclass=pymysql.cursors.DictCursor,
         autocommit=False,
@@ -115,6 +115,72 @@ def fetch_all(sql, params=()):
             return cursor.fetchall()
     finally:
         connection.close()
+
+
+def _row_value(row, *aliases, default=""):
+    """Obtiene una columna usando nombres alternativos sin modificar el esquema original."""
+    values = {str(key).lower(): value for key, value in row.items()}
+    for alias in aliases:
+        value = values.get(alias.lower())
+        if value is not None:
+            return value
+    return default
+
+
+def legacy_table_collection(nombre):
+    """
+    Lee entrenadores/clases de las tablas que ya existían en fitzone_db.
+    No crea, altera ni elimina filas de esas tablas. Las ediciones del Dashboard
+    se guardan en site_collections para preservar los campos adicionales de la web.
+    Devuelve None si la tabla no existe y una lista (posiblemente vacía) si existe.
+    """
+    tables = {"entrenadores": "entrenadores", "clases": "clases"}
+    table = tables.get(nombre)
+    if not table:
+        return None
+
+    try:
+        metadata = fetch_all(f"SHOW COLUMNS FROM `{table}`")
+    except pymysql.err.ProgrammingError as error:
+        if error.args and error.args[0] == 1146:
+            return None
+        raise
+
+    if not metadata:
+        return None
+
+    primary_key = next((item.get("Field") for item in metadata if item.get("Key") == "PRI"), None)
+    order_clause = f" ORDER BY `{primary_key}`" if primary_key else ""
+    rows = fetch_all(f"SELECT * FROM `{table}`{order_clause} LIMIT 500")
+
+    mapped = []
+    for row in rows:
+        identifier = row.get(primary_key) if primary_key else _row_value(
+            row, "id_entrenador", "id_clase", "id", "id_trainer", "id_class", default=None
+        )
+        if nombre == "entrenadores":
+            item = {
+                "id": identifier,
+                "nombre": _row_value(row, "nombre", "nombre_completo", "name"),
+                "especialidad": _row_value(row, "especialidad", "especialidad_deportiva", "specialty", "area"),
+                "experiencia": _row_value(row, "experiencia", "anios_experiencia", "anos_experiencia", "experiencia_anios", "experience"),
+                "descripcion": _row_value(row, "descripcion", "biografia", "perfil", "description"),
+                "foto": _row_value(row, "foto", "fotografia", "imagen", "url_foto", "image", default="../assets/images/elena.png"),
+            }
+        else:
+            item = {
+                "id": identifier,
+                "nombre": _row_value(row, "nombre", "titulo", "name"),
+                "nivel": _row_value(row, "nivel", "dificultad", "level"),
+                "duracion": _row_value(row, "duracion", "duracion_minutos", "minutos", "duration"),
+                "horario": _row_value(row, "horario", "hora", "schedule"),
+                "instructor": _row_value(row, "instructor", "entrenador", "nombre_entrenador", "profesor"),
+                "descripcion": _row_value(row, "descripcion", "detalle", "description"),
+                "foto": _row_value(row, "foto", "fotografia", "imagen", "url_foto", "image", default="../assets/images/crossFit.png"),
+            }
+        if item["id"] is not None:
+            mapped.append(item)
+    return mapped
 
 
 def text(value, maximum=500):
@@ -355,12 +421,29 @@ def register():
         connection.close()
 
 
+@app.get("/api/plans")
+def get_plans():
+    # La tabla planes forma parte del esquema MySQL original de FitZone.
+    try:
+        plans = fetch_all(
+            "SELECT id_plan, nombre, precio, duracion_dias, descripcion, estado "
+            "FROM planes WHERE estado=%s ORDER BY id_plan",
+            ("Activo",),
+        )
+    except pymysql.err.ProgrammingError as error:
+        # Permite que la web arranque en una base vacía mientras se importa el esquema original.
+        if error.args and error.args[0] == 1146:
+            return jsonify(data=None)
+        raise
+    return jsonify(data=plans)
+
+
 @app.get("/api/content/<nombre>")
 def public_collection(nombre):
     if nombre not in COLLECTIONS:
         return jsonify(error="Contenido no encontrado."), 404
     row = fetch_one("SELECT datos FROM site_collections WHERE nombre=%s", (nombre,))
-    data = row["datos"] if row else None
+    data = row["datos"] if row else legacy_table_collection(nombre)
     if isinstance(data, str):
         data = json.loads(data)
     return jsonify(data=data)
@@ -516,7 +599,7 @@ def admin_collection(nombre):
     if nombre not in COLLECTIONS:
         return jsonify(error="Colección no permitida."), 404
     row = fetch_one("SELECT datos FROM site_collections WHERE nombre=%s", (nombre,))
-    data = row["datos"] if row else None
+    data = row["datos"] if row else legacy_table_collection(nombre)
     if isinstance(data, str):
         data = json.loads(data)
     return jsonify(data=data)
