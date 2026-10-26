@@ -25,19 +25,29 @@ FitZone es una web responsive para presentar los servicios de un gimnasio y admi
 
 Los endpoints de la API se mantienen para que los formularios y el Dashboard existentes puedan comunicarse con Flask. Las contraseñas y la configuración de MySQL solo deben existir en variables de entorno del servidor, nunca en JavaScript del navegador.
 
-## Datos almacenados
+## Base de datos MySQL
 
-La aplicación crea estas tablas MySQL al iniciar:
+En desarrollo local, `.env.example` usa `MYSQLDATABASE=fitzone_db`, que corresponde a la base configurada previamente con XAMPP. En Railway, establece `MYSQLDATABASE` con el nombre real de la base del servicio MySQL; no asumas que Railway usará el nombre local.
+
+La aplicación aprovecha el esquema existente cuando está importado:
+
+- `planes`: consulta los planes activos para mostrar sus precios en la página de planes.
+- `entrenadores` y `clases`: se leen como contenido inicial cuando todavía no hay una colección guardada para el Dashboard.
+- `usuarios`: se conserva intacta. No se mezcla automáticamente con las solicitudes de membresía porque el formulario de la web no recoge la contraseña requerida por el esquema original.
+
+Al iniciar, Flask crea únicamente estas tablas auxiliares si todavía no existen, usando `CREATE TABLE IF NOT EXISTS`:
 
 - `members`: solicitudes de membresía, con estado inicial `Pendiente`.
 - `contact_messages`: mensajes enviados desde Contacto.
-- `site_collections`: colecciones administrables de entrenadores, clases y servicios.
+- `site_collections`: cambios de contenido administrados desde el Dashboard.
 
-No hay pasarela de pago integrada. Las valoraciones, el tema visual y algunos datos de compatibilidad siguen guardándose localmente en el navegador. La base de datos del servidor requiere configuración de variables de entorno.
+El backend no altera ni borra las tablas originales `planes`, `usuarios`, `entrenadores` o `clases`. Una vez guardada una colección desde el Dashboard, su versión administrada se conserva en `site_collections` para soportar los campos extra de la interfaz sin cambiar el esquema original.
+
+No hay pasarela de pago integrada. Las valoraciones, el tema visual y algunos datos de compatibilidad siguen guardándose localmente en el navegador.
 
 ## Ejecutar localmente
 
-Necesitas Python 3.12 y un servidor MySQL accesible.
+Necesitas Python 3.12 y un servidor MySQL accesible. Para reutilizar la base local, importa primero un respaldo SQL de `fitzone_db` en el servidor remoto.
 
 1. Copia `.env.example` a `.env` y sustituye los valores por los de tu MySQL local.
 2. Instala dependencias:
