@@ -1,5 +1,7 @@
 name: Python tests
 
+# CI también valida que database/schema.sql no incluya datos ni operaciones destructivas.
+
 on:
   push:
     branches:
