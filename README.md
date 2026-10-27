@@ -17,8 +17,8 @@ FitZone es una web responsive para presentar los servicios de un gimnasio y admi
 - `requirements.txt`: dependencias Python.
 - `.python-version`: fija Python 3.12 para Railway y mantenerlo alineado con CI.
 - `Procfile`: comando de arranque de Gunicorn.
-- `railway.json`: comando de despliegue y health check.
-- `railpack.json`: proveedor Python y comando de arranque.
+- Health check: configura la ruta `/api/health` en los ajustes del servicio web de Railway.
+- `railpack.json`: fuerza el proveedor Python de Railpack y define el comando de arranque de Gunicorn.
 - `.env.example`: plantilla de variables locales sin credenciales reales.
 - `js/api.js`: cliente JavaScript que llama a la API del mismo dominio.
 - `js/storage.js`: compatibilidad con datos locales y sincronización de colecciones.
@@ -87,7 +87,7 @@ Abre `http://localhost:5000`. La aplicación verifica las variables y crea las t
 | `SESSION_SECRET` | Secreto aleatorio para firmar sesiones; mínimo 32 caracteres. |
 | `PORT` | Puerto asignado por Railway; Railway lo define automáticamente. |
 
-Nunca subas el archivo `.env`, claves ni contraseñas a GitHub. El workflow de GitHub Actions comprueba que los archivos de configuración de Railway sean coherentes, además de ejecutar las pruebas y validar la sintaxis JavaScript.
+Nunca subas el archivo `.env`, claves ni contraseñas a GitHub. El workflow de GitHub Actions comprueba `Procfile`, `railpack.json`, `.python-version`, el esquema SQL versionado, las pruebas y la sintaxis JavaScript.
 
 ## Publicar en Railway
 
@@ -98,4 +98,4 @@ Nunca subas el archivo `.env`, claves ni contraseñas a GitHub. El workflow de G
 5. Despliega el servicio web y genera un dominio público.
 6. Comprueba `https://TU-DOMINIO/api/health`; la respuesta esperada es `{"status":"ok","database":"ok"}`.
 
-La configuración del repositorio usa `gunicorn --bind 0.0.0.0:$PORT wsgi:app`; este punto de entrada valida variables e inicializa las tablas antes de atender solicitudes. El despliegue real y la creación de variables siguen requiriendo acciones en tu cuenta de Railway.
+El comando de inicio de la aplicación es `gunicorn --bind 0.0.0.0:$PORT wsgi:app`, definido en `Procfile` y `railpack.json`. Antes del primer despliegue, confirma ese comando en los ajustes del servicio de Railway y configura allí el health check `/api/health`. El punto de entrada `wsgi.py` valida variables e inicializa las tablas auxiliares. El despliegue real y la creación de variables siguen requiriendo acciones en tu cuenta de Railway.

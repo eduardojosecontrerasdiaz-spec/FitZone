@@ -8,7 +8,9 @@ Esta versión sirve el frontend y la API desde el mismo servicio Flask. Gunicorn
 2. Crea un proyecto y selecciona Deploy from GitHub repo.
 3. Selecciona FitZone y, para probar esta migración sin tocar la versión principal, usa la rama `railway-flask-mysql`.
 
-El repositorio contiene `app.py`, `wsgi.py`, `requirements.txt`, `.python-version`, `Procfile`, `railway.json` y `railpack.json` para indicar el runtime Python y el comando de inicio. El punto de entrada `wsgi.py` valida las variables e inicializa las tablas al arrancar.
+El repositorio contiene `app.py`, `wsgi.py`, `requirements.txt`, `.python-version`, `Procfile` y `railpack.json` para indicar el runtime Python y el comando de inicio. Railpack está forzado al proveedor Python en `railpack.json`. El punto de entrada `wsgi.py` valida las variables e inicializa las tablas al arrancar.
+
+Railway está retirando su antiguo sistema Config as Code para servicios nuevos, así que esta rama no depende de `railway.json`. Antes del primer despliegue, comprueba en los ajustes del servicio que el comando de inicio sea `gunicorn --bind 0.0.0.0:$PORT wsgi:app` y configura el health check con la ruta `/api/health`.
 
 ## 2. Crear MySQL
 
@@ -53,7 +55,7 @@ No reutilices la contraseña de tu correo o GitHub. No subas `.env` a GitHub. La
 
 ## 4. Desplegar y probar
 
-Railway instala las dependencias de `requirements.txt` y ejecuta Gunicorn con el comando del Procfile/configuración. Antes de desplegar, puedes ejecutar localmente `python -m unittest discover -s tests -v`; las pruebas no usan una base de datos real. GitHub Actions también comprueba que `Procfile`, `railway.json`, `railpack.json` y `.python-version` coincidan entre sí.
+Railpack instala las dependencias de `requirements.txt` y usa el comando de `railpack.json`/`Procfile`. Antes de desplegar, ejecuta localmente `python -m unittest discover -s tests -v`; esas pruebas no usan una base de datos real. GitHub Actions también comprueba la coherencia de `Procfile`, `railpack.json`, `.python-version` y el esquema SQL seguro.
 
 1. Espera a que el despliegue termine.
 2. En Networking genera un dominio público.

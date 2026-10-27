@@ -31,7 +31,6 @@ jobs:
           from pathlib import Path
 
           expected_start = "gunicorn --bind 0.0.0.0:$PORT wsgi:app"
-          railway = json.loads(Path("railway.json").read_text(encoding="utf-8"))
           railpack = json.loads(Path("railpack.json").read_text(encoding="utf-8"))
 
           assert Path(".python-version").read_text(encoding="utf-8").strip() == "3.12"
@@ -47,13 +46,10 @@ jobs:
           assert 'default="fitzone_db"' in Path("app.py").read_text(encoding="utf-8")
           assert Path("runtime.txt").read_text(encoding="utf-8").strip() == "python-3.12"
           assert Path("Procfile").read_text(encoding="utf-8").strip() == f"web: {expected_start}"
-          assert railway["build"]["builder"] == "RAILPACK"
-          assert railway["deploy"]["startCommand"] == expected_start
-          assert railway["deploy"]["healthcheckPath"] == "/api/health"
           assert railpack["provider"] == "python"
           assert railpack["deploy"]["startCommand"] == expected_start
 
-          print("Configuración de Railway válida: Python 3.12, Railpack, Gunicorn y health check.")
+          print("Configuración de despliegue válida: Python 3.12, Railpack, Gunicorn y esquema MySQL seguro.")
           PY
       - name: Set up Node.js
         uses: actions/setup-node@v4
