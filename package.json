@@ -2,7 +2,7 @@
   "name": "fitzone-web",
   "version": "2.0.0",
   "private": true,
-  "description": "FitZone: web del gimnasio con API Express y PostgreSQL, preparada para Railway.",
+  "description": "FitZone: frontend HTML/CSS/JavaScript con backend Flask y MySQL en la rama de migración Railway.",
   "main": "server/index.js",
   "engines": {
     "node": ">=20"

@@ -195,7 +195,54 @@ class FitZoneApiTests(unittest.TestCase):
                 response = self.client.get("/api/content/clases")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json()["data"], sample)
-        legacy.assert_called_once_with("clases")
+        legacy.assert_called_once_with("clases", include_inactive=False)
+
+    def test_legacy_classes_join_instructor_and_filter_inactive_rows(self):
+        metadata = [
+            {"Field": "id_clase", "Key": "PRI"},
+            {"Field": "nombre", "Key": ""},
+            {"Field": "descripcion", "Key": ""},
+            {"Field": "nivel", "Key": ""},
+            {"Field": "duracion_minutos", "Key": ""},
+            {"Field": "horario", "Key": ""},
+            {"Field": "foto", "Key": ""},
+            {"Field": "id_entrenador", "Key": ""},
+            {"Field": "estado", "Key": ""},
+        ]
+        rows = [{
+            "id_clase": 2,
+            "nombre": "Yoga Flow",
+            "descripcion": "Clase de prueba",
+            "nivel": "Todos los niveles",
+            "duracion_minutos": 50,
+            "horario": "Mar - Jue (8:00 AM)",
+            "foto": "yoga.png",
+            "id_entrenador": 2,
+            "estado": "Activo",
+            "nombre_entrenador": "Ana Martínez",
+        }]
+        with patch.object(fitzone, "fetch_all", side_effect=[metadata, rows]) as query:
+            mapped = fitzone.legacy_table_collection("clases", include_inactive=False)
+        self.assertEqual(mapped[0]["id"], 2)
+        self.assertEqual(mapped[0]["instructor"], "Ana Martínez")
+        self.assertEqual(mapped[0]["duracion"], "50 minutos")
+        self.assertEqual(mapped[0]["estado"], "Activo")
+        sql, params = query.call_args_list[1].args
+        self.assertIn("LEFT JOIN entrenadores", sql)
+        self.assertIn("c.estado=%s", sql)
+        self.assertIn("e.estado=%s", sql)
+        self.assertEqual(params, ("Activo", "Activo"))
+
+    def test_public_collection_filters_inactive_saved_items(self):
+        saved = [
+            {"id": 1, "nombre": "Entrenador activo", "estado": "Activo"},
+            {"id": 2, "nombre": "Entrenador inactivo", "estado": "Inactivo"},
+            {"id": 3, "nombre": "Contenido antiguo sin estado"},
+        ]
+        with patch.object(fitzone, "fetch_one", return_value={"datos": saved}):
+            response = self.client.get("/api/content/entrenadores")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.get_json()["data"], [saved[0], saved[2]])
 
     def test_legacy_trainer_table_rows_are_mapped_without_schema_changes(self):
         metadata = [

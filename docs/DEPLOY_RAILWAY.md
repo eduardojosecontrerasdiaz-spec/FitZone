@@ -26,7 +26,11 @@ El repositorio contiene `app.py`, `wsgi.py`, `requirements.txt`, `.python-versio
 
 Usa los nombres y valores que muestra Railway; no publiques estas credenciales en GitHub.
 
-## 2.1 Importar la base que ya tienes en XAMPP
+## 2.1 Esquema original sin datos
+
+El repositorio incluye `database/schema.sql` con la estructura de las cuatro tablas originales, sin registros ni comandos destructivos. Se puede ejecutar únicamente sobre una base vacía para crear la estructura. Si necesitas llevar los datos que ya existen en XAMPP, sigue el apartado siguiente y usa un respaldo completo en una base de destino vacía.
+
+## 2.2 Importar la base que ya tienes en XAMPP
 
 1. En XAMPP abre phpMyAdmin y selecciona la base `fitzone_db`.
 2. Usa **Exportar** en formato SQL e incluye la estructura y los datos de las tablas originales. Guarda el archivo de respaldo en tu equipo.

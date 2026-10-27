@@ -35,6 +35,8 @@ La aplicación aprovecha el esquema existente cuando está importado:
 - `entrenadores` y `clases`: se leen como contenido inicial cuando todavía no hay una colección guardada para el Dashboard.
 - `usuarios`: se conserva intacta. No se mezcla automáticamente con las solicitudes de membresía porque el formulario de la web no recoge la contraseña requerida por el esquema original.
 
+El archivo `database/schema.sql` documenta la estructura original de las cuatro tablas (`planes`, `usuarios`, `entrenadores` y `clases`). Contiene únicamente definiciones `CREATE TABLE IF NOT EXISTS`: no incluye datos de ejemplo, `INSERT` ni `DROP`. Úsalo solo en una base vacía si necesitas recrear el esquema original; no hace falta ejecutarlo sobre tu `fitzone_db` existente.
+
 Al iniciar, Flask crea únicamente estas tablas auxiliares si todavía no existen, usando `CREATE TABLE IF NOT EXISTS`:
 
 - `members`: solicitudes de membresía, con estado inicial `Pendiente`.

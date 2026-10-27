@@ -34,6 +34,14 @@ jobs:
 
           assert Path(".python-version").read_text(encoding="utf-8").strip() == "3.12"
           assert "MYSQLDATABASE=fitzone_db" in Path(".env.example").read_text(encoding="utf-8")
+          schema = Path("database/schema.sql").read_text(encoding="utf-8")
+          assert "CREATE TABLE IF NOT EXISTS `planes`" in schema
+          assert "CREATE TABLE IF NOT EXISTS `usuarios`" in schema
+          assert "FOREIGN KEY (`id_entrenador`)" in schema
+          assert "FOREIGN KEY (`id_plan`)" in schema
+          assert "DROP TABLE" not in schema.upper()
+          assert "INSERT INTO" not in schema.upper()
+
           assert 'default="fitzone_db"' in Path("app.py").read_text(encoding="utf-8")
           assert Path("runtime.txt").read_text(encoding="utf-8").strip() == "python-3.12"
           assert Path("Procfile").read_text(encoding="utf-8").strip() == f"web: {expected_start}"

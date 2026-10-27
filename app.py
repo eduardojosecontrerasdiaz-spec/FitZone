@@ -127,12 +127,12 @@ def _row_value(row, *aliases, default=""):
     return default
 
 
-def legacy_table_collection(nombre):
+def legacy_table_collection(nombre, include_inactive=True):
     """
-    Lee entrenadores/clases de las tablas que ya existían en fitzone_db.
-    No crea, altera ni elimina filas de esas tablas. Las ediciones del Dashboard
-    se guardan en site_collections para preservar los campos adicionales de la web.
-    Devuelve None si la tabla no existe y una lista (posiblemente vacía) si existe.
+    Lee las tablas originales de entrenadores/clases sin modificar su esquema.
+    Para clases, resuelve id_entrenador usando la relación real con entrenadores.
+    include_inactive=False se usa en las rutas públicas; el Dashboard conserva todos
+    los estados para que pueda administrar los registros.
     """
     tables = {"entrenadores": "entrenadores", "clases": "clases"}
     table = tables.get(nombre)
@@ -140,7 +140,7 @@ def legacy_table_collection(nombre):
         return None
 
     try:
-        metadata = fetch_all(f"SHOW COLUMNS FROM `{table}`")
+        metadata = fetch_all(f"SHOW COLUMNS FROM {table}")
     except pymysql.err.ProgrammingError as error:
         if error.args and error.args[0] == 1146:
             return None
@@ -149,15 +149,43 @@ def legacy_table_collection(nombre):
     if not metadata:
         return None
 
+    columns = {str(item.get("Field", "")).lower() for item in metadata}
     primary_key = next((item.get("Field") for item in metadata if item.get("Key") == "PRI"), None)
-    order_clause = f" ORDER BY `{primary_key}`" if primary_key else ""
-    rows = fetch_all(f"SELECT * FROM `{table}`{order_clause} LIMIT 500")
+    params = ()
+
+    if nombre == "clases" and {"id_entrenador", "nombre"}.issubset(columns):
+        # En el esquema real clases solo tiene id_entrenador, no el nombre del instructor.
+        query = (
+            "SELECT c.*, e.nombre AS nombre_entrenador "
+            "FROM clases AS c "
+            "LEFT JOIN entrenadores AS e ON c.id_entrenador = e.id_entrenador"
+        )
+        if not include_inactive and "estado" in columns:
+            query += " WHERE c.estado=%s"
+            params = ("Activo",)
+            if "id_entrenador" in columns:
+                query += " AND (c.id_entrenador IS NULL OR e.estado=%s)"
+                params += ("Activo",)
+        if primary_key:
+            query += f" ORDER BY c.{primary_key}"
+        query += " LIMIT 500"
+        rows = fetch_all(query, params)
+    else:
+        query = f"SELECT * FROM {table}"
+        if not include_inactive and "estado" in columns:
+            query += " WHERE estado=%s"
+            params = ("Activo",)
+        if primary_key:
+            query += f" ORDER BY {primary_key}"
+        query += " LIMIT 500"
+        rows = fetch_all(query, params)
 
     mapped = []
     for row in rows:
         identifier = row.get(primary_key) if primary_key else _row_value(
             row, "id_entrenador", "id_clase", "id", "id_trainer", "id_class", default=None
         )
+        row_columns = {str(key).lower() for key in row}
         if nombre == "entrenadores":
             item = {
                 "id": identifier,
@@ -166,21 +194,41 @@ def legacy_table_collection(nombre):
                 "experiencia": _row_value(row, "experiencia", "anios_experiencia", "anos_experiencia", "experiencia_anios", "experience"),
                 "descripcion": _row_value(row, "descripcion", "biografia", "perfil", "description"),
                 "foto": _row_value(row, "foto", "fotografia", "imagen", "url_foto", "image", default="../assets/images/elena.png"),
+                "estado": _row_value(row, "estado", "status", default="Activo"),
             }
         else:
+            duracion = _row_value(row, "duracion", "duracion_minutos", "minutos", "duration")
+            if "duracion" not in row_columns and "duracion_minutos" in row_columns and duracion not in ("", None):
+                duracion = f"{duracion} minutos"
             item = {
                 "id": identifier,
                 "nombre": _row_value(row, "nombre", "titulo", "name"),
                 "nivel": _row_value(row, "nivel", "dificultad", "level"),
-                "duracion": _row_value(row, "duracion", "duracion_minutos", "minutos", "duration"),
+                "duracion": duracion,
                 "horario": _row_value(row, "horario", "hora", "schedule"),
                 "instructor": _row_value(row, "instructor", "entrenador", "nombre_entrenador", "profesor"),
                 "descripcion": _row_value(row, "descripcion", "detalle", "description"),
                 "foto": _row_value(row, "foto", "fotografia", "imagen", "url_foto", "image", default="../assets/images/crossFit.png"),
+                "estado": _row_value(row, "estado", "status", default="Activo"),
             }
         if item["id"] is not None:
             mapped.append(item)
     return mapped
+
+
+def active_public_items(data):
+    """Oculta registros explícitamente inactivos, sin descartar datos heredados sin estado."""
+    if not isinstance(data, list):
+        return data
+    active = []
+    for item in data:
+        if not isinstance(item, dict):
+            active.append(item)
+            continue
+        status = item.get("estado")
+        if status is None or not str(status).strip() or str(status).strip().lower() == "activo":
+            active.append(item)
+    return active
 
 
 def text(value, maximum=500):
@@ -443,11 +491,10 @@ def public_collection(nombre):
     if nombre not in COLLECTIONS:
         return jsonify(error="Contenido no encontrado."), 404
     row = fetch_one("SELECT datos FROM site_collections WHERE nombre=%s", (nombre,))
-    data = row["datos"] if row else legacy_table_collection(nombre)
+    data = row["datos"] if row else legacy_table_collection(nombre, include_inactive=False)
     if isinstance(data, str):
         data = json.loads(data)
-    return jsonify(data=data)
-
+    return jsonify(data=active_public_items(data))
 
 @app.post("/api/admin/login")
 @limit_requests(8)
@@ -599,7 +646,7 @@ def admin_collection(nombre):
     if nombre not in COLLECTIONS:
         return jsonify(error="Colección no permitida."), 404
     row = fetch_one("SELECT datos FROM site_collections WHERE nombre=%s", (nombre,))
-    data = row["datos"] if row else legacy_table_collection(nombre)
+    data = row["datos"] if row else legacy_table_collection(nombre, include_inactive=True)
     if isinstance(data, str):
         data = json.loads(data)
     return jsonify(data=data)
