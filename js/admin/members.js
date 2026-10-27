@@ -27,7 +27,7 @@ function guardarUsuarios() {
             return;
         }
         window.FitZoneAPI.saveMembers(usuarios).catch(function(error) {
-            window.FitZoneAPI.reportSyncError("No se pudieron guardar los miembros en PostgreSQL: " + error.message);
+            window.FitZoneAPI.reportSyncError("No se pudieron guardar los miembros en la base de datos: " + error.message);
         });
     }
 }
@@ -65,9 +65,21 @@ function prepararBotonesUsuario(fila) {
         const nombre = fila.cells[0].textContent.trim();
 
         if (confirm("¿Seguro que quieres eliminar a " + nombre + "?")) {
-            fila.remove();
-            guardarUsuarios();
-            actualizarResumen();
+            const memberId = fila.dataset.memberId;
+            const eliminarFila = function() {
+                fila.remove();
+                guardarUsuarios();
+                actualizarResumen();
+            };
+
+            if (memberId && window.FitZoneAPI && window.FitZoneAPI.isAdminAuthenticated()) {
+                window.FitZoneAPI.deleteMember(memberId).then(eliminarFila).catch(function(error) {
+                    window.FitZoneAPI.reportSyncError("No se pudo eliminar el miembro: " + error.message);
+                });
+                return;
+            }
+
+            eliminarFila();
         }
     };
 
@@ -193,7 +205,7 @@ async function cargarMiembrosDelServidor() {
         if (miembros.length === 0 && miembrosLocales.length > 0) {
             const importar = confirm(
                 "La base de datos todavía no tiene miembros, pero este navegador conserva " +
-                miembrosLocales.length + " registro(s). ¿Quieres importarlos a PostgreSQL ahora? " +
+                miembrosLocales.length + " registro(s). ¿Quieres importarlos a MySQL ahora? " +
                 "Si eliges Cancelar, se conservarán en este navegador y no se borrarán."
             );
 

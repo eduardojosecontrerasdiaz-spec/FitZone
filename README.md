@@ -1,101 +1,101 @@
 # FitZone
 
-FitZone es una web responsive para presentar los servicios de un gimnasio y administrar solicitudes de membresía, mensajes, clases, entrenadores y servicios. La interfaz se conserva como base; los estilos y el JavaScript se ordenaron por responsabilidades, y ahora existe una API Node.js con PostgreSQL para los datos que deben persistir entre dispositivos.
+FitZone es una web responsive para presentar los servicios de un gimnasio y administrar solicitudes de membresía, mensajes, clases, entrenadores y servicios. El frontend conserva HTML, CSS y JavaScript; el backend de despliegue utiliza Python, Flask, Gunicorn y MySQL.
 
 ## Tecnologías
 
-- HTML, CSS y JavaScript sin framework de frontend obligatorio.
-- Node.js 20 o superior y Express para servir la web y la API desde el mismo servicio.
-- PostgreSQL para almacenar solicitudes de membresía, mensajes y contenido administrable.
-- Railway para el despliegue; `railway.json` configura el inicio y el chequeo de salud.
+- HTML, CSS y JavaScript sin framework obligatorio de frontend.
+- Python + Flask para servir las páginas y exponer la API.
+- PyMySQL para conectar Flask con MySQL.
+- Gunicorn para ejecutar Flask en producción.
+- Railway para publicar la aplicación y alojar el servicio MySQL.
 
-## Estructura
+## Archivos importantes
 
-```text
-FitZone/
-├── index.html
-├── pages/                   # Páginas públicas y acceso al panel
-├── css/
-│   ├── style.css            # Manifiesto que importa los estilos divididos
-│   ├── variables.css
-│   ├── responsive.css
-│   └── *.css                # Archivos por sección/componente
-├── js/
-│   ├── api.js               # Cliente para la API del mismo dominio
-│   ├── app.js               # Formulario de contacto y lógica general
-│   ├── storage.js           # Compatibilidad con datos locales
-│   ├── admin/               # Miembros, clases, entrenadores y resumen
-│   └── *.js                 # Lógica específica por página
-├── server/
-│   ├── index.js             # Arranque y cierre del servidor
-│   ├── app.js               # Express, seguridad HTTP y archivos públicos
-│   ├── db.js                # Pool PostgreSQL y esquema mínimo
-│   ├── auth.js              # Sesión firmada para el administrador
-│   ├── validation.js        # Validación del lado servidor
-│   └── routes/public.js     # API pública y rutas protegidas de administración
-├── tests/                   # Pruebas automáticas básicas
-├── scripts/check-syntax.js  # Revisión sintáctica de todos los archivos JS
-├── docs/DEPLOY_RAILWAY.md   # Guía de publicación
-├── .env.example             # Plantilla sin secretos
-├── package.json
-└── railway.json
-```
+- `app.py`: aplicación Flask, endpoints API y acceso a MySQL.
+- `wsgi.py`: valida la configuración e inicializa el esquema al iniciar en producción.
+- `requirements.txt`: dependencias Python.
+- `.python-version`: fija Python 3.12 para Railway y mantenerlo alineado con CI.
+- `Procfile`: comando de arranque de Gunicorn.
+- Health check: configura la ruta `/api/health` en los ajustes del servicio web de Railway.
+- `railpack.json`: fuerza el proveedor Python de Railpack y define el comando de arranque de Gunicorn.
+- `.env.example`: plantilla de variables locales sin credenciales reales.
+- `js/api.js`: cliente JavaScript que llama a la API del mismo dominio.
+- `js/storage.js`: compatibilidad con datos locales y sincronización de colecciones.
 
-## CSS y JavaScript
+Los endpoints de la API se mantienen para que los formularios y el Dashboard existentes puedan comunicarse con Flask. Las contraseñas y la configuración de MySQL solo deben existir en variables de entorno del servidor, nunca en JavaScript del navegador.
 
-`css/style.css` se mantiene como punto de entrada para que las páginas existentes no dependan de un cambio masivo. Importa archivos separados por responsabilidad (globales, navegación, hero, tarjetas, contacto, panel, páginas y pequeños ajustes). Las reglas originales se conservan en el mismo orden; los únicos estilos añadidos son para los avisos de sincronización y el estado de membresía pendiente.
+## Base de datos MySQL
 
-El antiguo `js/crud.js` se dividió en `js/admin/dashboard-core.js`, `js/admin/members.js`, `js/admin/trainers.js` y `js/admin/classes.js`. Cada página mantiene sus scripts específicos. `js/api.js` centraliza las peticiones a la API.
+En desarrollo local, `.env.example` usa `MYSQLDATABASE=fitzone_db`, que corresponde a la base configurada previamente con XAMPP. En Railway, establece `MYSQLDATABASE` con el nombre real de la base del servicio MySQL; no asumas que Railway usará el nombre local.
 
-## Datos que se guardan
+La aplicación aprovecha el esquema existente cuando está importado:
 
-La app crea automáticamente estas tres tablas en PostgreSQL:
+- `planes`: consulta los planes activos para mostrar sus precios en la página de planes.
+- `entrenadores` y `clases`: se leen como contenido inicial cuando todavía no hay una colección guardada para el Dashboard.
+- `usuarios`: se conserva intacta. No se mezcla automáticamente con las solicitudes de membresía porque el formulario de la web no recoge la contraseña requerida por el esquema original.
 
-- `members`: datos necesarios para la solicitud de membresía y su estado (`Pendiente`, `Activo` o `Inactivo`).
-- `contact_messages`: mensajes enviados desde los formularios de contacto.
-- `site_collections`: listas pequeñas de entrenadores, clases y servicios editables desde el panel.
+El archivo `database/schema.sql` documenta la estructura original de las cuatro tablas (`planes`, `usuarios`, `entrenadores` y `clases`). Contiene únicamente definiciones `CREATE TABLE IF NOT EXISTS`: no incluye datos de ejemplo, `INSERT` ni `DROP`. Úsalo solo en una base vacía si necesitas recrear el esquema original; no hace falta ejecutarlo sobre tu `fitzone_db` existente.
 
-No se almacena ningún dato de tarjeta y no existe una pasarela de pago integrada. El formulario registra una **solicitud**, inicialmente pendiente; no confirma cobros ni activa una membresía pagada. Tampoco se pide una contraseña a los clientes porque en esta versión no hay inicio de sesión de clientes. El panel administrativo sí tiene autenticación protegida mediante variables de entorno.
+Al iniciar, Flask crea únicamente estas tablas auxiliares si todavía no existen, usando `CREATE TABLE IF NOT EXISTS`:
 
-Las valoraciones y el tema visual siguen guardándose localmente en el navegador; no son parte de las funciones que se envían a PostgreSQL en esta versión. Si el Dashboard detecta miembros guardados en el navegador cuando PostgreSQL está vacío, pregunta antes de importarlos para evitar borrarlos o mezclarlos sin autorización.
+- `members`: solicitudes de membresía, con estado inicial `Pendiente`.
+- `contact_messages`: mensajes enviados desde Contacto.
+- `site_collections`: cambios de contenido administrados desde el Dashboard.
+
+El backend no altera ni borra las tablas originales `planes`, `usuarios`, `entrenadores` o `clases`. Una vez guardada una colección desde el Dashboard, su versión administrada se conserva en `site_collections` para soportar los campos extra de la interfaz sin cambiar el esquema original.
+
+No hay pasarela de pago integrada. Las valoraciones, el tema visual y algunos datos de compatibilidad siguen guardándose localmente en el navegador.
 
 ## Ejecutar localmente
 
-Necesitas Node.js 20+ y una base PostgreSQL accesible.
+Necesitas Python 3.12 y un servidor MySQL accesible. Para reutilizar la base local, importa primero un respaldo SQL de `fitzone_db` en el servidor remoto.
 
-1. Copia `.env.example` como `.env` y edita los valores.
-2. Crea una base de datos llamada `fitzone` en PostgreSQL (por ejemplo, desde pgAdmin) o utiliza una `DATABASE_URL` de desarrollo.
-3. Configura `DATABASE_URL`, un usuario de administrador, una contraseña de administrador de al menos 12 caracteres y una `SESSION_SECRET` aleatoria de 32 caracteres o más.
-4. Desde la carpeta raíz del proyecto ejecuta:
+1. Copia `.env.example` a `.env` y sustituye los valores por los de tu MySQL local.
+2. Instala dependencias:
 
 ```bash
-npm install
-npm run check
-npm test
-npm start
+python -m pip install -r requirements.txt
 ```
 
-Abre `http://localhost:3000`. El inicio del servidor crea o actualiza las tres tablas necesarias. No abras los HTML mediante `file://`: la web necesita la API del servidor.
+3. La aplicación carga las variables de `.env` automáticamente. En Railway, configura esas variables en el panel del servicio.
+4. Inicia el servidor local:
+
+```bash
+python app.py
+```
+
+Para ejecutar las pruebas automatizadas sin conectarse a un MySQL real:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Abre `http://localhost:5000`. La aplicación verifica las variables y crea las tablas necesarias. No abras los HTML con `file://`; la web necesita el servidor y la API.
 
 ## Variables de entorno
 
 | Variable | Uso |
 |---|---|
-| `DATABASE_URL` | Cadena de conexión de PostgreSQL; obligatoria. |
-| `ADMIN_USERNAME` | Usuario del administrador; obligatoria. |
+| `MYSQLHOST` | Host del servidor MySQL. |
+| `MYSQLPORT` | Puerto MySQL, normalmente 3306. |
+| `MYSQLUSER` | Usuario de MySQL. |
+| `MYSQLPASSWORD` | Contraseña de MySQL. |
+| `MYSQLDATABASE` | Base de datos de FitZone. |
+| `ADMIN_USERNAME` | Usuario del administrador. |
 | `ADMIN_PASSWORD` | Contraseña exclusiva del administrador; mínimo 12 caracteres. |
 | `SESSION_SECRET` | Secreto aleatorio para firmar sesiones; mínimo 32 caracteres. |
-| `NODE_ENV` | Usa `production` en Railway. |
-| `PORT` | Puerto local; Railway asigna el puerto de servicio automáticamente. |
-| `PGSSL` | Opcional: usa `require` solo si el proveedor necesita SSL explícito. |
+| `PORT` | Puerto asignado por Railway; Railway lo define automáticamente. |
 
-Nunca subas `.env` a GitHub ni escribas secretos dentro del código. `.gitignore` ya excluye el archivo `.env`.
+Nunca subas el archivo `.env`, claves ni contraseñas a GitHub. El workflow de GitHub Actions comprueba `Procfile`, `railpack.json`, `.python-version`, el esquema SQL versionado, las pruebas y la sintaxis JavaScript.
 
-## Pruebas y alcance
+## Publicar en Railway
 
-- `npm run check`: comprueba la sintaxis del backend.
-- `npm test`: ejecuta pruebas de validación de datos.
-- `GET /api/health`: comprueba que la API responde y que PostgreSQL es accesible.
-- Acceso administrativo: `/pages/admin.html`.
+1. Conecta esta rama/repo en Railway.
+2. Añade un servicio MySQL al proyecto.
+3. Copia las variables de conexión del servicio MySQL a las variables del servicio web: `MYSQLHOST`, `MYSQLPORT`, `MYSQLUSER`, `MYSQLPASSWORD` y `MYSQLDATABASE`.
+4. Define `ADMIN_USERNAME`, `ADMIN_PASSWORD` y `SESSION_SECRET` con valores propios y seguros.
+5. Despliega el servicio web y genera un dominio público.
+6. Comprueba `https://TU-DOMINIO/api/health`; la respuesta esperada es `{"status":"ok","database":"ok"}`.
 
-La guía para publicar la aplicación está en [`docs/DEPLOY_RAILWAY.md`](docs/DEPLOY_RAILWAY.md). La publicación a Railway no se ejecuta automáticamente desde este paquete: debes conectar el repositorio y configurar las variables del servicio.
+El comando de inicio de la aplicación es `gunicorn --bind 0.0.0.0:$PORT wsgi:app`, definido en `Procfile` y `railpack.json`. Antes del primer despliegue, confirma ese comando en los ajustes del servicio de Railway y configura allí el health check `/api/health`. El punto de entrada `wsgi.py` valida variables e inicializa las tablas auxiliares. El despliegue real y la creación de variables siguen requiriendo acciones en tu cuenta de Railway.

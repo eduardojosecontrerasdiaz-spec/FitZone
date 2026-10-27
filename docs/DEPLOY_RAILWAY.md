@@ -1,91 +1,82 @@
-# Publicar FitZone en Railway
+# Desplegar FitZone con Flask, MySQL y Railway
 
-Esta versión está preparada para ejecutarse como **un servicio web Node.js y una base PostgreSQL**. No hace falta desplegar el frontend y la API por separado. `railway.json` ya indica el comando `npm start` y el endpoint `/api/health` para comprobar la aplicación.
+Esta versión sirve el frontend y la API desde el mismo servicio Flask. Gunicorn ejecuta la aplicación Python y PyMySQL se conecta al servicio MySQL de Railway. La versión de Python está fijada en `.python-version` a 3.12, igual que en las pruebas automáticas de GitHub Actions.
 
-## 1. Preparar el repositorio
+## 1. Conectar GitHub
 
-1. Descomprime `FitZone_Railway.zip`.
-2. Sube el contenido de la carpeta del proyecto a un repositorio GitHub tuyo. La carpeta raíz que debes subir es la que contiene `package.json`, `index.html`, `server/` y `css/`.
-3. No subas archivos `.env`, claves ni contraseñas. Este paquete solo incluye `.env.example`, una plantilla sin secretos.
+1. Entra en Railway e inicia sesión con GitHub.
+2. Crea un proyecto y selecciona Deploy from GitHub repo.
+3. Selecciona FitZone y, para probar esta migración sin tocar la versión principal, usa la rama `railway-flask-mysql`.
 
-Si vas a crear un repositorio nuevo y ya tienes Git instalado, abre PowerShell dentro de la carpeta raíz y ejecuta:
+El repositorio contiene `app.py`, `wsgi.py`, `requirements.txt`, `.python-version`, `Procfile` y `railpack.json` para indicar el runtime Python y el comando de inicio. Railpack está forzado al proveedor Python en `railpack.json`. El punto de entrada `wsgi.py` valida las variables e inicializa las tablas al arrancar.
 
-```powershell
-git init
-git add .
-git commit -m "Preparar FitZone para Railway"
-git branch -M main
-git remote add origin https://github.com/TU_USUARIO/TU_REPOSITORIO.git
-git push -u origin main
-```
+Railway está retirando su antiguo sistema Config as Code para servicios nuevos, así que esta rama no depende de `railway.json`. Antes del primer despliegue, comprueba en los ajustes del servicio que el comando de inicio sea `gunicorn --bind 0.0.0.0:$PORT wsgi:app` y configura el health check con la ruta `/api/health`.
 
-Reemplaza `TU_USUARIO` y `TU_REPOSITORIO` por los valores reales de tu repositorio. Si ya tienes el repositorio, usa tu procedimiento normal de `git add`, `git commit` y `git push`; no necesitas ejecutar `git init` de nuevo.
+## 2. Crear MySQL
 
-## 2. Crear el proyecto y la base de datos
+1. En el proyecto de Railway añade un servicio MySQL.
+2. Abre las variables del servicio MySQL y localiza el host, puerto, usuario, contraseña y nombre de base de datos.
+3. En las variables del servicio web crea estas variables usando los valores del servicio MySQL:
 
-1. Entra en Railway y crea un proyecto nuevo mediante **Deploy from GitHub repo**.
-2. Selecciona el repositorio de FitZone y autoriza la conexión si Railway la solicita.
-3. Añade una base de datos PostgreSQL al mismo proyecto (**Add service → Database → PostgreSQL**).
-4. Espera a que la base de datos quede disponible.
-
-Railway expone una variable `DATABASE_URL` para la conexión a PostgreSQL. En las variables del servicio web, crea una referencia a la variable de la base de datos usando el selector de variables de Railway (por ejemplo, una referencia del tipo `${{Postgres.DATABASE_URL}}`; el nombre `Postgres` debe coincidir con el nombre real de tu servicio de base de datos).
-
-## 3. Configurar las variables del servicio web
-
-En el servicio Node.js, abre **Variables** y configura:
-
-| Variable | Valor |
+| Variable del servicio web | Valor |
 |---|---|
-| `NODE_ENV` | `production` |
-| `DATABASE_URL` | Referencia a `DATABASE_URL` del servicio PostgreSQL de este proyecto. |
-| `ADMIN_USERNAME` | Un nombre de administrador elegido por ti. |
-| `ADMIN_PASSWORD` | Una contraseña nueva, única y larga (mínimo 12 caracteres; recomiendo 16 o más). |
-| `SESSION_SECRET` | Una cadena aleatoria larga, de al menos 32 caracteres. |
+| `MYSQLHOST` | Host privado del servicio MySQL |
+| `MYSQLPORT` | Puerto del servicio MySQL |
+| `MYSQLUSER` | Usuario de la base de datos |
+| `MYSQLPASSWORD` | Contraseña de la base de datos |
+| `MYSQLDATABASE` | Nombre de la base de datos |
 
-No uses la contraseña de tu correo, GitHub ni otra cuenta. No copies el ejemplo de `.env.example` como contraseña final. Mantén las variables secretas dentro de Railway.
+Usa los nombres y valores que muestra Railway; no publiques estas credenciales en GitHub.
 
-Para generar un secreto fuerte en una consola que tenga OpenSSL puedes usar `openssl rand -hex 32`. Si no tienes esa herramienta, genera una cadena aleatoria de 64 caracteres con un gestor de contraseñas.
+## 2.1 Esquema original sin datos
 
-Railway asigna `PORT`; normalmente no hace falta configurarlo manualmente. El arranque fallará intencionadamente si falta `DATABASE_URL` o alguna de las variables obligatorias de administrador.
+El repositorio incluye `database/schema.sql` con la estructura de las cuatro tablas originales, sin registros ni comandos destructivos. Se puede ejecutar únicamente sobre una base vacía para crear la estructura. Si necesitas llevar los datos que ya existen en XAMPP, sigue el apartado siguiente y usa un respaldo completo en una base de destino vacía.
 
-## 4. Desplegar y generar un dominio
+## 2.2 Importar la base que ya tienes en XAMPP
 
-1. Guarda las variables. Railway debe iniciar un nuevo despliegue desde el repositorio.
-2. En la configuración de red del servicio web, selecciona **Generate Domain** para obtener una URL pública.
-3. Abre `https://TU-DOMINIO/api/health`. La respuesta correcta se parece a:
+1. En XAMPP abre phpMyAdmin y selecciona la base `fitzone_db`.
+2. Usa **Exportar** en formato SQL e incluye la estructura y los datos de las tablas originales. Guarda el archivo de respaldo en tu equipo.
+3. En Railway usa un servicio MySQL de prueba y una herramienta de conexión MySQL compatible con los datos de conexión que proporciona Railway para importar ese respaldo. Si la herramienta necesita conexión pública, habilita el método de conexión remota que ofrece el servicio.
+4. Revisa que estén presentes las tablas `planes`, `usuarios`, `entrenadores` y `clases`. Si Railway asignó otro nombre de base, configura `MYSQLDATABASE` con ese nombre real; `fitzone_db` es el valor por defecto para desarrollo local.
+5. No ejecutes el respaldo sobre una base que ya tenga datos que quieras conservar sin revisar antes si existen tablas con el mismo nombre.
 
-```json
-{"status":"ok","database":"ok"}
-```
+Al arrancar, Flask crea adicionalmente `members`, `contact_messages` y `site_collections` solo si no existen. No borra ni cambia las cuatro tablas originales. Las credenciales de conexión se mantienen en las variables del servicio web y no se agregan al repositorio.
 
-4. Abre `https://TU-DOMINIO/` para la página principal.
-5. Abre `https://TU-DOMINIO/pages/admin.html` para iniciar sesión con `ADMIN_USERNAME` y `ADMIN_PASSWORD` definidos en Railway.
+## 3. Configurar el administrador
 
-Railway detecta el proyecto por `package.json`, instala las dependencias y usa `npm start`. La configuración del repositorio indica el endpoint de salud para que Railway compruebe el servicio después del despliegue.
+En las variables del servicio web define:
 
-## 5. Prueba funcional antes de compartir la web
+- `ADMIN_USERNAME`: nombre de administrador elegido por ti.
+- `ADMIN_PASSWORD`: contraseña única de al menos 12 caracteres; recomiendo 16 o más.
+- `SESSION_SECRET`: secreto aleatorio de al menos 32 caracteres.
+- `PORT`: Railway lo asigna automáticamente; no hace falta inventar uno.
 
-Haz pruebas con datos ficticios primero:
+No reutilices la contraseña de tu correo o GitHub. No subas `.env` a GitHub. La plantilla `.env.example` sirve solo para desarrollo local y contiene valores de ejemplo.
 
-- Envía un mensaje desde Contacto y comprueba que aparece en la sección de mensajes del Dashboard.
-- Registra una solicitud de membresía; debe guardarse en PostgreSQL con estado `Pendiente`, no como pago realizado.
-- En el Dashboard añade o edita una clase, un entrenador y un servicio; después recarga la web y confirma que los cambios siguen ahí.
-- Cierra la sesión del administrador, vuelve a `/pages/admin.html` e intenta abrir `/pages/dashboard.html`; debe pedir acceso.
-- Comprueba el diseño en móvil y escritorio y abre la consola del navegador para detectar errores.
+## 4. Desplegar y probar
 
-No compartas la dirección pública hasta completar estas comprobaciones.
+Railpack instala las dependencias de `requirements.txt` y usa el comando de `railpack.json`/`Procfile`. Antes de desplegar, ejecuta localmente `python -m unittest discover -s tests -v`; esas pruebas no usan una base de datos real. GitHub Actions también comprueba la coherencia de `Procfile`, `railpack.json`, `.python-version` y el esquema SQL seguro.
 
-## 6. Si algo falla
+1. Espera a que el despliegue termine.
+2. En Networking genera un dominio público.
+3. Abre `https://TU-DOMINIO/`.
+4. Comprueba `https://TU-DOMINIO/api/health`. Si está todo bien devuelve `{"status":"ok","database":"ok"}`.
+5. Abre `/pages/admin.html` e inicia sesión con las credenciales que configuraste.
 
-- **El despliegue no arranca:** abre `Deployments`, entra en el despliegue fallido y revisa los logs. Verifica primero que existen las cuatro variables indicadas arriba.
-- **`/api/health` responde `503`:** la web está levantada pero no consigue consultar PostgreSQL. Revisa que `DATABASE_URL` sea una referencia válida al servicio de base de datos correcto.
-- **Error al iniciar sesión:** comprueba el nombre y contraseña configurados en el servicio web y vuelve a desplegar si modificaste variables.
-- **Los formularios no guardan:** revisa `Deploy Logs` y el log de la aplicación; no se debe mostrar una confirmación exitosa cuando el servidor rechaza la solicitud.
-- **Cambios en clases/entrenadores/servicios no persisten:** confirma que el inicio de sesión admin sigue válido y que la base está saludable.
+## 5. Pruebas funcionales
 
-## Qué queda fuera de esta entrega
+Prueba con datos ficticios antes de compartir el dominio:
 
-- No está integrada una pasarela de pago: no se recoge ni almacena ningún dato de tarjeta.
-- No hay envío automático de correos ni notificaciones externas; los mensajes de contacto se consultan desde el Dashboard.
-- Las valoraciones y el tema visual aún se guardan en el navegador.
-- Esta guía prepara el proyecto para Railway, pero el despliegue real requiere que tú conectes el repositorio y configures las variables en tu cuenta.
+- Envía un mensaje desde Contacto y confirma que se guarda en la sección de mensajes del Dashboard.
+- Envía una solicitud de membresía y comprueba que queda como `Pendiente`.
+- Inicia sesión como administrador, edita una colección de clases o entrenadores y recarga la página.
+- Comprueba que los cambios persisten en MySQL y que los recursos CSS/JS se cargan correctamente.
+
+## Notas
+
+- Esta configuración crea las tablas `members`, `contact_messages` y `site_collections` si no existen.
+- No hay pasarela de pago ni se almacenan datos de tarjetas.
+- Los datos que solo se guardan en LocalStorage no se migran automáticamente a MySQL.
+- La rama de migración conserva los archivos Node.js existentes como referencia, pero la configuración de Railway fuerza el proveedor Python.
+- Si el health check falla, revisa primero las variables MySQL y los logs del servicio web.
+- No he añadido contraseñas reales ni secretos al repositorio; las variables sensibles se configuran en el panel de Railway.

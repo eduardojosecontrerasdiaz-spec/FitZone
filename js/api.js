@@ -1,4 +1,4 @@
-// Cliente HTTP de FitZone. La web y la API se sirven desde el mismo dominio.
+// Cliente HTTP de FitZone. Flask sirve la web y la API desde el mismo dominio.
 (function () {
     const TOKEN_KEY = "fitzoneAdminToken";
     const COLLECTIONS = new Set(["entrenadores", "clases", "servicios"]);
@@ -52,6 +52,10 @@
         async registerMembership(datos) {
             return request("/api/register", { method: "POST", body: JSON.stringify(datos) });
         },
+        async getPlans() {
+            const respuesta = await request("/api/plans");
+            return respuesta.data;
+        },
         async getPublicCollection(nombre) {
             if (!COLLECTIONS.has(nombre)) return null;
             const respuesta = await request("/api/content/" + encodeURIComponent(nombre));
@@ -76,6 +80,9 @@
             return request("/api/admin/members", {
                 method: "PUT", body: JSON.stringify({ data })
             });
+        },
+        async deleteMember(id) {
+            return request("/api/admin/members/" + encodeURIComponent(id), { method: "DELETE" });
         },
         async getMessages() {
             const respuesta = await request("/api/admin/messages");
@@ -109,7 +116,7 @@
     window.FitZoneAPI = API;
 })();
 
-// Mantiene la demostración original de JSONPlaceholder solo en el Dashboard.
+// Mantiene la demostración original de JSONPlaceholder solo en el Dashboard; no es la base de datos de FitZone.
 function cargarUsuariosApi() {
     const contenedor = document.getElementById("listaUsuariosApi");
     if (!contenedor) return;

@@ -1,0 +1,61 @@
+name: Python tests
+
+# CI también valida que database/schema.sql no incluya datos ni operaciones destructivas.
+
+on:
+  push:
+    branches:
+      - railway-flask-mysql
+  pull_request:
+    branches:
+      - main
+      - railway-flask-mysql
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Validate Railway deployment configuration
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          expected_start = "gunicorn --bind 0.0.0.0:$PORT wsgi:app"
+          railpack = json.loads(Path("railpack.json").read_text(encoding="utf-8"))
+
+          assert Path(".python-version").read_text(encoding="utf-8").strip() == "3.12"
+          assert "MYSQLDATABASE=fitzone_db" in Path(".env.example").read_text(encoding="utf-8")
+          schema = Path("database/schema.sql").read_text(encoding="utf-8")
+          assert "CREATE TABLE IF NOT EXISTS `planes`" in schema
+          assert "CREATE TABLE IF NOT EXISTS `usuarios`" in schema
+          assert "FOREIGN KEY (`id_entrenador`)" in schema
+          assert "FOREIGN KEY (`id_plan`)" in schema
+          assert "DROP TABLE" not in schema.upper()
+          assert "INSERT INTO" not in schema.upper()
+
+          assert 'default="fitzone_db"' in Path("app.py").read_text(encoding="utf-8")
+          assert Path("runtime.txt").read_text(encoding="utf-8").strip() == "python-3.12"
+          assert Path("Procfile").read_text(encoding="utf-8").strip() == f"web: {expected_start}"
+          assert railpack["provider"] == "python"
+          assert railpack["deploy"]["startCommand"] == expected_start
+
+          print("Configuración de despliegue válida: Python 3.12, Railpack, Gunicorn y esquema MySQL seguro.")
+          PY
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate JavaScript syntax
+        run: node scripts/check-syntax.js
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v

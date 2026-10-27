@@ -1,4 +1,4 @@
-/* CRUD de Servicios FitZone; LocalStorage actúa como caché y PostgreSQL como persistencia compartida. */
+/* CRUD de Servicios FitZone; LocalStorage actúa como caché y MySQL como persistencia compartida. */
 (function () {
     const CLAVE = "servicios";
 
@@ -47,7 +47,7 @@
         if (window.FitZoneAPI && window.FitZoneAPI.isAdminAuthenticated() &&
             (!window.FitZoneRemoteCollections || window.FitZoneRemoteCollections[CLAVE] !== false)) {
             window.FitZoneAPI.saveCollection(CLAVE, servicios).catch(function (error) {
-                window.FitZoneAPI.reportSyncError("No se pudieron guardar los servicios en PostgreSQL: " + error.message);
+                window.FitZoneAPI.reportSyncError("No se pudieron guardar los servicios en MySQL: " + error.message);
             });
         }
     }
